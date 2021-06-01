@@ -5,7 +5,7 @@ const errorHandler = data => {
         console.log(data.error);
         message.error(data.error.message);
     }
-    return Promise.reject();
+    return Promise.reject(data);
 };
 
 export default errorHandler;
