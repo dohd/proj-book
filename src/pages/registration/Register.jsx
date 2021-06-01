@@ -60,15 +60,14 @@ function OrgProfileContainer({state, setState}) {
     const [isLoading, setLoading] = useState(false);
 
     const history = useHistory();
-    const Register = async data => {
-        try {
-            const res = await  Api.register.post(data);
+    const Register = data => {
+        Api.register.post(data)
+        .then(res => {
             setToken(res.accessToken);
             return isAuth() && history.push(Path.home);
-        } catch (error) {
-            setLoading(false);
-        }
-    };
+        })
+        .catch(err => setLoading(false));
+    }
 
     const onFinish = values => {
         const data = {...state.register, ...values};

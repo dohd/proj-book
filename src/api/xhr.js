@@ -6,7 +6,8 @@ import { fetchToken } from './tokenHandler';
 const instance = axios.create();
 instance.defaults.baseURL = window.env.API_URL;
 instance.defaults.withCredentials = true;
-instance.defaults.timeout = 10000;
+instance.defaults.timeout = 15000;
+instance.defaults.timeoutErrorMessage = 'timeout'
 
 // Request interceptor
 instance.interceptors.request.use(config => {
