@@ -22,10 +22,8 @@ instance.interceptors.request.use(config => {
 instance.interceptors.response.use(response => {
     return response.data;
 }, err => {
-    if (err.response && err.response.data) {
-        return errorHandler(err.response.data);
-    }
-    return Promise.reject(err);
+    const errorData = err.response?.data
+    return errorData ? errorHandler(errorData) : Promise.reject(err);
 });
 
 export default instance;
