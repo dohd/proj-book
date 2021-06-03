@@ -8,7 +8,7 @@ import { Path } from 'routes';
 export default function Logout() {
     const [isLoggedOut, setLoggedOut] = useState(false);
 
-    const toggleLogout = () => {
+    const toggleLogout = () => {        
         const aud = fetchAud();
         Api.logout.delete(aud);
         eraseToken();

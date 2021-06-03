@@ -7,13 +7,14 @@ import Login from './Login';
 export default function LoginContainer({ history }) {
     const [isLoading, setLoading] = useState(false);
 
-    const loginAuth = data => {
-        Api.login.post(data)
-        .then(res => {
+    const loginAuth = async data => {
+        try {
+            const res = await Api.login.post(data);
             setToken(res.accessToken);
             return isAuth() && history.push(Path.home);
-        })
-        .catch(err => setLoading(false));
+        } catch (error) {
+            setLoading(false);
+        }
     };
 
     const onFinish = values => {
