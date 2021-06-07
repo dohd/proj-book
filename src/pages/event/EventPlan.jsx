@@ -6,17 +6,24 @@ import EventPlanModalContainer from './EventPlanModalContainer';
 import setCalendar, { currentYear, currentMonth } from 'utils/setCalendar';
 import { useTracked } from 'context';
 import Api from 'api';
+import { clientSocket } from 'utils';
 
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
-const fetchActivityPlans = dispatch => {
-    Api.activityPlan.get()
-    .then(res => dispatch({
-        type: 'addActivityPlans',
-        payload: res
-    }));
+const fetchActivityPlans = async dispatch => {
+    const activityPlans = await Api.activityPlan.get();
+    const activitySchedule = await Api.activitySchedule.get();
+    dispatch({
+        type: "addActivityPlans",
+        payload: activityPlans
+    });
+
+    const eventsDataMap = {activityPlans, activitySchedule};
+    for (const event in eventsDataMap) {
+        clientSocket.emit(event, eventsDataMap[event]);
+    }
 };
 
 export default function EventPlan() {
@@ -210,9 +217,9 @@ export default function EventPlan() {
     };
     
     return (
-        <div>
+        <>
             <CalendarContainer {...calendarProps} />
             <EventPlanModalContainer {...modalProps} />
-        </div>
+        </>
     );
 }
