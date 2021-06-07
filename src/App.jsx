@@ -4,6 +4,7 @@ import 'antd/dist/antd.css';
 
 import { Login, Register, Dashboard, PassRecover } from 'pages';
 import { Path, PrivateRoute } from 'routes';
+require('dotenv/config');
 
 export default function App() {
   return (

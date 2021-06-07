@@ -2,7 +2,7 @@ import socketIOClient from 'socket.io-client';
 import { fetchAud, fetchToken } from 'api';
 
 // Initialize socket
-export const socket = socketIOClient('http://localhost:3001', {
+export const socket = socketIOClient(process.env.REACT_APP_SOCKET_URL, {
     withCredentials: true,
     query: { token: fetchToken() }
 });
