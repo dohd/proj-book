@@ -54,8 +54,8 @@ export default function AgendaContainer() {
     };
 
     const props = {
-        state, visible, setVisible, showCreateModal, 
-        showUpdateModal, onDelete,
+        state, visible, setVisible, 
+        showCreateModal, showUpdateModal, onDelete,
         fetchAgenda: () => fetchAgenda(dispatch)
     };
     return <Agenda {...props} />;

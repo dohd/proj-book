@@ -4,10 +4,7 @@ import TargetGroups from './TargetGroups';
 import Api from 'api';
 import { useTracked } from "context";
 import { clientSocket } from "utils";
-
-import pdfMake from 'pdfmake/build/pdfmake';
-import pdfFonts from 'pdfmake/build/vfs_fonts';
-pdfMake.vfs = pdfFonts.pdfMake.vfs;
+import createPdf, { table } from "utils/pdfMake";
 
 const fetchTargetGroups = dispatch => {
     Api.targetGroup.get()
@@ -38,64 +35,12 @@ export default function TargetGroupsContainer() {
         .then(res => fetchTargetGroups(dispatch));
     };
 
-    const tableView = {};
     const onExport = () => {
-        const tableDom = tableView.current;
-        const tableHeader = tableDom.getElementsByTagName('th');
-        const tableHeaderText = [...tableHeader].map(el => ({
-            text: el.textContent, 
-            style: 'tableHeader', 
-            bold: true,
-            // alignment: 'center'
-        }));
-        const tableRow = tableDom.getElementsByTagName('td');
-        const tableRowCells = (
-            [...tableRow]
-            .map(el => ({text: el.textContent, style: 'tableData'}))
-            .filter(val => val.text)
-        );
-
-        const tableHeaderRow = tableHeaderText.filter(val => val.text === 'Group');
-
-        const tableDataAsRows = tableRowCells.reduce((rows, cellData, index) => {
-            if (index % 1 === 0) rows.push([]);
-            rows[rows.length - 1].push(cellData);
-            return rows;
-        }, []);
-
-        const tableBody = [
-            tableHeaderRow, 
-            ...tableDataAsRows,
-        ];
-        // console.log(tableBody);
-
-        // Document definition
-        const dd = {
-            header: { text: 'Regions of Implementation', alignment: 'center' },
-            footer: (currentPage, pageCount) => ({ 
-                text: `Page ${currentPage} of ${pageCount}`,
-                alignment: 'center' 
-            }), 
-            content: [
-                {
-                    style: 'tableExample',
-                    table: { headerRows: 1, body: tableBody },
-                    layout: {
-                        fillColor: (rowIndex) => {
-                            if (rowIndex === 0) return '#0f4871';
-                            return (rowIndex % 2 === 0) ? '#f2f2f2' : null;
-                        }
-                    }
-                }
-            ],
-            styles: {
-                tableExample: { margin: [5, 5, 0, 5] },
-                tableHeader: { margin: 5, color: 'white' },
-                tableData: { margin: [5, 5, 30, 5] }
-            }
-        };
-        // pdfMake.createPdf(dd).download('Groups');
-        pdfMake.createPdf(dd).open();
+        const cells = state.groups.map(v => ({text: v.group}));
+        const data = table.data(cells, 1);
+        const header = table.header(['Group']);
+        const body = table.body(header, ...data);
+        createPdf('Target Groups', body, {margin: [5, 5, 0, 5]});
     };
 
     // modal logic
@@ -108,7 +53,7 @@ export default function TargetGroupsContainer() {
 
     const props = { 
         visible, setVisible, showUpdateModal, state, 
-        onDelete, showModal, onExport, 
+        onDelete, showModal, onExport,
         fetchTargetGroups: () => fetchTargetGroups(dispatch)
     };
     return <TargetGroups  {...props} />;

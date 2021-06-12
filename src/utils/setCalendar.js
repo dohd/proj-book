@@ -9,6 +9,11 @@ export const months = [
 
 export const days = ['sun','mon','tue','wed','thur','fri','sat'];
 
+export const years = (
+    Array(currentYear - 2019)
+    .fill(0).map((v,i) => currentYear - i)
+);
+
 export default function setCalendar (month, year) {
     const monthTitle = { month: months[month], year };
 
@@ -41,8 +46,3 @@ export default function setCalendar (month, year) {
     }
     return { monthTitle, monthData };
 }
-
-export const years = (
-    Array(currentYear - 2019)
-    .fill(0).map((v,i) => currentYear - i)
-);

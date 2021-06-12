@@ -1,11 +1,11 @@
 import React from 'react';
-import { Modal, Table, Button, Card, Dropdown, Menu } from 'antd';
+import { Modal, Table, Button, Card } from 'antd';
 import { CheckOutlined, FilePdfOutlined } from '@ant-design/icons';
 
 export default function EventPlanModal(props) {
     const {
-        plans, visible, onOk, onCancel, 
-        eventDate,onExport
+        plans, onOk, onCancel, visible, 
+        eventDate, onExport
     } = props;
     
     return (
@@ -62,39 +62,8 @@ export default function EventPlanModal(props) {
                             dataIndex: 'status',
                             key: 'status',
                             render: text => text ? <CheckOutlined /> : '_'
-                        },
-                        {
-                            title: 'Action',
-                            render: (text, record) => {
-                                // const {key, activityId} = record;
-                                return (
-                                    <Dropdown
-                                        overlay={
-                                            <Menu>
-                                                <Menu.Item 
-                                                    // onClick={
-                                                    //     () => createParticipant(key, activityId)
-                                                    // }
-                                                >
-                                                    create participant
-                                                </Menu.Item>
-                                                <Menu.Item 
-                                                    danger 
-                                                    // onClick={() => onDelete(key, activityId)}
-                                                >
-                                                    Delete
-                                                </Menu.Item>
-                                            </Menu>
-                                        }
-                                    >
-                                        <Button type='primary' size='small' ghost>
-                                            Action
-                                        </Button>
-                                    </Dropdown>
-                                );
-                            }
                         }
-                    ]} 
+                    ]}
                 />
             </Card>
         </Modal>

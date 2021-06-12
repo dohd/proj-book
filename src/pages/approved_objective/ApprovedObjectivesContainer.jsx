@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 
 import ApprovedObjectives from './ApprovedObjectives';
 import { Path } from 'routes';
 import { useTracked } from 'context';
-import { useParams } from 'react-router-dom';
 import { parseUrl } from 'utils';
+import createPdf, { table } from 'utils/pdfMake';
 
 export default function ApprovedObjectivesContainer() {
     const store = useTracked()[0];
@@ -33,6 +34,14 @@ export default function ApprovedObjectivesContainer() {
         return parseUrl(Path.activities, params);
     };
 
-    const props = { objectives, approvedAct };
+    const onExport = () => {
+        const cells = objectives.map(v => ({text: v.objective}));
+        const data = table.data(cells, 1);
+        const header = table.header(['Objective']);
+        const body = table.body(header, ...data);
+        createPdf('Approved Proposal Objectives', body, {margin: 5});
+    };
+
+    const props = { objectives, approvedAct, onExport };
     return <ApprovedObjectives {...props} />;
 }

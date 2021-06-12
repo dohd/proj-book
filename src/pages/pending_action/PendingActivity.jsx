@@ -1,20 +1,15 @@
 import React, { useState, useRef } from 'react';
 import { useHistory, Link } from 'react-router-dom';
 import { Card, Table, Button, Space,  Input } from 'antd';
-import { ArrowLeftOutlined, SearchOutlined, FilePdfOutlined } from '@ant-design/icons';
+import { ArrowLeftOutlined, SearchOutlined } from '@ant-design/icons';
 import Highlighter from 'react-highlight-words';
 
 import { parseUrl } from 'utils';
 import { Path } from 'routes';
 
 export default function PendingActivity(props) {
-    const { activities, onExport } = props;
+    const { activities } = props;
     const history = useHistory();
-
-    // set objective & activity state to approved
-    // to load approved pages
-    sessionStorage.setItem('objectiveState', 'approved');
-    sessionStorage.setItem('activityState', 'approved');
 
     // custom search filter 
     const [search, setSearch] = useState({ text: '', column: ''});
@@ -106,13 +101,6 @@ export default function PendingActivity(props) {
                     /> 
                     Implementation Plan  
                 </Space>       
-            }
-            extra={
-                <Space>
-                    <Button type='primary' onClick={onExport}>
-                        <FilePdfOutlined />Export
-                    </Button>
-                </Space>
             }
         >
             <Table 

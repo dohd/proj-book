@@ -21,7 +21,7 @@ const { SubMenu } = Menu;
 export default function Dashboard(props) {
     const { routePaths, profileName, profileImage } = props;
     
-    const breadcrumbItems = routePaths.map((url,i,arr) => {
+    const breadcrumbItems = routePaths.map((url,indx,arr) => {
         const last = arr.indexOf(url) === arr.length - 1;
         return (
             <Breadcrumb.Item key={url}>
@@ -50,7 +50,7 @@ export default function Dashboard(props) {
                     >
                         <Menu.Item key='dashboard'>
                             <Link to={Path.home}>
-                                <DashboardOutlined />Dashboard
+                                <DashboardOutlined /> Dashboard
                             </Link>
                         </Menu.Item> 
 

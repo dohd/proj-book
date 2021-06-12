@@ -1,12 +1,12 @@
-import React, { useState, useEffect,  useRef } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 
 import PendingObjectives from './PendingObjectives';
-import pdfExport from './pdfExport';
 import Api from 'api';
 import { Path } from 'routes';
-import { useParams } from 'react-router-dom';
 import { useTracked } from 'context';
 import { clientSocket, parseUrl } from 'utils';
+import createPdf, { table } from 'utils/pdfMake';
 
 const fetchProposals = dispatch => {
     Api.proposal.get()
@@ -53,9 +53,14 @@ export default function PendingObjectivesContainer() {
         return parseUrl(Path.activities, params);
     };
 
-    const tableView = useRef();
-    const onExport = () => pdfExport(tableView, state);
-
+    const onExport = () => {
+        const cells = state.objectives.map(v => ({text: v.objective}));
+        const data = table.data(cells, 1);
+        const header = table.header(['Objective']);
+        const body = table.body(header, ...data);
+        createPdf('Pending Proposal Objective', body, {margin: 5});
+    };
+    
     // Modal logic
     const [visible, setVisible] = useState({ add: false, edit: false });
     const showEditModal = record => {
@@ -65,11 +70,10 @@ export default function PendingObjectivesContainer() {
     const showAddModal = () => setVisible({add: true, edit: false});
 
     const props = { 
-        onExport, visible, setVisible, 
+        visible, setVisible, onExport, 
         state, showAddModal, onDelete,
         pendingAct, showEditModal,
         fetchProposals: () => fetchProposals(dispatch)
     };
-
     return <PendingObjectives {...props} />;
 }

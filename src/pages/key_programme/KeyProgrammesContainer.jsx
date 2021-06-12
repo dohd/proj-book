@@ -4,10 +4,7 @@ import KeyProgrammes from './KeyProgrammes';
 import Api from 'api';
 import { useTracked } from "context";
 import { clientSocket } from "utils";
-
-import pdfMake from 'pdfmake/build/pdfmake';
-import pdfFonts from 'pdfmake/build/vfs_fonts';
-pdfMake.vfs = pdfFonts.pdfMake.vfs;
+import createPdf, { table } from 'utils/pdfMake';
 
 const fetchKeyProgrammes = dispatch => {
     Api.keyProgramme.get()
@@ -38,64 +35,12 @@ export default function KeyProgrammesContainer() {
         .then(res => fetchKeyProgrammes(dispatch));
     };
 
-    const tableView = {}
     const onExport = () => {
-        const tableDom = tableView.current;
-        const tableHeader = tableDom.getElementsByTagName('th');
-        const tableHeaderText = [...tableHeader].map(el => ({
-            text: el.textContent, 
-            style: 'tableHeader', 
-            bold: true,
-            alignment: 'center'
-        }));
-        const tableRow = tableDom.getElementsByTagName('td');
-        const tableRowCells = (
-            [...tableRow]
-            .map(el => ({text: el.textContent, style: 'tableData'}))
-            .filter(val => val.text)
-        );
-
-        const tableHeaderRow = tableHeaderText.filter(val => val.text === 'Programme');
-
-        const tableDataAsRows = tableRowCells.reduce((rows, cellData, index) => {
-            if (index % 1 === 0) rows.push([]);
-            rows[rows.length - 1].push(cellData);
-            return rows;
-        }, []);
-
-        const tableBody = [
-            tableHeaderRow, 
-            ...tableDataAsRows,
-        ];
-        // console.log(tableBody);
-
-        // Document definition
-        const dd = {
-            header: { text: 'Key Programmes', alignment: 'center' },
-            footer: () => ({ 
-                text: `Page ${state.page} of ${state.pageCount}`,
-                alignment: 'center' 
-            }), 
-            content: [
-                {
-                    style: 'tableExample',
-                    table: { headerRows: 1, body: tableBody },
-                    layout: {
-                        fillColor: (rowIndex) => {
-                            if (rowIndex === 0) return '#0f4871';
-                            return (rowIndex % 2 === 0) ? '#f2f2f2' : null;
-                        }
-                    }
-                }
-            ],
-            styles: {
-                tableExample: { margin: [5, 5, 0, 5] },
-                tableHeader: { margin: 5, color: 'white' },
-                tableData: { margin: 5 }
-            }
-        };
-        // pdfMake.createPdf(dd).download('Key_Programmes');
-        pdfMake.createPdf(dd).open();
+        const cells = state.programmes.map(v => ({text: v.programme}));
+        const data = table.data(cells, 1);
+        const header = table.header(['Programme']);
+        const body = table.body(header, ...data);
+        createPdf('Key Programmes', body, {margin: [5, 5, 0, 5]});
     };
 
     // Modal logic
@@ -107,10 +52,9 @@ export default function KeyProgrammesContainer() {
     };
 
     const props = {
-        state, visible, setVisible, onExport, 
+        state, visible, setVisible, onExport,
         showModal, showUpdateModal, onDelete,
         fetchKeyProgrammes: () => fetchKeyProgrammes(dispatch)
     };
-
     return <KeyProgrammes {...props} />;
 }

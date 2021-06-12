@@ -17,8 +17,8 @@ import { parseUrl } from 'utils';
 export default function Proposal(props) {
     const {
         onDelete, visible, setVisible,
-        showModal, onExport, state, setPendingObj, 
-        setApprovedObj, fetchProposals
+        showModal, state, setPendingObj, 
+        setApprovedObj, fetchProposals, onExport
     } = props;
 
     const history = useHistory();
@@ -177,7 +177,11 @@ export default function Proposal(props) {
                         onFilter: (value, record) => (record.status === value),
                         render: text => {
                             const color = text === 1 ? 'geekblue' : 'green';
-                            return <Tag color={color}>{ text === 1 ? 'Approved' : 'Pending' }</Tag>                            
+                            return (
+                                <Tag color={color}>
+                                { text === 1 ? 'Approved':'Pending' }
+                                </Tag>
+                            );                            
                         }
                     },
                     {

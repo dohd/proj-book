@@ -1,9 +1,13 @@
 import React, { useRef, useState } from 'react';
-import { Card, Table, Button, Space, Input, Popconfirm } from 'antd';
+import { 
+    Card, Table, Button, Space, 
+    Input, Popconfirm, Dropdown, Menu 
+} from 'antd';
 import { Link, useHistory, useParams } from 'react-router-dom';
 import { 
     PlusOutlined, EditTwoTone, DeleteOutlined, 
-    ArrowLeftOutlined, SearchOutlined
+    ArrowLeftOutlined, SearchOutlined, DownOutlined, 
+    FilePdfOutlined
 } from '@ant-design/icons';
 import Highlighter from 'react-highlight-words';
 
@@ -11,7 +15,7 @@ import { parseUrl } from 'utils';
 import { Path } from 'routes';
 
 export default function Participants(props) {
-    const { participants, onDelete } = props;
+    const { participants, onDelete, onExport } = props;
     const history = useHistory();
 
     // custom search filter 
@@ -110,19 +114,29 @@ export default function Participants(props) {
             }
             extra={
                 <Space>
-                    <Link to={addParticipantPath}>
-                        <Button type='primary'>
-                            <PlusOutlined />Participant
+                    <Dropdown
+                        overlay={
+                            <Menu>
+                                <Menu.Item onClick={void 0}>
+                                    <Link to={addParticipantPath}>
+                                        <PlusOutlined /> Participant
+                                    </Link>
+                                </Menu.Item>
+                                <Menu.Item disabled={!participants.length}>
+                                    <Link to={agendaPath}>
+                                        Agenda
+                                    </Link>
+                                </Menu.Item>
+                            </Menu>
+                        }
+                    >   
+                        <Button type='link'>
+                            extra actions <DownOutlined />
                         </Button>
-                    </Link>
-                    <Link to={agendaPath}>
-                        <Button 
-                            type='primary'
-                            disabled={!participants.length}
-                        >
-                            Agenda
-                        </Button>
-                    </Link>
+                    </Dropdown>
+                    <Button type='primary' onClick={onExport}>
+                        <FilePdfOutlined />Export           
+                    </Button>
                 </Space>
             }
         >

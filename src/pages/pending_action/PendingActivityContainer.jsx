@@ -13,7 +13,12 @@ export default function PendingActivityContainer() {
         }));
         setActivities(activityPlans);
     }, [store.pendingPlans]);
+
+    // set objective & activity state to approved
+    // to load approved pages
+    sessionStorage.setItem('objectiveState', 'approved');
+    sessionStorage.setItem('activityState', 'approved');
         
     const props = { activities };
-    return <PendingActivity {...props} />
+    return <PendingActivity {...props} />;
 }

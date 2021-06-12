@@ -163,7 +163,6 @@ export default function Regions(props) {
                             );
                         }
                     }
-
                 ]}
             />
         </Card>

@@ -4,10 +4,7 @@ import Regions from "./Regions";
 import Api from 'api';
 import { useTracked } from "context";
 import { clientSocket } from 'utils';
-
-import pdfMake from 'pdfmake/build/pdfmake';
-import pdfFonts from 'pdfmake/build/vfs_fonts';
-pdfMake.vfs = pdfFonts.pdfMake.vfs;
+import createPdf, { table } from "utils/pdfMake";
 
 const fetchTargetRegions = dispatch => {
     Api.targetRegion.get()
@@ -39,63 +36,12 @@ export default function RegionsContainer() {
         .then(res => fetchTargetRegions(dispatch));
     };
 
-    const tableView = {};
     const onExport = () => {
-        const tableDom = tableView.current;
-        const tableHeader = tableDom.getElementsByTagName('th');
-        const tableHeaderText = [...tableHeader].map(el => ({
-            text: el.textContent, 
-            style: 'tableHeader', 
-            bold: true,
-        }));
-        const tableRow = tableDom.getElementsByTagName('td');
-        const tableRowCells = (
-            [...tableRow]
-            .map(el => ({text: el.textContent, style: 'tableData'}))
-            .filter(val => val.text)
-        );
-
-        const tableHeaderRow = tableHeaderText.filter(val => val.text === 'Region');
-
-        const tableDataAsRows = tableRowCells.reduce((rows, cellData, index) => {
-            if (index % 1 === 0) rows.push([]);
-            rows[rows.length - 1].push(cellData);
-            return rows;
-        }, []);
-
-        const tableBody = [
-            tableHeaderRow, 
-            ...tableDataAsRows,
-        ];
-        // console.log(tableBody);
-
-        // Document definition
-        const dd = {
-            header: { text: 'Regions of Implementation', alignment: 'center' },
-            footer: () => ({ 
-                text: `Page ${state.page} of ${state.pageCount}`,
-                alignment: 'center' 
-            }), 
-            content: [
-                {
-                    style: 'tableExample',
-                    table: { headerRows: 1, body: tableBody },
-                    layout: {
-                        fillColor: (rowIndex) => {
-                            if (rowIndex === 0) return '#0f4871';
-                            return (rowIndex % 2 === 0) ? '#f2f2f2' : null;
-                        }
-                    }
-                }
-            ],
-            styles: {
-                tableExample: { margin: [5, 5, 0, 5] },
-                tableHeader: { margin: 5, color: 'white' },
-                tableData: { margin: [5, 5, 30, 5] }
-            }
-        };
-        // pdfMake.createPdf(dd).download('Regions');
-        pdfMake.createPdf(dd).open();
+        const cells = state.regions.map(v => ({text: v.region}));
+        const data = table.data(cells, 1);
+        const header = table.header(['Region']);
+        const body = table.body(header, ...data);
+        createPdf('Target Regions', body, {margin: [5, 5, 0, 5]});
     };
 
     // Modal logic
@@ -107,8 +53,8 @@ export default function RegionsContainer() {
     };
 
     const props = { 
-        visible, setVisible, showModal, 
-        showUpdateModal, onDelete, onExport, state,
+        visible, setVisible, showModal, state,
+        showUpdateModal, onDelete, onExport,
         fetchTargetRegions: () => fetchTargetRegions(dispatch)
     };
     return <Regions {...props} />;

@@ -4,7 +4,7 @@ import { SearchOutlined, FilePdfOutlined } from '@ant-design/icons';
 import Highlighter from 'react-highlight-words';
 
 export default function ParticipantAnalysis(props) {
-    const { analysis } = props;
+    const { analysis, onExport } = props;
 
     // custom search filter 
     const [search, setSearch] = useState({ text: '', column: ''});
@@ -90,7 +90,7 @@ export default function ParticipantAnalysis(props) {
             bordered={false}
             title='Participant Analysis'
             extra={
-                <Button type='primary'>
+                <Button type='primary' onClick={onExport}>
                     <FilePdfOutlined />
                     Export
                 </Button>

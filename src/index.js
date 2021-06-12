@@ -3,13 +3,13 @@ import ReactDOM from 'react-dom';
 import * as serviceWorker from './serviceWorker';
 import App from './App';
 import { Provider } from './context';
+require('dotenv/config');
 
 ReactDOM.render(
-  <React.StrictMode>
     <Provider>
       <App />
-    </Provider>
-  </React.StrictMode>, document.getElementById('root')
+    </Provider>,
+  document.getElementById('root')
 );
 
 // If you want your app to work offline and load faster, you can change

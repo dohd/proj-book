@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 
 import DonorContact from './DonorContact';
-import pdfExport from './pdfExport';
 import Api from 'api';
 import { useTracked } from 'context';
 import { clientSocket } from 'utils';
+import createPdf, { table } from 'utils/pdfMake';
 
 const fetchDonorContacts = dispatch => {
     Api.donorContact.get()
@@ -24,11 +24,12 @@ export default function DonorContactContainer(params) {
     });
     
     useEffect(() => {
-        const contacts = store.donorContacts.map(val => ({
-            ...val, 
-            key: val.id, 
-            donor: val.donor.name,
-            contactName: `${val.fName} ${val.lName}`,
+        const contacts = store.donorContacts.map(v => ({
+            key: v.id, 
+            donor: v.donor.name,
+            contactName: `${v.fName} ${v.lName}`,
+            telephone: v.telephone,
+            email: v.email
         }));
         setState(prev => ({...prev, contacts, donors: store.donors}));
     }, [store.donorContacts, store.donors]);
@@ -38,8 +39,18 @@ export default function DonorContactContainer(params) {
         .then(res => fetchDonorContacts(dispatch));
     };
 
-    const tableView = ''
-    const onExport = () => pdfExport(tableView, state);
+    const onExport = () => {
+        const cells = [];
+        state.contacts.forEach(({key, ...rest}) => {
+            for (const key in rest) cells.push({text: rest[key]});
+        });
+        const data = table.data(cells, 4);
+        const header = table.header([
+            'Donor', 'Contact Name', 'Telephone', 'Email'
+        ]);
+        const body = table.body(header, ...data);
+        createPdf('Donor Contacts', body, {margin: 5});
+    };
 
     // modal logic
     const [visible, setVisible] = useState({ create: false, update: false });
@@ -50,9 +61,8 @@ export default function DonorContactContainer(params) {
     };
 
     const props = {
-        visible, setVisible,showModal, 
-        showUpdateModal, onDelete,
-        onExport, state, 
+        visible, setVisible, state, onExport, 
+        showModal, showUpdateModal, onDelete,   
         fetchDonorContacts: () => fetchDonorContacts(dispatch)
     };
     return <DonorContact {...props} />;

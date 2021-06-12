@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
 import PlanActivities from './PlanActivities';
-import pdfExport from './activityPdfExport';
 import { useTracked } from 'context';
 import Api from 'api';
 import { clientSocket } from 'utils';
+import createPdf, { table } from 'utils/pdfMake'; 
 
 const fetchProposals = dispatch => {
     Api.proposal.get()
@@ -18,7 +18,7 @@ const fetchProposals = dispatch => {
     });
 }
 
-export default function PlanActivitiesContainer({ match, history }) {
+export default function PlanActivitiesContainer() {
     const [store, dispatch] = useTracked();
     const [activities, setActivities] = useState([]);
 
@@ -42,17 +42,22 @@ export default function PlanActivitiesContainer({ match, history }) {
         setActivities(activities);
     }, [store.proposals, objectiveId]);
 
+    const onExport = () => {
+        const cells = activities.map(v => ({text: v.activity}));
+        const data = table.data(cells, 1);
+        const header = table.header(['Activity']);
+        const body = table.body(header, ...data);
+        createPdf('Implementaion Plan', body, {margin: 5});
+    };
+
     // Modal logic
     const [visible, setVisible] = useState(false);
     const showModal = () => setVisible(true); 
-    
-    const tableView = useRef();
-    const onExport = () => pdfExport(tableView, activities);
     
     const props = {
         activities, visible, setVisible, 
         showModal, onExport, 
         fetchProposals: () => fetchProposals(dispatch)
     };
-    return <PlanActivities {...props} />
+    return <PlanActivities {...props} />;
 }

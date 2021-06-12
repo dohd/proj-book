@@ -1,11 +1,11 @@
-import React, { useState, useEffect,  useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import Proposal from './Proposal';
-import pdfExport from './pdfExport';
 import Api from 'api';
 import { Path } from 'routes';
 import { useTracked } from 'context';
 import { clientSocket, parseUrl } from 'utils';
+import createPdf, { table } from 'utils/pdfMake';
 
 const fetchProposals = dispatch => {
     Api.proposal.get()
@@ -53,11 +53,27 @@ export default function Proposals({ history }) {
         sessionStorage.setItem('objectiveState', 'pending');
         const params = { proposalId: key };
         return parseUrl(Path.objectives, params);
-    }
+    };
 
-    const tableView = useRef();
-    const onExport = () => pdfExport(tableView, state);
-
+    const onExport = () => {
+        const cells = [];
+        state.proposals.forEach(({key, ...rest}) => {
+            for (const key in rest) {
+                if (key === 'budget') cells.push({text: rest[key].toLocaleString()});
+                else if (rest[key] === 1) cells.push({text: 'Approved'});
+                else if (rest[key] === 0) cells.push({text: 'Pending'});
+                else cells.push({text: rest[key]});
+            }
+        });
+        const data = table.data(cells, 7);
+        const header = table.header([
+            'Project Title', 'Start Period', 'End Period',
+            'Budget', 'Date Submitted', 'Status', 'Donor'
+        ]);
+        const body = table.body(header, ...data);
+        createPdf('Grant Proposals', body, {margin: 5}, 'landscape');
+    };
+    
     // Approved proposal modal
     const [visible, setVisible] = useState(false);
     const showModal = record => {
@@ -67,8 +83,8 @@ export default function Proposals({ history }) {
 
     const props = {
         onDelete, visible, setVisible,
-        showModal, onExport, state, setPendingObj, 
-        setApprovedObj,
+        showModal, onExport, state, 
+        setPendingObj, setApprovedObj,
         fetchProposals: () => fetchProposals(dispatch)
     };
     return <Proposal {...props} />;

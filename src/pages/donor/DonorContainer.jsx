@@ -1,13 +1,10 @@
-import React, { useState, useEffect,  useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import Donor from './Donor';
 import Api from 'api';
 import { useTracked } from 'context';
 import { clientSocket } from 'utils';
-
-import pdfMake from 'pdfmake/build/pdfmake';
-import pdfFonts from 'pdfmake/build/vfs_fonts';
-pdfMake.vfs = pdfFonts.pdfMake.vfs;
+import createPdf, { table } from 'utils/pdfMake'; 
 
 const fetchDonors = dispatch => {
     Api.donor.get()
@@ -27,7 +24,12 @@ export default function Donors() {
     });
     
     useEffect(() => {
-        const list = store.donors.map(val => ({...val, key: val.id}));
+        const list = store.donors.map(v => ({
+            key: v.id,
+            name: v.name,
+            phone: v.phone,
+            email: v.email
+        }));
         setState(prev => ({...prev, donors: list}));
     }, [store.donors]);
 
@@ -44,66 +46,20 @@ export default function Donors() {
         setVisible(prev => ({...prev, update: true}));
     };
 
-    const tableView = useRef();
     const onExport = () => {
-        const tableDom = tableView.current;
-        const tableHeader = tableDom.getElementsByTagName('th');
-        const tableHeaderText = [...tableHeader].map(el => ({
-            text: el.textContent, style: 'tableHeader', bold: true,
-        }));
-        const tableRow = tableDom.getElementsByTagName('td');
-        const tableRowCells = (
-            [...tableRow]
-            .map(el => ({text: el.textContent, style: 'tableData'}))
-            .filter(val => val.text)
-        );
-        const tableHeaderRow = tableHeaderText.filter(val => val.text !== 'Action');
-
-        const tableDataAsRows = tableRowCells.reduce((rows, cellData, index) => {
-            if (index % 3 === 0) rows.push([]);
-            rows[rows.length - 1].push(cellData);
-            return rows;
-        }, []);
-
-        const tableBody = [
-            tableHeaderRow, 
-            ...tableDataAsRows,
-        ];
-        // console.log(tableBody);
-
-        // Document definition
-        const dd = {
-            header: { text: 'Donors', alignment: 'center' },
-            footer: (currentPage, pageCount) => ({ 
-                text: `Page ${state.page} of ${state.pageCount}`,
-                alignment: 'center' 
-            }), 
-            content: [
-                {
-                    style: 'tableExample',
-                    table: { headerRows: 1, body: tableBody },
-                    layout: {
-                        fillColor: (rowIndex) => {
-                            if (rowIndex === 0) return '#0f4871';
-                            return (rowIndex % 2 === 0) ? '#f2f2f2' : null;
-                        }
-                    }
-                }
-            ],
-            styles: {
-                tableExample: { margin: 5 },
-                tableHeader: { margin: 5, color: 'white' },
-                tableData: { margin: 5 }
-            }
-        };
-        // pdfMake.createPdf(dd).download('Donors');
-        pdfMake.createPdf(dd).open();
+        const cells = [];
+        state.donors.forEach(({key, ...rest}) => {
+            for (const key in rest) cells.push({text: rest[key]});
+        });
+        const data = table.data(cells, 3);
+        const header = table.header(['Name', 'Phone', 'Email']);
+        const body = table.body(header, ...data);
+        createPdf('Donors', body, {margin: 5});
     };
 
     const props = {
-        visible, setVisible,
-        showModal, showUpdateModal, onDelete,
-        onExport, state,
+        visible, setVisible, state, onExport,
+        showModal, showUpdateModal, onDelete,        
         fetchDonors: () => fetchDonors(dispatch)
     };
     return <Donor {...props} />;

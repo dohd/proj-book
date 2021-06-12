@@ -8,18 +8,14 @@ import { useTracked } from 'context';
 import Api from 'api';
 import { clientSocket } from 'utils';
 
-import pdfMake from 'pdfmake/build/pdfmake';
-import pdfFonts from 'pdfmake/build/vfs_fonts';
-pdfMake.vfs = pdfFonts.pdfMake.vfs;
-
 const fetchActivityPlans = async dispatch => {
     const activityPlans = await Api.activityPlan.get();
-    const activitySchedule = await Api.activitySchedule.get();
     dispatch({
         type: "addActivityPlans",
         payload: activityPlans
     });
 
+    const activitySchedule = await Api.activitySchedule.get();
     const eventsDataMap = {activityPlans, activitySchedule};
     for (const event in eventsDataMap) {
         clientSocket.emit(event, eventsDataMap[event]);
@@ -111,73 +107,6 @@ export default function EventPlan() {
         return confirm;
     };
 
-    const tableView = {};
-    const onExport = () => {
-        const tableDom = tableView.current;
-        const tableHeader = tableDom.getElementsByTagName('th');
-        const tableHeaderText = [...tableHeader].map(el => ({
-            text: el.textContent, style: 'tableHeader', bold: true,
-        }));
-        const tableRow = tableDom.getElementsByTagName('td');
-        const tableRowCells = (
-            [...tableRow]
-            .map(el => ({text: el.textContent, style: 'tableData'}))
-            .filter(val => {
-                if (!val.text) {
-                    val.text = 'Executed';
-                    val.style = 'tableData';
-                }
-                return val.text !== 'Action';
-            })
-        );
-        
-        const tableHeaderRow = tableHeaderText.filter(val => val.text !== 'Action');
-
-        const tableDataAsRows = tableRowCells.reduce((rows, cellData, index) => {
-            if (index % 6 === 0) rows.push([]);
-            rows[rows.length - 1].push(cellData);
-            return rows;
-        }, []);
-
-        const tableBody = [
-            tableHeaderRow,
-            ...tableDataAsRows,
-        ];
-        // console.log(tableBody);
-
-        // Document definition
-        const dd = {
-            header: { 
-                text: `Activity Plan: ${dataSource.eventDate}`, 
-                alignment: 'center' 
-            },
-            footer: (currentPage, pageCount) => ({ 
-                text: `Page ${dataSource.page} of ${dataSource.pageCount}`,
-                alignment: 'center' 
-            }), 
-            pageOrientation: 'landscape',
-            content: [
-                {
-                    style: 'tableExample',
-                    table: { headerRows: 1, body: tableBody },
-                    layout: {
-                        fillColor: (rowIndex) => {
-                            if (rowIndex === 0) return '#0f4871';
-                            return (rowIndex % 2 === 0) ? '#f2f2f2' : null;
-                        }
-                    }
-                }
-            ],
-            styles: {
-                tableExample: { margin: 5 },
-                tableHeader: { margin: 5, color: 'white' },
-                tableData: { margin: 5 }
-            }
-        };
-        // pdfMake.createPdf(dd).download('Activity_Plan');
-        pdfMake.createPdf(dd).open();
-    };
-
     // modal logic
     const [visible, setVisible] = useState(false);
     const [dataSource, setDataSource] = useState({
@@ -210,7 +139,8 @@ export default function EventPlan() {
     };
     
     const modalProps = {
-        visible, setVisible, onExport, store,
+        visible, setVisible, 
+        participants: store.participants,
         activityPlans: dataSource.plans,
         eventDate: dataSource.eventDate,
         fetchActivityPlans: () => fetchActivityPlans(dispatch)
