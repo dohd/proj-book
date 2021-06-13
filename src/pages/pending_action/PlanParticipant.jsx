@@ -1,20 +1,22 @@
 import React from 'react';
-import { Card, Space, Table } from 'antd';
-import { ArrowLeftOutlined } from '@ant-design/icons';
+import { Button, Card, Popconfirm, Space, Table } from 'antd';
+import { ArrowLeftOutlined, DeleteOutlined } from '@ant-design/icons';
 import { useHistory } from 'react-router';
+import { Link } from 'react-router-dom';
 
 import { parseUrl } from 'utils';
 import { Path } from 'routes';
-import { Link } from 'react-router-dom';
 
 export default function PlanParticipant(props) {
-    const { activityPlans } = props;
+    const { activityPlans, onDelete } = props;
     const history = useHistory();
 
-    // set objective & activity state to approved
-    // to load approved pages
-    sessionStorage.setItem('objectiveState', 'approved');
-    sessionStorage.setItem('activityState', 'approved');
+    const obj = record => ({
+        activityPlanId: record.key,
+        activityId: record.activity.id,
+        objectiveId: record.activity.objective.id,
+        proposalId: record.activity.objective.proposal.id
+    });
 
     return (
         <Card
@@ -40,15 +42,26 @@ export default function PlanParticipant(props) {
                     {
                         title: 'Action',
                         key: 'action',
-                        render: (txt, record) => {
-                            const obj = {
-                                activityPlanId: record.key,
-                                activityId: record.activity.id,
-                                objectiveId: record.activity.objective.id,
-                                proposalId: record.activity.objective.proposal.id
-                            };
-                            const path = parseUrl(Path.participants, obj);
-                            return <Link to={path}>Participants</Link>;
+                        render: (txt, record) => {                        
+                            const path = parseUrl(Path.participants, obj(record));
+                            return (
+                                <>
+                                    <Popconfirm
+                                        title='Are you sure to delete this plan?'
+                                        onConfirm={() => onDelete(record.key)}
+                                        okText='Yes'
+                                        cancelText='No'
+                                    >
+                                        <Button 
+                                            type='link'
+                                            icon={
+                                                <DeleteOutlined style={{ color: 'red' }}/>
+                                            }
+                                        />
+                                    </Popconfirm>
+                                    <Link to={path}>Participants</Link>
+                                </>
+                            );
                         }
                     }
                 ]}
