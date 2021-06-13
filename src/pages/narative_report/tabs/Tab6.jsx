@@ -1,74 +1,96 @@
-import React, { useState } from 'react';
-import { Form } from 'antd'
+import React from 'react'
+import { Form, Input, Select, Button, Space } from 'antd';
 
-import Tab6View from './Tab6View';
-import TitleModal from '../TitleModal';
+const layout = { labelCol: { span: 24 }, wrapperCol: { span: 18 } };
 
 export default function Tab6(props) {
     const {
-        prevTab, setState, activityList, 
-        showModal, onSave, onSubmit
-    } = props;
-
-    const [formJ] = Form.useForm();
-    const onFinishJ = values => {
-        values.narrativeQuizId = 9;        
-        setState(state => {
-            let exists = false;
-            state.formJ.forEach(({response}) => {
-                if (response === values.response) exists = true;
-            });
-            if (exists) return state;
-            return {...state, formJ: [...state.formJ, values]};            
-        });
-        formJ.resetFields();
-        onSave();
-    };
-    const onFinishFailedJ = err => console.log('Error:',err);
-
-    const [formK] = Form.useForm();
-    const onFinishK = values => {
-        values.narrativeQuizId = 10;
-        setState(prev => {
-            let exists = false;
-            prev.formK.forEach(({response}) => {
-                if (response === values.response) exists = true;
-            });
-            if (exists) return prev;
-            return {...prev, formK: [...prev.formK, values]};            
-        });
-        formK.resetFields();
-        onSave();
-    };
-    const onFinishFailedK = err => console.log('Error:',err);
-
-    // modal logic
-    const [visible, setVisible] = useState(false);
-    const [form] = Form.useForm();
-    const onCreate = values => {
-        setVisible(false);
-        form.resetFields();
-        onSubmit(values);
-    };
-
-    const onOk = () => {
-        form.validateFields()
-        .then(values => onCreate(values))
-        .catch(info => console.log('Validate Failed:', info));
-    };
-
-    const modal_props = { visible, setVisible, onOk, form };
-
-    const tab6_props = {
         showModal, activityList, prevTab,
         formJ, onFinishJ, onFinishFailedJ,
-        formK, onFinishK, onFinishFailedK, 
+        formK, onFinishK, onFinishFailedK,
         setVisible
-    };
+    } = props;
     return (
-        <>
-            <TitleModal {...modal_props} />
-            <Tab6View {...tab6_props} />;
-        </>
+        <div>            
+            <Form
+                {...layout}
+                form={formJ}
+                onFinish={onFinishJ}
+                onFinishFailed={onFinishFailedJ}
+            >
+                <Form.Item
+                    label='h) Activity Lasting Impact'
+                    labelAlign='left'
+                    labelCol={{ span: 15 }}
+                    colon={false}
+                >
+                    <Space>
+                        <Button size='small' onClick={() => showModal('formJ')}>
+                            View
+                        </Button>
+                        <Button type='primary' size='small' htmlType='submit'>
+                            Save
+                        </Button>
+                    </Space>                    
+                </Form.Item>
+
+                <Form.Item name='agendaId'>
+                    <Select placeholder='Select an activity'>
+                        { activityList }
+                    </Select>
+                </Form.Item>
+                <Form.Item name='response'>  
+                    <Input.TextArea />
+                </Form.Item>
+            </Form>
+
+            <Form
+                {...layout}
+                form={formK}
+                onFinish={onFinishK}
+                onFinishFailed={onFinishFailedK}
+            >
+                <Form.Item
+                    label='i) Future plans to continue working on the activity'
+                    labelAlign='left'
+                    labelCol={{ span: 15 }}
+                    colon={false}
+                >
+                    <Space>
+                        <Button size='small' onClick={() => showModal('formK')}>
+                            View
+                        </Button>
+                        <Button type='primary' size='small' htmlType='submit'>
+                            Save
+                        </Button>
+                    </Space>                    
+                </Form.Item>
+
+                <Form.Item name='agendaId'>
+                    <Select placeholder='Select an activity'>
+                        { activityList }
+                    </Select>
+                </Form.Item>
+                <Form.Item name='response'>  
+                    <Input.TextArea />
+                </Form.Item>
+            </Form>
+            
+            <div className='wrapper'>
+                <Button
+                    className='btn-back'
+                    onClick={prevTab}
+                >
+                    Back
+                </Button>
+                <Button
+                    type='primary'
+                    className='btn-next-2'
+                    onClick={() => setVisible(true)}
+                >
+                    Submit
+                </Button>
+            </div>
+        </div>                  
     );
 }

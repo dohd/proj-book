@@ -1,50 +1,98 @@
 import React from 'react';
-import { Form } from 'antd';
+import { Form, Input, Select, Button, Space } from 'antd';
 
-import Tab2View from './Tab2View';
+const layout = { labelCol: { span: 24 }, wrapperCol: { span: 18 } };
 
 export default function Tab2(props) {
     const {
-        nextTab, prevTab, setState, 
-        activityList, showModal, onSave
-    } = props;
-
-    const [formC] = Form.useForm();
-    const onFinishC = values => {
-        values.narrativeQuizId = 3;
-        setState(prev => {
-            let exists = false;
-            prev.formC.forEach(({response}) => {
-                if (response === values.response) exists = true;
-            });
-            if (exists) return prev;
-            return {...prev, formC: [...prev.formC, values]};            
-        });
-        formC.resetFields();
-        onSave();
-    };
-    const onFinishFailedC = err => console.log('Error:',err);
-
-    const [formD] = Form.useForm();
-    const onFinishD = values => {
-        values.narrativeQuizId = 4;
-        setState(prev => {
-            let exists = false;
-            prev.formD.forEach(({response}) => {
-                if (response === values.response) exists = true;
-            });
-            if (exists) return prev;
-            return {...prev, formD: [...prev.formD, values]};            
-        });
-        formD.resetFields();
-        onSave();
-    };
-    const onFinishFailedD = err => console.log('Error:',err);
-
-    const params = {
         showModal, activityList, prevTab, 
         nextTab, formC, onFinishC, onFinishFailedC,
         formD, onFinishD, onFinishFailedD
-    }; 
-    return <Tab2View {...params} />;
+    } = props;
+    return (
+        <div>
+            <Form
+                {...layout}
+                form={formC}
+                onFinish={onFinishC}
+                onFinishFailed={onFinishFailedC}
+            >
+                <Form.Item
+                    label='b) (ii) Number of attained results'
+                    labelAlign='left'
+                    labelCol={{ span: 15 }}
+                    colon={false}
+                >
+                    <Space>
+                        <Button size='small' onClick={() => showModal('formC')}>
+                            View
+                        </Button>
+                        <Button type='primary' size='small' htmlType='submit'>
+                            Save
+                        </Button>
+                    </Space>                    
+                </Form.Item>
+
+                <Form.Item name='agendaId'>
+                    <Select placeholder='Select an activity'>
+                        { activityList }
+                    </Select>
+                </Form.Item>
+
+                <Form.Item name='response'>  
+                    <Input.TextArea />
+                </Form.Item>
+
+            </Form>
+
+            <Form
+                {...layout}
+                form={formD}
+                onFinish={onFinishD}
+                onFinishFailed={onFinishFailedD}
+            >
+                <Form.Item
+                    label='b) (iii) How has number of attained results affected the activity ?'
+                    labelAlign='left'
+                    labelCol={{ span: 15 }}
+                    colon={false}
+                >
+                    <Space>
+                        <Button size='small' onClick={() => showModal('formD')}>
+                            View
+                        </Button>
+                        <Button type='primary' size='small' htmlType='submit'>
+                            Save
+                        </Button>
+                    </Space>                    
+                </Form.Item>
+
+                <Form.Item name='agendaId'>
+                    <Select placeholder='Select an activity'>
+                        { activityList }
+                    </Select>
+                </Form.Item>
+                
+                <Form.Item name='response'>  
+                    <Input.TextArea />
+                </Form.Item>
+            </Form>
+
+            <div className='wrapper'>
+                <Button
+                    className='btn-back'
+                    onClick={prevTab}
+                >
+                    Back
+                </Button>
+                <Button
+                    type='primary'
+                    className='btn-next-2'
+                    onClick={nextTab}
+                >
+                    Next
+                </Button>
+            </div>
+        </div>                  
+    );
 }
