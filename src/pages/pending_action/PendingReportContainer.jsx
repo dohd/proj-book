@@ -4,6 +4,10 @@ import PendingActivity from './PendingActivity';
 import { useTracked } from 'context';
 
 export default function PendingReportContainer() {
+    // set state to approved
+    sessionStorage.setItem('objectiveState', 'approved');
+    sessionStorage.setItem('activityState', 'approved');
+
     const store = useTracked()[0];
     const [activities, setActivities] = useState([]);
 
