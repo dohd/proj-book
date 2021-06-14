@@ -76,10 +76,13 @@ export default function PendingObjectives(props) {
                                     <Dropdown
                                         overlay={
                                             <Menu>
-                                                <Menu.Item onClick={() => showEditModal(record)}>
+                                                <Menu.Item 
+                                                    key='update'
+                                                    onClick={() => showEditModal(record)}
+                                                >
                                                     Update
                                                 </Menu.Item>
-                                                <Menu.Item>
+                                                <Menu.Item key='activities'>
                                                     <Link to={pendingAct(key)}>
                                                         Activities
                                                     </Link>

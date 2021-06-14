@@ -40,15 +40,18 @@ export default function Participants(props) {
                     <Dropdown
                         overlay={
                             <Menu>
-                                <Menu.Item onClick={void 0}>
+                                <Menu.Item key='participant'>
                                     <Link to={addParticipantPath}>
                                         <PlusOutlined /> Participant
                                     </Link>
                                 </Menu.Item>
-                                <Menu.Item disabled={!participants.length}>
-                                    <Link to={agendaPath}>
-                                        Agenda
-                                    </Link>
+                                <Menu.Item key='agenda'>
+                                    {
+                                        !participants.length ? <span>Agenda</span>:
+                                        <Link to={agendaPath}>
+                                            Agenda
+                                        </Link>
+                                    }
                                 </Menu.Item>
                             </Menu>
                         }

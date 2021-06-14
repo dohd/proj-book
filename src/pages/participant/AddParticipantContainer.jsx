@@ -5,23 +5,22 @@ import { useParams } from 'react-router';
 import AddParticipant, { dateFormat } from './AddParticipant';
 import Api from 'api';
 import { useTracked } from 'context';
-import { fetchParticipants } from './participantApi';
+import fetchParticipants from './participantApi';
 
 export default function CreateParticipant() {
-    const [store, dispatch] = useTracked();
     const { activityPlanId, activityId } = useParams();
+    const [store, dispatch] = useTracked();
 
     const [state, setState] = useState({
-        keyProgramme: {}, gender: [], regions: []
+        keyProgramme: {}, regions: []
     });
 
+    const { activityPlans } = store;
     useEffect(() => {
-        const plans = store.activityPlans;
-        for(const p of plans) {
+        for(const p of activityPlans) {
             if (p.id === parseInt(activityPlanId)) {
                 const keyProgramme = p.planProgramme.keyProgramme;
                 let regions = [];
-
                 p.planEvents.forEach(event => {
                     event.planRegions.forEach(v => {
                         regions.push(v.region);
@@ -35,15 +34,11 @@ export default function CreateParticipant() {
                 }, {});
 
                 regions = Object.values(regionObj);
-
-                setState({ 
-                    keyProgramme, regions,
-                    gender: store.gender
-                });
+                setState({ keyProgramme, regions});
                 break;
             }
         }
-    }, [store.activityPlans, store.gender, activityPlanId]);
+    }, [activityPlans, activityPlanId]);
 
     const [form] = Form.useForm();
     const onFinish = values => {
@@ -69,12 +64,10 @@ export default function CreateParticipant() {
     const onFinishFailed = err => console.log('Error:', err);
 
     useEffect(() => {
-        const data = state.keyProgramme;
-        if (data.hasOwnProperty('programme')) {
-            form.setFieldsValue({ 
-                keyProgramme: data.programme 
-            });
-        }
+        const { programme } = state.keyProgramme;
+        if (programme) form.setFieldsValue({ 
+            keyProgramme: programme 
+        });
     }, [state.keyProgramme, form]);
 
     const props = { form, onFinish, onFinishFailed, state };

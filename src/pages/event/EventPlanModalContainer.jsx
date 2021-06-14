@@ -67,7 +67,7 @@ export default function EventPlanModalContainer(props) {
         ]);
         const body = table.body(header, ...data);
         const title = `Activity Plan: ${eventDate}`;
-        createPdf(title, body, {margin: 5}, 'landscape');
+        createPdf(title, body, void 0,'landscape');
     };
     
     const params = {

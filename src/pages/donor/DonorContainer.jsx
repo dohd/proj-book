@@ -54,7 +54,7 @@ export default function Donors() {
         const data = table.data(cells, 3);
         const header = table.header(['Name', 'Phone', 'Email']);
         const body = table.body(header, ...data);
-        createPdf('Donors', body, {margin: 5});
+        createPdf('Donors', body);
     };
 
     const props = {

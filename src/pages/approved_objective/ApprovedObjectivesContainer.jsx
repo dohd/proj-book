@@ -39,7 +39,7 @@ export default function ApprovedObjectivesContainer() {
         const data = table.data(cells, 1);
         const header = table.header(['Objective']);
         const body = table.body(header, ...data);
-        createPdf('Approved Proposal Objectives', body, {margin: 5});
+        createPdf('Approved Proposal Objectives', body);
     };
 
     const props = { objectives, approvedAct, onExport };

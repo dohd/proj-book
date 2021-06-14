@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router';
 
 import Participants from './Participants';
-import { fetchParticipants } from './participantApi';
 import { useTracked } from 'context';
 import Api from 'api';
+import fetchParticipants from './participantApi';
 import createPdf, { table } from 'utils/pdfMake';
 
 export default function ParticipantsContainer() {
@@ -51,7 +51,7 @@ export default function ParticipantsContainer() {
             'Designation', 'Phone', 'Email', 'Programme', 'Region'
         ]);
         const body = table.body(header, ...data);
-        createPdf('Activity Participants', body, {margin: 5}, 'landscape');
+        createPdf('Activity Participants', body, void 0, 'landscape');
     };
 
     const props = { participants, onDelete, onExport };

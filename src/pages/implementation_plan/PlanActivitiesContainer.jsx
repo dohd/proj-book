@@ -7,16 +7,14 @@ import Api from 'api';
 import { clientSocket } from 'utils';
 import createPdf, { table } from 'utils/pdfMake'; 
 
-const fetchProposals = dispatch => {
-    Api.proposal.get()
-    .then(res => {
-        dispatch({
-            type: 'addProposals',
-            payload: res
-        });
-        clientSocket.emit('proposals', res);
-    });
-}
+const fetchProposals = async dispatch => {
+    const proposals = await Api.proposal.get();
+    dispatch({type: 'addProposals', payload: proposals});
+
+    const activities = await Api.pendingPlan.get();
+    clientSocket.emit('proposals', proposals);
+    clientSocket.emit('pendingPlans', activities);
+};
 
 export default function PlanActivitiesContainer() {
     const [store, dispatch] = useTracked();
@@ -47,7 +45,7 @@ export default function PlanActivitiesContainer() {
         const data = table.data(cells, 1);
         const header = table.header(['Activity']);
         const body = table.body(header, ...data);
-        createPdf('Implementaion Plan', body, {margin: 5});
+        createPdf('Implementaion Plan', body);
     };
 
     // Modal logic

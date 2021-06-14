@@ -124,10 +124,13 @@ export default function Proposal(props) {
                                 <Dropdown
                                     overlay={
                                         <Menu>
-                                            <Menu.Item onClick={() => showModal(record)}>
+                                            <Menu.Item 
+                                                key='update'
+                                                onClick={() => showModal(record)}
+                                            >
                                                 Update
                                             </Menu.Item>
-                                            <Menu.Item>
+                                            <Menu.Item key='objectives'>
                                                 <Link to={() => setApprovedObj(key)}>
                                                     Objectives
                                                 </Link>
@@ -148,10 +151,10 @@ export default function Proposal(props) {
                                     <Dropdown
                                         overlay={
                                             <Menu>
-                                                <Menu.Item>
+                                                <Menu.Item key='update'>
                                                     <Link to={path}>Update</Link>
                                                 </Menu.Item>
-                                                <Menu.Item>
+                                                <Menu.Item key='objectives'> 
                                                     <Link to={() => setPendingObj(key)}>
                                                         Objectives
                                                     </Link>

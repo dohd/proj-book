@@ -7,18 +7,22 @@ import { clientSocket } from 'utils';
 
 const fetchPlans = async dispatch => {
     const plans = await Api.activityPlan.get();
-    const ptcpants = await Api.pendingParticipant.get();
     dispatch({type: 'addActivityPlans', payload: plans});
-    dispatch({type: 'addPendingParticipants', payload: ptcpants});
+
+    const schedule = await Api.activitySchedule.get();
+    const ptcpants = await Api.pendingParticipant.get();
     clientSocket.emit('activityPlans', plans);
+    clientSocket.emit('activitySchedule', schedule);
     clientSocket.emit('pendingParticipants', ptcpants);
 };
 
 export default function PlanParticipantContainer() {
-    // setState to approved
-    sessionStorage.setItem('objectiveState', 'approved');
-    sessionStorage.setItem('activityState', 'approved');
-    
+    // set approved page state 
+    useEffect(() => {
+        sessionStorage.setItem('objectiveState', 'approved');
+        sessionStorage.setItem('activityState', 'approved');    
+    }, []);
+
     const [store, dispatch] = useTracked();
 
     const [activityPlans, setActivityPlans] = useState([]);

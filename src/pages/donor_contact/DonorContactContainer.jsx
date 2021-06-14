@@ -49,7 +49,7 @@ export default function DonorContactContainer(params) {
             'Donor', 'Contact Name', 'Telephone', 'Email'
         ]);
         const body = table.body(header, ...data);
-        createPdf('Donor Contacts', body, {margin: 5});
+        createPdf('Donor Contacts', body);
     };
 
     // modal logic

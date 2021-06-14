@@ -9,17 +9,14 @@ import { useTracked } from 'context';
 import { clientSocket } from 'utils';
 
 const fetchActivityPlans = async dispatch => {
-    const activityPlans = await Api.activityPlan.get();
-    dispatch({
-        type: "addActivityPlans",
-        payload: activityPlans
-    });
+    const plans = await Api.activityPlan.get();
+    dispatch({type: "addActivityPlans", payload: plans});
 
-    const activitySchedule = await Api.activitySchedule.get();
-    const eventsDataMap = {activityPlans, activitySchedule};
-    for (const event in eventsDataMap) {
-        clientSocket.emit(event, eventsDataMap[event]);
-    }
+    const schedule = await Api.activitySchedule.get();
+    const ptcpants = await Api.pendingParticipant.get();
+    clientSocket.emit('activityPlans', plans);
+    clientSocket.emit('activitySchedule', schedule);
+    clientSocket.emit('pendingParticipants', ptcpants);
 };
 
 export default function ActivityPlansContainer() {
@@ -69,18 +66,17 @@ export default function ActivityPlansContainer() {
         .catch(err => console.log('Validation failed:',err))
     };
 
-    const modal_props = { 
+    const { keyProgrammes, targetGroups, targetRegions } = store;
+    const modalProps = { 
         visible, setVisible, state, setState, 
-        form, onOk,
-        keyProgrammes: store.keyProgrammes,
-        targetGroups: store.targetGroups,
-        targetRegions: store.targetRegions
+        form, onOk, keyProgrammes, targetGroups,
+        targetRegions
     };
-    const plan_props = { setVisible, activityPlans };
+    const planProps = { setVisible, activityPlans };
     return (
         <>
-            <CreatePlanModal {...modal_props} />
-            <ActivityPlans {...plan_props} />
+            <CreatePlanModal {...modalProps} />
+            <ActivityPlans {...planProps} />
         </>
     );
 }

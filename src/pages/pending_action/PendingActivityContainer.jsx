@@ -4,6 +4,12 @@ import PendingActivity from './PendingActivity';
 import { useTracked } from 'context';
 
 export default function PendingActivityContainer() {
+    // set approved page state 
+    useEffect(() => {
+        sessionStorage.setItem('objectiveState', 'approved');
+        sessionStorage.setItem('activityState', 'approved');    
+    }, []);
+
     const store = useTracked()[0];
     const [activities, setActivities] = useState([]);
 
@@ -14,11 +20,6 @@ export default function PendingActivityContainer() {
         setActivities(activityPlans);
     }, [store.pendingPlans]);
 
-    // set objective & activity state to approved
-    // to load approved pages
-    sessionStorage.setItem('objectiveState', 'approved');
-    sessionStorage.setItem('activityState', 'approved');
-        
     const props = { activities };
     return <PendingActivity {...props} />;
 }

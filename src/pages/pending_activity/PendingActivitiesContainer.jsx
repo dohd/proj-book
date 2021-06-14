@@ -54,7 +54,7 @@ export default function PendingActivitesContainer() {
         const data = table.data(cells, 1);
         const header = table.header(['Activity']);
         const body = table.body(header, ...data);
-        createPdf('Pending Proposal Activities', body, {margin: 5});
+        createPdf('Pending Proposal Activities', body);
     };
 
     // Modal logic

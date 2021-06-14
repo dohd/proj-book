@@ -50,13 +50,19 @@ export default function ActivityReport(props) {
                                 <Dropdown
                                     overlay={
                                         <Menu>
-                                            <Menu.Item onClick={() => showResponseModal(key)}>
+                                            <Menu.Item 
+                                                key='responses'
+                                                onClick={() => showResponseModal(key)}
+                                            >
                                                 Responses
                                             </Menu.Item>
-                                            <Menu.Item>
+                                            <Menu.Item key='case studies'>
                                                 <Link to={casePath}>Case studies</Link>
                                             </Menu.Item>
-                                            <Menu.Item onClick={() => showImageModal(key)}>
+                                            <Menu.Item 
+                                                key='images'
+                                                onClick={() => showImageModal(key)}
+                                            >
                                                 Images
                                             </Menu.Item>
                                         </Menu>

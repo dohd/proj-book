@@ -58,7 +58,7 @@ export default function PendingObjectivesContainer() {
         const data = table.data(cells, 1);
         const header = table.header(['Objective']);
         const body = table.body(header, ...data);
-        createPdf('Pending Proposal Objective', body, {margin: 5});
+        createPdf('Pending Proposal Objective', body);
     };
     
     // Modal logic

@@ -71,7 +71,7 @@ export default function Proposals({ history }) {
             'Budget', 'Date Submitted', 'Status', 'Donor'
         ]);
         const body = table.body(header, ...data);
-        createPdf('Grant Proposals', body, {margin: 5}, 'landscape');
+        createPdf('Grant Proposals', body, void 0,'landscape');
     };
     
     // Approved proposal modal
