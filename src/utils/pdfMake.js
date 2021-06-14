@@ -22,7 +22,7 @@ export const table = {
 export default function createPdf(
     header = '', 
     body = [], 
-    bodyStyle = {},
+    bodyStyle = {margin: 5},
     pageOrientation,
     headerRows = 1, 
     fillColor = rowIndex => {
