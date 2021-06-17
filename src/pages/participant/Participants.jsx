@@ -37,13 +37,16 @@ export default function Participants(props) {
             }
             extra={
                 <Space>
+                    <Button type='primary'>
+                        <Link to={addParticipantPath}>
+                            <PlusOutlined /> Participant
+                        </Link>          
+                    </Button>
                     <Dropdown
                         overlay={
                             <Menu>
-                                <Menu.Item key='participant'>
-                                    <Link to={addParticipantPath}>
-                                        <PlusOutlined /> Participant
-                                    </Link>
+                                <Menu.Item key='export' onClick={onExport}>
+                                    <FilePdfOutlined />Export 
                                 </Menu.Item>
                                 <Menu.Item key='agenda'>
                                     {
@@ -57,12 +60,9 @@ export default function Participants(props) {
                         }
                     >   
                         <Button type='link'>
-                            extra actions <DownOutlined />
+                            options <DownOutlined />
                         </Button>
                     </Dropdown>
-                    <Button type='primary' onClick={onExport}>
-                        <FilePdfOutlined />Export           
-                    </Button>
                 </Space>
             }
         >
