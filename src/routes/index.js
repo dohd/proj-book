@@ -1,4 +1,4 @@
-export {default} from './route_config';
+export {default} from './routeConfig';
 export { default as Path } from './routes';
-export { default as RouteNameMap } from './route_names';
+export { default as RouteNameMap } from './routeName';
 export { default as PrivateRoute } from '../routes/PrivateRoute';

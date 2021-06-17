@@ -1,6 +1,6 @@
 import UrlPattern from 'url-pattern';
 
-import RouteNameMap from './route_names';
+import RouteNameMap from './routeName';
 
 /**
  * Loop through keys in RouteNameMap adding 
