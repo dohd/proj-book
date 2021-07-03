@@ -1,35 +1,32 @@
 import React from 'react';
+import { Form, DatePicker, Button } from 'antd';
+import { FilterFilled } from '@ant-design/icons';
 
-import GraphFilterView from './GraphFilterView';
-import Api from 'api';
-
-export default function GraphFilter(props) {
-    const { apiKey, dispatch, actionType } = props;
-
-    const onFinish = values => {
-        if (!values.filter) {
-            Api[apiKey].get()
-            .then(res => dispatch({
-                type: actionType,
-                payload: res
-            }));
-            return;
-        }
-        
-        const dates = values.filter.map(v => v.format('YYYY-MM-DD'));
-
-        const from_date = dates[0];
-        const to_date = dates[1];
-        const param = `from=${from_date}&to=${to_date}`;
-
-        Api[apiKey].get(param)
-        .then(res => dispatch({
-            type: actionType,
-            payload: res
-        }));
-    };
-    const onFinishFailed = err => console.log('Error:', err);
-
-    const params = { onFinish, onFinishFailed };
-    return <GraphFilterView {...params} />;
+export default function GraphFilterView(props) {
+    const { onFinish, onFinishFailed } = props;
+    return (
+        <Form
+            layout='inline'
+            onFinish={onFinish}
+            onFinishFailed={onFinishFailed}
+        >
+            <Form.Item
+                label='Filter'
+                name='filter'
+            >
+                <DatePicker.RangePicker />
+            </Form.Item>
+            <Form.Item>
+                <Button
+                    htmlType='submit'
+                    type='link'
+                    icon={
+                        <FilterFilled 
+                            style={{ color: '#0275d8' }}
+                        />
+                    }
+                />
+            </Form.Item>
+        </Form>
+    );
 }
