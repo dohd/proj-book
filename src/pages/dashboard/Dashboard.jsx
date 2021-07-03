@@ -10,7 +10,7 @@ import {
 } from '@ant-design/icons';
 
 import './dashboard.css';
-import HomeRoutes from './SectionRoute';
+import homeRoutes from './routeConfig';
 import { AvatarProfile, Logout } from 'components';
 import { Path, RouteNameMap } from 'routes';
 import { isAdmin } from 'api';
@@ -33,7 +33,7 @@ export default function Dashboard(props) {
         );
     });
 
-    const mainSection = HomeRoutes.map(([path, component]) => (
+    const mainSection = homeRoutes.map(([path, component]) => (
         <Route exact path={path} component={component} key={path} />
     ));
 

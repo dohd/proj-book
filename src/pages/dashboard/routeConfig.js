@@ -32,7 +32,7 @@ import {
     PendingReport 
 } from '../pending_action';
 
-const routeConfig = {
+const homeRoutes = Object.entries({
     [Path.pendingActivityReport]: PendingReport,
     [Path.pendingPlans]: PlanParticipant,
     [Path.pendingActivities]: PendingActivity,
@@ -66,7 +66,6 @@ const routeConfig = {
     [Path.updatePendingAgenda]: Agenda,
     [Path.narrativeReport]: Narrative,
     [Path.updatePendingReport]: Narrative
-};
+});
 
-const HomeRoutes = Object.entries(routeConfig);
-export default HomeRoutes;
+export default homeRoutes;

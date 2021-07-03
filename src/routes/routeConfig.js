@@ -10,7 +10,7 @@ const RouteNameKeySearch = pathName => {
     for (const key in RouteNameMap) {
         const pattern = new UrlPattern(key);
         const result = pattern.match(pathName);
-        // add a key-value pair corresponding to 
+        // add a key-value pair corresponding to
         // the static pathName matched
         if (result) RouteNameMap[pathName] = RouteNameMap[key];
     }
