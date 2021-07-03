@@ -1,48 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Upload } from 'antd';
 import { UploadOutlined, LoadingOutlined } from '@ant-design/icons';
 
-import './changeAvatar.css';
-import Api, {fetchAud} from 'api';
-import { useTracked } from 'context';
-import uploadTask from 'utils/firebaseConfig';
-
-const fetchProfileImage = dispatch => {
-    Api.profileImage.get()
-    .then(res => dispatch({
-        type: 'addProfileImage', 
-        payload: res
-    }));
-};
-
-export default function ChangeAvatar(params) {
-    const [store, dispatch] = useTracked();
-
-    const [loading, setLoading] = useState(false);
-
-    const upload = async file => {
-        try {
-            const url = await uploadTask(`/profile/${file.name}`, file);
-            const res = await Api.profileImage.post({url});
-            if (res) fetchProfileImage(dispatch);
-            setLoading(false);
-        } catch (error) {
-            console.log(error);
-        }
-    };
-
-    const handleBeforeUpload = file => {
-        const name = 'image-' + fetchAud();
-        const ren_file = new File([file], name, {type: file.type});
-
-        setLoading(true);
-        upload(ren_file);
-        return false;
-    };
-
-    const [url, setUrl] = useState('');
-    useEffect(() => setUrl(store.profileImage.url), [store.profileImage]);
-
+export default function ChangeAvatar(props) {
+    const {loading, url, handleBeforeUpload} = props;
+    
     const profileStatus = () => {
         if (loading) return <LoadingOutlined />;
         else if (url) {

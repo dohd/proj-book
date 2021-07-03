@@ -1,31 +1,10 @@
 import React from 'react';
-import { Form, Row, Col, Button, Input, message } from 'antd';
-import Api from 'api';
+import { Form, Row, Col, Button, Input } from 'antd';
 
 const layout = { wrapperCol: { span: 22 } };
 
-export default function Password() {
-    const [form] = Form.useForm();
-    const onFinish = values => {
-        Api.resetPassword.post(values)
-        .then(res => message.success('Password updated successfully'))
-        .catch(err => {
-            console.log(err);
-            message.error('Unknown error!');
-        });
-        form.resetFields();
-    };
-    const onFinishFailed = err => console.log('Error:',err);
-
-    const confirmValidator = ({ getFieldValue }) => ({
-        validator(rule, value) {
-            if(!value || getFieldValue('newPassword') === value) {
-                return Promise.resolve();
-            }
-            return Promise.reject('passwords do not match!')
-        }
-    });
-
+export default function Password(props) {
+    const {form, onFinish, onFinishFailed, confirmValidator} = props;
     return (
         <Form 
             {...layout} 

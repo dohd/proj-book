@@ -1,13 +1,13 @@
 import React from 'react';
 import { Card, Form, Input, Button, Row, Col } from 'antd';
 
-import Password from './Password';
-import ChangeAvatar from './ChangeAvatar';
+import PasswordContainer from './PasswordContainer';
+import ChangeAvatarContainer from './ChangeAvatarContainer';
 
 const layout = { wrapperCol: { span: 16 } };
 
 export default function Settings(props) {
-    const { form, onSave, restrict } = props;
+    const { form, onSave, restrict } = props;    
     return (
         <Card
             title='Settings'
@@ -21,7 +21,7 @@ export default function Settings(props) {
                 </Button>
             }
         >
-            <ChangeAvatar />
+            <ChangeAvatarContainer />
 
             <Form 
                 {...layout}  
@@ -126,7 +126,7 @@ export default function Settings(props) {
                 </Row>
             </Form>
 
-            <Password />
+            <PasswordContainer />
         </Card>
     );
 }
