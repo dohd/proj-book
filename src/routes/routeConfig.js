@@ -29,7 +29,7 @@ export default function RouteResolver(pathName) {
     // define a regular expression to match urls ending with digits
     // e.g /home/proposals/20 or /home/proposals/objectives.../20
     const regex = new RegExp(/^(\/home)\/([\w\-/]*)\/(\d+)$/);
-    // filter urls that do not match the regex
+    // filter urls that match the regex
     const Urls = snippetsUrls.filter(v => !regex.test(v));
     
     // case page reloads, reconstruct static paths
