@@ -3,6 +3,7 @@ const Path = {
     get register() { return '/register'; },
     get login() { return '/login'; },
     get passwordRecover() { return '/recover-password'; },
+    get passwordReset() { return '/reset-password/:passwordToken'; },
 
     get home() { return '/home'; },
     get users() { return `${this.home}/users`; },

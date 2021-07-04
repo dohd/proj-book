@@ -19,10 +19,9 @@ export default function PasswordContainer() {
 
     const confirmValidator = ({ getFieldValue }) => ({
         validator(rule, value) {
-            if(!value || getFieldValue('newPassword') === value) {
-                return Promise.resolve();
-            }
-            return Promise.reject('passwords do not match!')
+            const isValid = !value || getFieldValue('newPassword') === value;
+            if(isValid) return Promise.resolve();
+            return Promise.reject('passwords do not match!');
         }
     });
 

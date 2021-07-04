@@ -31,6 +31,8 @@ const endpoints = {
     logout: '/auth/logout',
     register: '/auth/register',
     resetPassword: '/auth/reset-password',
+    recoverPassword: '/auth/recover-password',
+    recoveryPassword: '/auth/recovery-password'
 };
 
 export default endpoints;
