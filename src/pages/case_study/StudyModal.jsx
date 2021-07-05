@@ -14,6 +14,7 @@ export default function StudyModal(props) {
         setVisible(false);
         Api.caseStudy.patch(record.key, values)
         .then(res => {
+            if (!res) return;
             form.resetFields();
             fetchNarrative();
         });
@@ -26,11 +27,9 @@ export default function StudyModal(props) {
     };
 
     useEffect(() => {
-        if (record.hasOwnProperty('caseStudy')) {
-            form.setFieldsValue({
-                caseStudy: record.caseStudy
-            });
-        }
+        if (record?.caseStudy) form.setFieldsValue({
+            caseStudy: record.caseStudy
+        }); 
     }, [record, form]);
 
     return (

@@ -3,6 +3,7 @@
     font-weight: bold;
     margin-left: calc(100% - 160px);
     margin-top: .5em;
+    cursor: pointer;
 }
 
 .avatar-container {

@@ -10,10 +10,7 @@ import { clientSocket } from 'utils';
 
 const fetchActivityPlans = async dispatch => {
     const activityPlans = await Api.activityPlan.get();
-    dispatch({
-        type: "addActivityPlans",
-        payload: activityPlans
-    });
+    dispatch({ type: "addActivityPlans", payload: activityPlans });
 
     const activitySchedule = await Api.activitySchedule.get();
     const eventsDataMap = {activityPlans, activitySchedule};

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Form, message } from 'antd';
+import { Form } from 'antd';
 import { useParams } from 'react-router';
 
 import ActivityPlans from './ActivityPlans';
@@ -54,8 +54,8 @@ export default function ActivityPlansContainer() {
 
         Api.activityPlan.post(values)
         .then(res => {
+            if (!res) return;
             form.resetFields();
-            message.success('Activity plan saved successfully');
             fetchActivityPlans(dispatch);
         });
     };

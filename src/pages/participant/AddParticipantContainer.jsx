@@ -56,6 +56,7 @@ export default function CreateParticipant() {
 
         Api.participant.post(values)
         .then(res => {
+            if (!res) return;
             form.resetFields();
             message.success('Participant created successfully');
             fetchParticipants(dispatch);

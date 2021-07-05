@@ -22,7 +22,7 @@ instance.interceptors.request.use(config => {
 instance.interceptors.response.use(response => {
     return response.data;
 }, err => {
-    const errorData = err.response?.data;
+    const errorData = err.response?.data; //optional chaining
     return errorData ? errorHandler(errorData) : Promise.reject(err);
 });
 

@@ -4,13 +4,14 @@ import { Form, message } from 'antd';
 import Settings from './Settings';
 import Api, { isAdmin } from 'api';
 import { useTracked } from 'context';
+import { clientSocket } from 'utils';
 
 const fetchOrgProfile = dispatch => {
     Api.orgProfile.get()
-    .then(res => dispatch({
-        type: 'addOrgProfile', 
-        payload: res
-    }));
+    .then(res => {
+        dispatch({type: 'addOrgProfile', payload: res});
+        clientSocket.emit('orgProfile', res);
+    });
 };
 
 export default function SettingsContainer() {
@@ -22,6 +23,7 @@ export default function SettingsContainer() {
     const onCreate = values => {
         Api.orgProfile.post(values)
         .then(res => {
+            if (!res) return;
             fetchOrgProfile(dispatch);
             message.success('Settings updated successfully');
         });
@@ -36,7 +38,7 @@ export default function SettingsContainer() {
 
     useEffect(() => {
         const profile = store.orgProfile;
-        if (profile.hasOwnProperty('detail')) {
+        if (profile?.detail) {
             const { detail, contactPerson } = profile;
             form.setFieldsValue({
                 orgName: detail.name,

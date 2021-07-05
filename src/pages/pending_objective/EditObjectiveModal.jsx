@@ -9,7 +9,7 @@ export default function EditObjective(props) {
     const onCreate = values => { 
         setVisible(prev => ({...prev, edit: false}));
         Api.objective.patch(record.key, values)
-        .then(res => fetchProposals());
+        .then(res => res && fetchProposals());
     };
     
     const onOk = () => {
@@ -21,7 +21,7 @@ export default function EditObjective(props) {
 
     const [form] = Form.useForm();
     useEffect(() => {
-        if (record.hasOwnProperty('objective')) {
+        if (record?.objective) {
             const { objective } = record;
             form.setFieldsValue({ objective });
         }

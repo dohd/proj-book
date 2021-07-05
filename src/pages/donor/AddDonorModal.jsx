@@ -13,6 +13,7 @@ export default function AddDonor(props) {
         setVisible(prev => ({...prev, create: false}));
         Api.donor.post(values)
         .then(res => {
+            if (!res) return;
             form.resetFields();
             fetchDonors();
         });

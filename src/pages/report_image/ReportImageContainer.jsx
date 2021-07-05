@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
+import { message } from 'antd';
 
 import ReportImage from './ReportImage';
 import uploadTask from 'utils/firebaseConfig';
@@ -10,10 +11,7 @@ import { clientSocket } from 'utils';
 const fetchNarratives = dispatch => {
     Api.narrative.get()
     .then(res => {
-        dispatch({
-            type: 'addNarratives',
-            payload: res
-        });
+        dispatch({type: 'addNarratives', payload: res});
         clientSocket.emit('narratives', res);
     });
 };
@@ -47,9 +45,17 @@ export default function ReportImageContainer() {
 
     const handleBeforeUpload = file => {
         const name = `${fetchAud()}-${narrativeReportId}-${file.name}`;
-        const renamedFile = new File([file], name, {type: file.type});
+        const renFile = new File([file], name, {type: file.type});
         setLoading(true);
-        upload(renamedFile).catch(console.log);
+
+        upload(renFile).catch(err => {
+            console.log(err);
+            setLoading(false);
+            message.error(
+                `Something went wrong! 
+                Choose a different image.`
+            );
+        });
         return false;
     };
 

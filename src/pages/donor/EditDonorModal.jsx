@@ -13,6 +13,7 @@ export default function EditDonor(props) {
         setVisible(prev => ({...prev, update: false}));
         Api.donor.patch(record.key, values)
         .then(res => {
+            if (!res) return;
             form.resetFields();
             fetchDonors();
         });
@@ -27,7 +28,7 @@ export default function EditDonor(props) {
 
     // Initial form values
     useEffect(() => {
-        if (record.hasOwnProperty('name')) {
+        if (record?.name) {
             form.setFieldsValue({
                 name: record.name,
                 phone: record.phone,

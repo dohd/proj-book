@@ -11,6 +11,7 @@ export default function CreateGroup(props) {
         setVisible(prev => ({...prev, create: false}));
         Api.targetGroup.post(values)
         .then(res => {
+            if(!res) return;
             form.resetFields();
             fetchTargetGroups();
         });

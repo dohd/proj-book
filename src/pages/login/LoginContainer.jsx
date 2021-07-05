@@ -10,7 +10,7 @@ export default function LoginContainer({ history }) {
     const onFinish = values => {
         setLoading(true);
         Auth.login(values)
-        .then(res => res && history.push(Path.home))
+        .then(res =>history.push(Path.home))
         .catch(err => setLoading(false));
     };
     const onFinishFailed = err => console.log('Error:', err);

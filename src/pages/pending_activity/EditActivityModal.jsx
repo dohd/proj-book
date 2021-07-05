@@ -11,7 +11,7 @@ export default function EditActivity(props) {
         values.action = values.activity;
         
         Api.activity.patch(record.key, values)
-        .then(res => fetchProposals())
+        .then(res => res && fetchProposals());
     };
     
     const onOk = () => {
@@ -23,7 +23,7 @@ export default function EditActivity(props) {
 
     const [form] = Form.useForm();
     useEffect(() => {
-        if (record.hasOwnProperty('activity')) {
+        if (record?.activity) {
             const { activity } = record;
             form.setFieldsValue({ activity });
         }

@@ -15,6 +15,7 @@ export default function AddObjective(props) {
 
         Api.objective.post(values)
         .then(res => {
+            if (!res) return;
             form.resetFields();
             fetchProposals();
         });

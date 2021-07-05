@@ -5,7 +5,7 @@ export default function ViewModal(props) {
     const { visible, setVisible, record } = props;
     return (
         <Modal
-            title='Narrative Report Track'
+            title='Report Response Track'
             visible={visible}
             okText='Done'
             onCancel={() => setVisible(false)}

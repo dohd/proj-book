@@ -8,6 +8,7 @@ import {
     ProfileOutlined, FileTextOutlined, AreaChartOutlined,
     ContactsOutlined
 } from '@ant-design/icons';
+import { useHistory } from 'react-router-dom';
 
 import './dashboard.css';
 import homeRoutes from './routeConfig';
@@ -19,8 +20,9 @@ const { Header, Sider, Content, Footer } = Layout;
 const { SubMenu } = Menu;
 
 export default function Dashboard(props) {
-    const { routePaths, profileName, profileImage } = props;
-    
+    const { routePaths, profileName, profileImage } = props;   
+    const history = useHistory();
+
     const breadcrumbItems = routePaths.map((url,indx,arr) => {
         const last = arr.indexOf(url) === arr.length - 1;
         return (
@@ -40,7 +42,12 @@ export default function Dashboard(props) {
     return (
         <Layout>
             <Sider className='sider'>
-                <h2 className='app-name'>PROJ-BOOK</h2>
+                <h2 
+                    className='app-name' 
+                    onClick={() => history.push(Path.home)}
+                >
+                    PROJ-BOOK
+                </h2>
                 <div className='avatar-container'>
                     <AvatarProfile profileImage={profileImage} />
                     <p className='profile-name'>{ profileName }</p>
@@ -58,23 +65,26 @@ export default function Dashboard(props) {
                         </Link>
                     </Menu.Item> 
 
-                    <SubMenu
-                        key='organisation'
-                        title='Organisation'
-                        icon={<GlobalOutlined />}
-                    >
-                        <Menu.Item key='key-programme'>
-                            <Link to={Path.programmes}>Key Programme</Link>
-                        </Menu.Item>
+                    {
+                        isAdmin() &&
+                        <SubMenu
+                            key='organisation'
+                            title='Organisation'
+                            icon={<GlobalOutlined />}
+                        >
+                            <Menu.Item key='key-programme'>
+                                <Link to={Path.programmes}>Key Programme</Link>
+                            </Menu.Item>
 
-                        <Menu.Item key='target-region'>
-                            <Link to={Path.regions}>Target Region</Link>
-                        </Menu.Item>
-                        
-                        <Menu.Item key='target-group'>
-                            <Link to={Path.groups}>Target Group</Link>
-                        </Menu.Item>
-                    </SubMenu>
+                            <Menu.Item key='target-region'>
+                                <Link to={Path.regions}>Target Region</Link>
+                            </Menu.Item>
+                            
+                            <Menu.Item key='target-group'>
+                                <Link to={Path.groups}>Target Group</Link>
+                            </Menu.Item>
+                        </SubMenu>
+                    }                    
 
                     <SubMenu
                         key='donor-info'
@@ -189,8 +199,8 @@ export default function Dashboard(props) {
                 </Content>
 
                 <Footer className='footer'>
-                    <p style={{ fontWeight: 'bold' }}>
-                        Copyright ©2021. All rights reserved.
+                    <p style={{ fontWeight: 'normal' }}>
+                        Copyright ©2021 Proj-book. All rights reserved.
                     </p>
                 </Footer>
             </Layout>

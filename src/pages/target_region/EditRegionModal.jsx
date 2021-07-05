@@ -10,7 +10,7 @@ export default function UpdateRegion(props) {
         setVisible(prev => ({...prev, update: false}));
         values.area = values.region;
         Api.targetRegion.patch(record.key, values)
-        .then(res => fetchTargetRegions());
+        .then(res => res && fetchTargetRegions());
     };
 
     const [form] = Form.useForm();
@@ -23,7 +23,7 @@ export default function UpdateRegion(props) {
 
     // Initial form values
     useEffect(() => {
-        if (record.hasOwnProperty('region')) {
+        if (record?.region) {
             const { region } = record;
             form.setFieldsValue({ region });
         }

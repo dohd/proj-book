@@ -13,11 +13,11 @@ export default function PasswordRecoverContainer({history}) {
         setLoading(true);
         Api.recoverPassword.post(values)
         .then(res => {
+            setLoading(false);
+            if (!res) return;
             message.success(`Reset link has been sent to ${res.email}`);
             form.resetFields();
-            setLoading(false);   
-        })
-        .catch(err => setLoading(false));
+        });
     };
     const onFinishFailed = err => console.log('Error:',err);
 

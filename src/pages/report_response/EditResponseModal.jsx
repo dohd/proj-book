@@ -12,9 +12,9 @@ export default function EditResponseModal(props) {
     const [form] = Form.useForm();
     const onCreate = values => {
         setVisible(false);
-        console.log(values);
         Api.narrativeResponse.patch(record.key, values)
         .then(res => {
+            if (!res) return;
             form.resetFields();
             fetchNarratives();
         });
@@ -27,11 +27,9 @@ export default function EditResponseModal(props) {
     };
 
     useEffect(() => {
-        if (record.hasOwnProperty('response')) {
-            form.setFieldsValue({
-                response: record.response
-            });
-        }
+        if (record?.response) form.setFieldsValue({ 
+            response: record.response 
+        });
     }, [record, form]);
 
     return (

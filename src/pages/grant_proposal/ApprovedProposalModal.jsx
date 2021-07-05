@@ -15,7 +15,7 @@ export default function ApprovedProposal(props) {
         values.startPeriod = periods[0];
         values.endPeriod = periods[1];
         Api.proposal.patch(record.key, values)
-        .then(res => fetchProposals());
+        .then(res => res && fetchProposals());
     };
 
     const [form] = Form.useForm();
@@ -28,7 +28,7 @@ export default function ApprovedProposal(props) {
 
     // Initial from values
     useEffect(() => {
-        if (record.hasOwnProperty('title')) {
+        if (record?.title) {
             const { startPeriod, endPeriod } = record;
             const period = [startPeriod, endPeriod];
             form.setFieldsValue({

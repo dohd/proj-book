@@ -1,5 +1,5 @@
 import React, { useEffect,  useState } from 'react';
-import { Form, message } from 'antd';
+import { Form } from 'antd';
 import moment from 'moment';
 import { useParams } from 'react-router';
 
@@ -8,7 +8,7 @@ import Api from 'api';
 import { useTracked } from 'context';
 import fetchParticipants from './participantApi';
 
-export default function UpdateParticipant() {
+export default function UpdateParticipant({history}) {
     const [store, dispatch] = useTracked();
     const { 
         activityId, participantId, 
@@ -56,8 +56,9 @@ export default function UpdateParticipant() {
 
         Api.participant.patch(participantId, values)
         .then(res => {
-            message.success('Participant updated successfully')
+            if (!res) return;
             fetchParticipants(dispatch);
+            history.goBack();
         });
     };
     const onFinishFailed = err => console.log('Error:',err);
@@ -85,7 +86,7 @@ export default function UpdateParticipant() {
 
     useEffect(() => {
         const { keyProgramme } = state;
-        if (keyProgramme.hasOwnProperty('id')) {
+        if (keyProgramme?.id) {
             form.setFieldsValue({
                 keyProgramme: keyProgramme.programme
             });

@@ -16,6 +16,7 @@ export default function AddActivity(props) {
 
         Api.activity.post(values)
         .then(res => {
+            if (!res) return;
             form.resetFields();
             fetchProposals();
         });

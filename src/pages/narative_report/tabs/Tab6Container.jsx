@@ -54,7 +54,7 @@ export default function Tab6Container(props) {
     const onOk = () => {
         form.validateFields()
         .then(values => onCreate(values))
-        .catch(info => console.log('Validate Failed:', info));
+        .catch(err => console.log('Validate Failed:', err));
     };
 
     const modal_props = { visible, setVisible, onOk, form };

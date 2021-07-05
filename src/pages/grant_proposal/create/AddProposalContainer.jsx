@@ -45,8 +45,9 @@ export default function AddProposalContainer({ history }) {
 
         Api.proposal.post(values)
         .then(res => {
+            if (!res) return;
             form.resetFields();
-            message.success('Form submitted successfully');
+            message.success('Proposal submitted successfully');
             fetchProposals(dispatch);
         });
     };

@@ -51,7 +51,7 @@ export default function BasicInfo(props) {
                             <Input maxLength={55} />
                         </Form.Item>
                         <Form.Item 
-                            label='Username' 
+                            label='Administrator Username' 
                             name='username'
                             rules={[{ 
                                 required: true,
@@ -61,7 +61,7 @@ export default function BasicInfo(props) {
                             <Input prefix={<UserOutlined />} placeholder='e.g John Doe' />
                         </Form.Item>
                         <Form.Item 
-                            label='Email' 
+                            label='Administrator Email' 
                             name='email'
                             rules={[{ required: true }]}
                         >

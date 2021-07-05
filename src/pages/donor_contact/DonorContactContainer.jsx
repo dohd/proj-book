@@ -27,6 +27,7 @@ export default function DonorContactContainer(params) {
         const contacts = store.donorContacts.map(v => ({
             key: v.id, 
             donor: v.donor.name,
+            donorId: v.donor.id,
             contactName: `${v.fName} ${v.lName}`,
             telephone: v.telephone,
             email: v.email

@@ -7,8 +7,8 @@ const layout = { labelCol: { span: 6 }, wrapperCol: { span: 16 } };
 
 export default function EditContact(props) {
     const { 
-        record, visible, setVisible, fetchDonorContacts,
-        donors
+        record, visible, setVisible, 
+        fetchDonorContacts, donors
     } = props;
     
     const [form] = Form.useForm();
@@ -21,6 +21,7 @@ export default function EditContact(props) {
 
         Api.donorContact.patch(record.key, values)
         .then(res => {
+            if (!res) return;
             form.resetFields();
             fetchDonorContacts();
         });
@@ -35,11 +36,10 @@ export default function EditContact(props) {
 
     // Initial form values
     useEffect(() => {
-        if (record.hasOwnProperty('key')) {
-            const {fName, lName} = record; 
+        if (record?.key) {
             form.setFieldsValue({
                 donorId: record.donorId,
-                contactName: `${fName} ${lName}`,
+                contactName: record.contactName,
                 telephone: record.telephone,
                 email: record.email,
             });

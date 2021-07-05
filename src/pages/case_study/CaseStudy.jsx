@@ -13,7 +13,7 @@ export default function CaseStudy(props) {
     const { 
         caseStudies, onExport, record,
         visible, setVisible, showModal,
-        onDelete, fetchNarrative
+        onDelete, fetchCaseStudies
     } = props;
     const history = useHistory();
 
@@ -44,7 +44,7 @@ export default function CaseStudy(props) {
                 visible={visible} 
                 setVisible={setVisible}
                 record={record}
-                fetchNarrative={fetchNarrative}
+                fetchCaseStudies={fetchCaseStudies}
             />
 
             <Table 

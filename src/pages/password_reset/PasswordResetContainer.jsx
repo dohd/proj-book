@@ -15,12 +15,10 @@ export default function PasswordResetContainer({history}) {
         setLoading(true)
         Api.recoveryPassword.post({...values, ...params})
         .then(res => {
-            if (res) {
-                message.success('Password successfully updated');
-                history.push(Path.login);    
-            }
-        })
-        .catch(err => setLoading(false));
+            if (!res) return setLoading(false);
+            message.success('Password successfully updated');
+            history.push(Path.login);    
+        });
     };
     const onFinishFailed = err => console.log('Error:',err);
 

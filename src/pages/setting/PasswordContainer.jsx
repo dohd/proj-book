@@ -8,12 +8,11 @@ export default function PasswordContainer() {
     const [form] = Form.useForm();
     const onFinish = values => {
         Api.resetPassword.post(values)
-        .then(res => message.success('Password updated successfully'))
-        .catch(err => {
-            console.log(err);
-            message.error('Unknown error!');
+        .then(res => {
+            if (!res) return; 
+            message.success('Password updated successfully');
+            form.resetFields();   
         });
-        form.resetFields();
     };
     const onFinishFailed = err => console.log('Error:',err);
 

@@ -1,6 +1,6 @@
-import React, { useEffect,  useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Form, message } from 'antd';
+import { Form } from 'antd';
 import moment from 'moment';
 
 import EditPendingProposal, { dateFormat } from './EditPendingProposal';
@@ -20,9 +20,10 @@ const fetchProposals = dispatch => {
 };
 
 export default function EditPendingProposalContainer({history}) {
+    const { proposalId } = useParams();
     const [store, dispatch] = useTracked();
-    const [donors, setDonors] = useState([]);
 
+    const [donors, setDonors] = useState([]);
     useEffect(() => {
         const donors = store.donors.map(v => ({
             id: v.id, name: v.name
@@ -30,7 +31,6 @@ export default function EditPendingProposalContainer({history}) {
         setDonors(donors);
     }, [store.donors]);
 
-    const { proposalId } = useParams();
     const onFinish = values => {
         const { dateSubmitted } = values;
         values.dateSubmitted = dateSubmitted.format(dateFormat);
@@ -40,7 +40,7 @@ export default function EditPendingProposalContainer({history}) {
         
         Api.proposal.patch(proposalId, values)
         .then(res => { 
-            message.success('Proposal updated successfully');
+            if (!res) return;
             fetchProposals(dispatch);
             history.goBack();
         });

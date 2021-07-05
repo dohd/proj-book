@@ -7,7 +7,7 @@ export default function EditProgramme(props) {
     const onCreate = values => {
         setVisible(prev => ({...prev, update: false}));
         Api.keyProgramme.patch(record.key, values)
-        .then(res => fetchKeyProgrammes())
+        .then(res => res && fetchKeyProgrammes())
     };
 
     const [form] = Form.useForm();
@@ -20,7 +20,7 @@ export default function EditProgramme(props) {
 
     // Initial form values
     useEffect(() => {
-        if (record.hasOwnProperty('programme')) {
+        if (record?.programme) {
             const { programme } = record;
             form.setFieldsValue({ programme });
         }

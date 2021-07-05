@@ -7,15 +7,14 @@ import Api from 'api';
 import { useTracked } from 'context';
 import { clientSocket } from 'utils';
 
-const fetchNarratives = dispatch => {
-    Api.narrative.get()
-    .then(res => {
-        dispatch({
-            type: 'addNarratives',
-            payload: res
-        });
-        clientSocket.emit('narratives', res);
-    });
+const fetchNarratives = async dispatch => {
+    const narratives = await Api.narrative.get();
+    dispatch({type: 'addNarratives', payload: narratives});
+    clientSocket.emit('narratives', narratives);
+
+    const studies = await Api.caseStudy.get();
+    dispatch({type: 'addCaseStudies', payload: studies});
+    clientSocket.emit('caseStudies', studies);
 };
 
 export default function NarrativeContainer() {
@@ -66,6 +65,7 @@ export default function NarrativeContainer() {
         
         Api.narrative.post(report)
         .then(res => {
+            if (!res) return;
             setState(initialState);
             setTab({key: '1'});
             message.success('Report submitted successfully');
@@ -92,10 +92,9 @@ export default function NarrativeContainer() {
     };
 
     const props = {
-        state, setState, onSubmit, 
-        nextTab, prevTab, showModal, 
-        agendaActivities, visible,
-        record, tab, onTabChange
+        state, setState, onSubmit, nextTab, prevTab, 
+        showModal, agendaActivities, visible,
+        record, tab, onTabChange, setVisible
     };
     return <Narrative {...props} />;
 }

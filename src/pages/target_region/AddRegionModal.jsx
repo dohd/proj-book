@@ -12,6 +12,7 @@ export default function CreateRegion(props) {
         values.area = values.region;
         Api.targetRegion.post(values)
         .then(res => {
+            if (!res) return;
             form.resetFields();
             fetchTargetRegions()
         });

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { message } from 'antd';
 
 import './changeAvatar.css';
 import ChangeAvatar from './ChangeAvatar';
@@ -10,16 +11,16 @@ import { clientSocket } from 'utils';
 const fetchProfileImage = dispatch => {
     Api.profileImage.get()
     .then(res => {
-        dispatch({
-            type: 'addProfileImage', 
-            payload: res
-        });
+        dispatch({type: 'addProfileImage', payload: res});
         clientSocket.emit('profileImage', res);
     });
 };
 
 export default function ChangeAvatarContainer(params) {
     const [store, dispatch] = useTracked();
+
+    const [url, setUrl] = useState('');
+    useEffect(() => setUrl(store.profileImage.url), [store.profileImage]);
 
     const [loading, setLoading] = useState(false);
 
@@ -34,12 +35,17 @@ export default function ChangeAvatarContainer(params) {
         const name = 'image-' + fetchAud();
         const renFile = new File([file], name, {type: file.type});
         setLoading(true);
-        upload(renFile).catch(console.log);
+
+        upload(renFile).catch(err => {
+            console.log(err);
+            setLoading(false);
+            message.error(
+                `Something went wrong! 
+                Choose a different image.`
+            );
+        });
         return false;
     };
-
-    const [url, setUrl] = useState('');
-    useEffect(() => setUrl(store.profileImage.url), [store.profileImage]);
  
     const props = {loading, url, handleBeforeUpload};
     return <ChangeAvatar {...props} />;

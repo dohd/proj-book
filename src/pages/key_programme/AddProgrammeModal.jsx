@@ -10,6 +10,7 @@ export default function AddProgramme(props) {
         setVisible(prev => ({...prev, create: false}));
         Api.keyProgramme.post(values)
         .then(res => {
+            if (!res) return;
             form.resetFields();
             fetchKeyProgrammes();
         });

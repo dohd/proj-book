@@ -9,7 +9,7 @@ export default function UpdateGroup(props) {
     const onCreate = values => {
         setVisible(prev => ({...prev, update: false}));
         Api.targetGroup.patch(record.key, values)
-        .then(res => fetchTargetGroups());
+        .then(res => res && fetchTargetGroups());
     };
 
     const [form] = Form.useForm();
@@ -22,7 +22,7 @@ export default function UpdateGroup(props) {
 
     // Initial form values
     useEffect(() => {
-        if (record.hasOwnProperty('group')) {
+        if (record?.group) {
             const { group } = record;
             form.setFieldsValue({ group });
         }

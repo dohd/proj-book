@@ -14,7 +14,7 @@ export default function UserModal(props) {
     const onCreate = values => {
         setVisible(prev => ({...prev, update: false}));
         Api.user.patch(record.key, values)
-        .then(res => fetchUsers());
+        .then(res => res && fetchUsers());
     };
 
     const onOk = () => {
@@ -27,19 +27,19 @@ export default function UserModal(props) {
     const checkName = (rule, value) => {
         const regex = new RegExp(/^([a-zA-Z]{2,})\s([a-zA-Z]{2,})$/);
         if (!value) return Promise.reject('username is required');
-        if (regex.test(value)) return Promise.resolve();
-        return Promise.reject('username is invalid');
+        if (!regex.test(value)) return Promise.reject('username is invalid'); 
+        return Promise.resolve();
     };
 
     const checkInitial = (rule, value) => {
         const regex = new RegExp(/^([a-zA-Z])\.([a-zA-Z]{2,})$/)
         if (!value) return Promise.reject('initial is required');
-        if (regex.test(value)) return Promise.resolve();
-        return Promise.reject('initial is invalid');
+        if (!regex.test(value)) return Promise.reject('initial is invalid');
+        return Promise.resolve();        
     };
 
     useEffect(() => {
-        if (record.hasOwnProperty('username')) {
+        if (record?.username) {
             form.setFieldsValue({
                 username: record.username,
                 initial: record.initial,

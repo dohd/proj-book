@@ -8,10 +8,7 @@ import { clientSocket } from 'utils';
 const fetchUsers = dispatch => {
     Api.user.get()
     .then(res => {
-        dispatch({
-            type: 'addUsers',
-            payload: res
-        });
+        dispatch({type: 'addUsers', payload: res});
         clientSocket.emit('users', res);
     });
 };
@@ -23,8 +20,8 @@ export default function UsersContainer() {
     });
 
     useEffect(() => {
-        const usersList = store.users.map(val => ({...val, key: val.id}));
-        setState(prev => ({...prev, users: usersList, roles: store.roles}));
+        const list = store.users.map(val => ({...val, key: val.id}));
+        setState(prev => ({...prev, users: list, roles: store.roles}));
     }, [store.users, store.roles]);
 
     const onDelete = key => {

@@ -18,6 +18,7 @@ export default function UpdateAgenda(props) {
         values.endTime = time[1];
         Api.agenda.patch(record.key, values)
         .then(res => {
+            if (!res) return;
             form.resetFields();
             fetchAgenda();
         });
@@ -31,7 +32,7 @@ export default function UpdateAgenda(props) {
     const onCancel = () => setVisible(prev => ({...prev, update: false}));
     
     useEffect(() => {
-        if (record.hasOwnProperty('task')) {
+        if (record?.task) {
             const {startTime, endTime} = record;
             form.setFieldsValue({
                 task: record.task,

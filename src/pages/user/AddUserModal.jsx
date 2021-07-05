@@ -15,9 +15,10 @@ export default function CreateUser(props) {
         setVisible(prev => ({...prev, create: false}));
         Api.user.post(values)
         .then(res => {
+            if (!res) return;
             fetchUsers();
             form.resetFields();
-        })
+        });
     };
 
     const onOk = () => {
@@ -30,15 +31,15 @@ export default function CreateUser(props) {
     const checkName = (rule, value) => {
         const regex = new RegExp(/^([a-zA-Z]{2,})\s([a-zA-Z]{2,})$/);
         if (!value) return Promise.reject('username is required');
-        if (regex.test(value)) return Promise.resolve();
-        return Promise.reject('username is invalid');
+        if (!regex.test(value)) return Promise.reject('username is invalid');
+        return Promise.resolve();
     };
 
     const checkInitial = (rule, value) => {
         const regex = new RegExp(/^([a-zA-Z])\.([a-zA-Z]{2,})$/)
         if (!value) return Promise.reject('initial is required');
-        if (regex.test(value)) return Promise.resolve();
-        return Promise.reject('initial is invalid');
+        if (!regex.test(value)) return Promise.reject('initial is invalid');
+        return Promise.resolve();
     };
     
     const params = {

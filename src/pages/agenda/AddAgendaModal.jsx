@@ -21,6 +21,7 @@ export default function CreateAgenda(props) {
 
         Api.agenda.post(values)
         .then(res => {
+            if (!res) return;
             form.resetFields();
             fetchAgenda();
         });
@@ -73,7 +74,7 @@ export default function CreateAgenda(props) {
                         message: 'assignee (responsible person) is required' 
                     }]}
                 >
-                    <Input />
+                    <Input placeholder='e.g John Doe' />
                 </Form.Item>
 
                 <Form.Item

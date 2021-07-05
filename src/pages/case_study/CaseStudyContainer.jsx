@@ -7,10 +7,10 @@ import { useParams } from 'react-router';
 import { clientSocket } from 'utils';
 import createPdf, { table } from 'utils/pdfMake';
 
-const fetchNarrative = async dispatch => {
-    const res = await Api.narrative.get();
-    dispatch({type: 'addNarratives', payload: res});
-    clientSocket.emit('narratives', res);
+const fetchCaseStudies = async dispatch => {
+    const res = await Api.caseStudy.get();
+    dispatch({type: 'addCaseStudies', payload: res});
+    clientSocket.emit('caseStudies', res);
 };
 
 export default function CaseStudyContainer() {
@@ -36,7 +36,7 @@ export default function CaseStudyContainer() {
 
     const onDelete = key => {
         Api.caseStudy.delete(key)
-        .then(res => fetchNarrative(dispatch));
+        .then(res => fetchCaseStudies(dispatch));
     };
 
     const onExport = () => {
@@ -62,7 +62,7 @@ export default function CaseStudyContainer() {
     const props = { 
         caseStudies, record, visible, onExport, 
         setVisible, showModal, onDelete,
-        fetchNarrative: () => fetchNarrative(dispatch)
+        fetchCaseStudies: () => fetchCaseStudies(dispatch)
     };
     return <CaseStudy {...props} />
 }

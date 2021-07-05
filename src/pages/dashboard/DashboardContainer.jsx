@@ -18,8 +18,7 @@ export default function DashboardContainer({ location }) {
     }, [dispatch]);
 
     const [state, setState] = useState({
-        name: '',
-        imageUrl: ''
+        name: '', imageUrl: ''
     });
 
     const { profileImage, orgProfile } = store;
