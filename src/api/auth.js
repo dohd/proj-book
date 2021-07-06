@@ -13,8 +13,7 @@ export const Auth = {
     register: async values => {
         try {
             const res = await Api.register.post(values);
-            setToken(res.accessToken);
-            return Promise.resolve(isAuth());
+            return Promise.resolve(res);
         } catch (error) {
             return Promise.reject(error);
         }

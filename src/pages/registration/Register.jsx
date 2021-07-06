@@ -65,7 +65,7 @@ function OrgProfileContainer({state, setState}) {
         setLoading(true);
 
         Auth.register(data)
-        .then(res => history.push(Path.home))
+        .then(res => history.push(Path.login))
         .catch(err => setLoading(false));
     };
     const onFinishFailed = err => console.log('Error:', err);
