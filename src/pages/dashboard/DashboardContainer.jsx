@@ -12,7 +12,7 @@ import { clientSocket } from 'utils';
 export default function DashboardContainer({ location }) {
     const [store, dispatch] = useTracked();
     useEffect(() => fetchResources(dispatch), [dispatch]);
-    useEffect(() => { 
+    useEffect(() => {
         clientSocket.init();
         socketUpdateResources(dispatch);
     }, [dispatch]);
