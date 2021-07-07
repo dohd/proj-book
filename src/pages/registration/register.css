@@ -17,6 +17,7 @@
     padding-top: 1.8em;
     margin-left: auto;
     margin-right: auto;
+    margin-bottom: 1em;
 }
 
 .loginText {
@@ -28,4 +29,23 @@
 
 .whiteText {
     color: white;
+}
+
+@media (max-width: 480px) {
+    .register-basic {
+        width: 24em;
+    }
+    .register-profile {
+        width: 24em;
+    }
+    .loginText {
+        margin-left: 2em;
+    }
+}
+
+@media (min-width: 576px) {
+    .register-btn {
+        width: 75%;
+        margin-left: 6.5em;
+    }
 }

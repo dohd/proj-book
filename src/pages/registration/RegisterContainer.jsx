@@ -8,7 +8,7 @@ import BasicInfo from './BasicInfo';
 import { Auth } from 'api';
 import { Path } from 'routes';
 
-export default function Register() {
+export default function RegisterContainer() {
     const [state, setState] = useState({
        home: false,  
        profile: false,

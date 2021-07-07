@@ -3,7 +3,7 @@ import { Card, Form, Input, Button, Space } from 'antd';
 import { ArrowLeftOutlined, UserOutlined, MailOutlined  } from '@ant-design/icons';
 
 const layout = { labelCol: { span: 5 }, wrapperCol: { span: 18 } };
-const tailLayout = { wrapperCol: { span: 18, offset: 4 } };
+const tailLayout = { wrapperCol: { span: 24 } };
 
 export default function OrgProfile(props) {
     const {
@@ -61,8 +61,7 @@ export default function OrgProfile(props) {
                         </Form.Item>
                         
                         <Form.Item
-                            labelCol={{ offset: 2 }}
-                            label='Email'
+                            label={<Space>Email</Space>}
                             name='orgEmail'
                             rules={[{ 
                                 required: true,
@@ -74,8 +73,7 @@ export default function OrgProfile(props) {
                         
                         <legend>Contact Person</legend>
                         <Form.Item
-                            labelCol={{ offset: 2 }}
-                            label='Name'
+                            label={<Space>Name</Space>}
                             name='name'
                             rules={[{
                                 required: true,
@@ -97,18 +95,16 @@ export default function OrgProfile(props) {
                         </Form.Item>
 
                         <Form.Item
-                            labelCol={{ offset: 2 }}
-                            label='Email'
+                            label={<Space>Email</Space>}
                             name='cpEmail'
                             rules={[{ required: true }]}
                         >
                             <Input type='email' prefix={<MailOutlined />} />
                         </Form.Item>
                         
-                        <Form.Item
-                            {...tailLayout}
-                        >
+                        <Form.Item {...tailLayout}>
                             <Button
+                                className='register-btn'
                                 type='primary'
                                 htmlType='submit'
                                 loading={isLoading}
