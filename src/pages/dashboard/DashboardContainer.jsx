@@ -37,8 +37,11 @@ export default function DashboardContainer({ location }) {
         setRoutePaths(urls)
     }, [location.pathname]);
 
+    // Drawer logic
+    const [visible, setVisible] = useState(false);
+
     const props = {
-        routePaths,
+        routePaths, visible, setVisible,
         profileName: state.name,
         profileImage: state.imageUrl
     };    

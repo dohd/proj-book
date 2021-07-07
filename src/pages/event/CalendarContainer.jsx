@@ -9,13 +9,17 @@ export default function CalendarContainer(props) {
     useEffect(() => {
         const table = tableView.current
         const tableRows = table.getElementsByTagName('tr');
+
         [...tableRows].forEach(row => {
             const rowCells = row.cells;
+
             [...rowCells].forEach(cell => {
                 const value = Number(cell.innerText);
+
                 if (isPlan(value)) {
                     cell.classList.add('plan-cell');
                     const ant_class = [...row.classList];
+                    
                     cell.onclick = function () { showModal(value) };
                     row.onmouseover = function () {
                         row.classList.remove(...ant_class);

@@ -30,7 +30,6 @@
     left: 0;
 }
 
-
 /* sider scrollbar */
 .sider {
     scrollbar-width: 8px;
@@ -50,6 +49,9 @@
     background-color: #1890FF;
 }
 
+.main-layout {
+    margin-left: 14.25em;
+}
 
 .header {
     position: fixed;
@@ -59,6 +61,23 @@
 
 .header-icons {
     margin-left: calc(100% - 250px);
+}
+.setting-icon {
+    color: white;
+    font-size: 1.5em;
+    margin-right: 1em;
+}
+.logout-icon {
+    color: white;
+    font-size: 1.4em;
+}
+.menu-icon {
+    color: white;
+    font-size: 1.5em;
+    position: fixed;
+    top: 1em;
+    right: calc(100% - 250px);
+    display: none;
 }
 
 .content {
@@ -80,9 +99,42 @@
     background: white;
 }
 
-.setting-icon {
-    color: white;
-    font-size: 1.5em;
-    display: inline-block;
-    margin-right: 1em;
+.dash-drawer .ant-drawer-header {
+    background: #001529;
+    height: 65px;
+}
+.dash-drawer .ant-drawer-content {
+    background: #001529;
+}
+.dash-drawer .ant-drawer-body {
+    padding: 0;
+}
+.dash-drawer .app-name {
+    margin-top: .2em;
+    margin-left: 1em;
+}
+.dash-drawer .logout-icon {
+    display: block;
+    font-size: 3em;
+    margin-top: calc(100% - 150px);
+    margin-bottom: .5em;
+}
+
+@media (max-width: 768px) {
+    .menu-icon {
+        display: block;
+        left: calc(100% - 80px);
+    }
+    .sider {
+        display: none;
+    }
+    .main-layout {
+        margin-left: 0;
+    }
+    .setting-icon {
+        display: none;
+    }
+    .logout-icon {
+        display: none;
+    }
 }

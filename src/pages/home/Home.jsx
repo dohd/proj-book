@@ -5,8 +5,8 @@ import {
     EllipsisOutlined, FileDoneOutlined, CarryOutOutlined
 } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
-import './home.css';
 
+import './home.css';
 import { Path } from 'routes';
 
 export default function Home(props) {
