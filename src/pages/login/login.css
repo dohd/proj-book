@@ -28,3 +28,15 @@
 .whiteText {
     color: white;
 }
+
+@media (max-width: 480px) {
+    .login {
+        width: 23em;
+    }
+    .registerText {
+        margin-left: 2em;
+    }
+    .passwordText {
+        margin-left: 6em;
+    }
+}
