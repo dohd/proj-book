@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 
 import Dashboard from './Dashboard';
-import RouteResolver from 'routes';
+import { Auth } from 'api';
+import RouteResolver, { Path } from 'routes';
 import { 
     useTracked, 
     fetchResources, 
@@ -9,7 +10,7 @@ import {
 } from 'context';
 import { clientSocket } from 'utils';
 
-export default function DashboardContainer({ location }) {
+export default function DashboardContainer({ location, history }) {
     const [store, dispatch] = useTracked();
     useEffect(() => fetchResources(dispatch), [dispatch]);
     useEffect(() => {
@@ -39,11 +40,20 @@ export default function DashboardContainer({ location }) {
 
     // Drawer logic
     const [visible, setVisible] = useState(false);
+    const showDrawer = () => setVisible(true);
+    const onClose = () => setVisible(false);
+
+    // Logout logic
+    const toggleLogout = () => {
+        Auth.logout();
+        history.push(Path.login);
+    };
 
     const props = {
-        routePaths, visible, setVisible,
+        routePaths, visible, showDrawer, 
+        onClose, toggleLogout,
         profileName: state.name,
         profileImage: state.imageUrl
-    };    
+    };
     return <Dashboard {...props} />;
 }

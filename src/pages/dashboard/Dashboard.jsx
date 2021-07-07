@@ -1,13 +1,13 @@
 import React from 'react';
 import { Route, Link } from 'react-router-dom';
 import { Layout, Breadcrumb, Drawer } from 'antd';
-import { MenuOutlined, SettingOutlined } from '@ant-design/icons';
+import { MenuOutlined, SettingOutlined, LogoutOutlined } from '@ant-design/icons';
 import { useHistory } from 'react-router-dom';
 
 import './dashboard.css';
 import SiderMenu from './SiderMenu';
 import homeRoutes from './routeConfig';
-import { AvatarProfile, Logout } from 'components';
+import { AvatarProfile } from 'components';
 import { Path, RouteNameMap } from 'routes';
 
 const { Header, Sider, Content, Footer } = Layout;
@@ -15,8 +15,8 @@ const { Header, Sider, Content, Footer } = Layout;
 export default function Dashboard(props) {
     const { 
         routePaths, profileName, profileImage,
-        visible, setVisible 
-    } = props;   
+        visible, onClose, showDrawer, toggleLogout
+    } = props;
     const history = useHistory();
 
     const breadcrumbItems = routePaths.map((url,indx,arr) => {
@@ -35,9 +35,6 @@ export default function Dashboard(props) {
         <Route exact path={path} component={component} key={path} />
     ));
     
-    const showDrawer = () => setVisible(true);
-    const onClose = () => setVisible(false);
-
     return (
         <Layout>
             <Drawer
@@ -52,8 +49,7 @@ export default function Dashboard(props) {
                 onClose={onClose}
                 visible={visible}
             >
-                <SiderMenu />                
-                <Logout />
+                <SiderMenu toggleLogout={toggleLogout} />
             </Drawer>
 
             <Sider className='sider'>
@@ -69,7 +65,7 @@ export default function Dashboard(props) {
                     <p className='profile-name'>{ profileName }</p>
                 </div>
 
-                <SiderMenu />
+                <SiderMenu toggleLogout={toggleLogout} />
             </Sider>
 
             <Layout className='main-layout'>
@@ -81,7 +77,7 @@ export default function Dashboard(props) {
                             <SettingOutlined className='setting-icon'/>
                         </Link>
                         
-                        <Logout />
+                        <LogoutOutlined className='logout-icon' onClick={toggleLogout}/>
                     </div>
                 </Header>
 

@@ -73,11 +73,14 @@
 }
 .menu-icon {
     color: white;
-    font-size: 1.5em;
+    font-size: 2.4em;
     position: fixed;
-    top: 1em;
+    top: .4em;
     right: calc(100% - 250px);
     display: none;
+}
+.logout-menu {
+    display: none!important;
 }
 
 .content {
@@ -111,19 +114,20 @@
 }
 .dash-drawer .app-name {
     margin-top: .2em;
-    margin-left: 1em;
+    margin-left: .6em;
 }
 .dash-drawer .logout-icon {
-    display: block;
-    font-size: 3em;
-    margin-top: calc(100% - 150px);
-    margin-bottom: .5em;
+    display: inline;
+    font-size: small;
 }
 
 @media (max-width: 768px) {
     .menu-icon {
         display: block;
-        left: calc(100% - 80px);
+        left: calc(100% - 70px);
+    }
+    .logout-menu {
+        display: inline-block!important;
     }
     .sider {
         display: none;

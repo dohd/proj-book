@@ -5,7 +5,7 @@ import {
     AuditOutlined, TeamOutlined, InfoOutlined,
     ProjectOutlined, GlobalOutlined, ExceptionOutlined,
     ProfileOutlined, FileTextOutlined, AreaChartOutlined,
-    ContactsOutlined
+    ContactsOutlined, LogoutOutlined
 } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 
@@ -14,7 +14,7 @@ import { isAdmin } from 'api';
 
 const { SubMenu } = Menu;
 
-export default function SiderMenu() {
+export default function SiderMenu({toggleLogout}) {
     return (
         <Menu
             defaultSelectedKeys={['dashboard']}
@@ -138,6 +138,14 @@ export default function SiderMenu() {
                     </Link>
                 </Menu.Item>
             </SubMenu>
+            <Menu.Item 
+                className='logout-menu'
+                key='logout'
+                icon={<LogoutOutlined />}
+                onClick={toggleLogout}
+            >
+                Logout
+            </Menu.Item>   
         </Menu>
     );
 }
