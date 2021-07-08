@@ -5,7 +5,7 @@ import { fetchAud, fetchToken } from 'api';
 export const socket = socketIOClient(process.env.REACT_APP_SOCKET_URL, {
     withCredentials: true,
     query: { token: fetchToken() },
-    autoConnect: false
+    autoConnect: true
 });
 
 export const clientSocket = {
@@ -18,7 +18,7 @@ export const clientSocket = {
         }))
     },
     init: () => {
-        socket.connect();
+        // socket.connect();
         socket.emit('init', fetchAud());
     },
 };
