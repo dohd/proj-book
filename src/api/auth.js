@@ -20,7 +20,7 @@ export const Auth = {
     },
     logout: () => {
         const aud = fetchAud();
-        Api.logout.delete(aud);
-        eraseToken();
+        Api.logout.delete(aud)
+        .then(res => eraseToken());
     }
 };
