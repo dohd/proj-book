@@ -1,0 +1,16 @@
+.part-analysis-card {
+    overflow-x: auto;
+}
+
+@media (max-width: 480px) {
+    .part-analysis-table-wrapper {
+        overflow-y: hidden;
+    }
+    .part-analysis-table-wrapper::after {
+        content: '';
+        display: block;
+        position: absolute;
+        width: 2em;
+        height: 1px;
+    }
+}

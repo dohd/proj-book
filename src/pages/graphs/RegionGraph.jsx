@@ -7,16 +7,10 @@ import { GraphFilter } from 'components';
 export default function RegionGraph({ data, ...rest }) {
     return (
         <Card 
-            size='small' 
-            style={{ 
-                borderWidth: 2,
-                minWidth: 550, 
-                width: '65%', 
-                marginTop: 16 
-            }}
+            className='region-graph-card' 
         >
             <GraphFilter {...rest} />
-            <div style={{ minWidth: 500 }}>
+            <div className='bar-wrapper'>
                 <Bar
                     data={data} 
                     options={{

@@ -6,6 +6,8 @@ import {
 } from 'antd';
 import { ArrowLeftOutlined } from '@ant-design/icons';
 
+import './editProposal.css';
+
 export const dateFormat = 'YYYY-MM-DD';
 
 export default function EditPendingProposal(props) {
@@ -15,6 +17,7 @@ export default function EditPendingProposal(props) {
     const donorList = donors.map(({id, name}, i) => (
         <Select.Option key={i} value={id}>{ name }</Select.Option>
     ));
+
     return (
         <Card       
             title={
@@ -31,9 +34,9 @@ export default function EditPendingProposal(props) {
                 onFinish={onFinish}
                 onFinishFailed={onFinishFailed}        
                 initialValues={{ remember: true }}
+                className='edit-proposal-form'
             > 
                 <Form.Item
-                    labelCol={{ span: 4 }}
                     wrapperCol={{ span: 14 }}
                     label='Project Title'
                     name='title'
@@ -45,7 +48,6 @@ export default function EditPendingProposal(props) {
                 <Row>
                     <Col xs={24} sm={11} >
                         <Form.Item
-                            labelCol={{ span: 4, offset: 5 }}
                             label='Period'
                             name='period'
                             rules={[{ required: true }]}
@@ -56,7 +58,6 @@ export default function EditPendingProposal(props) {
 
                     <Col xs={24} sm={11}>
                         <Form.Item
-                            labelCol={{ span: 8 }}
                             label='Date Submitted'
                             name='dateSubmitted'
                             rules={[{ 
@@ -70,7 +71,6 @@ export default function EditPendingProposal(props) {
                 </Row>
 
                 <Form.Item
-                    labelCol={{ span: 4 }}
                     wrapperCol={{ span: 14 }}
                     label='Donor'
                     name='donorId'
@@ -85,7 +85,6 @@ export default function EditPendingProposal(props) {
                 </Form.Item>
 
                 <Form.Item
-                    labelCol={{ span: 4 }}
                     wrapperCol={{ span: 6 }}
                     label='Budget'
                     name='budget'
@@ -95,7 +94,6 @@ export default function EditPendingProposal(props) {
                 </Form.Item>
 
                 <Form.Item
-                    labelCol={{ span: 4 }}
                     label='Status'
                     name='status'
                 >
@@ -105,10 +103,11 @@ export default function EditPendingProposal(props) {
                     </Radio.Group>
                 </Form.Item>
 
-                <Form.Item wrapperCol={{ span: 5, offset: 8 }}>
+                <Form.Item wrapperCol={{ span: 7 }}>
                     <Button
                         type='primary'
                         htmlType='submit'
+                        className='edit-proposal-submit-btn'
                         block
                     >
                         Submit

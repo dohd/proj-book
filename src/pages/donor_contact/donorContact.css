@@ -1,0 +1,16 @@
+.donor-contact-card {
+    overflow-x: auto;
+}
+
+@media (max-width: 480px) {
+    .donor-contact-table-wrapper {
+        overflow-y: hidden;
+    }
+    .donor-contact-table-wrapper::after {
+        content: '';
+        display: block;
+        position: absolute;
+        width: 2em;
+        height: 1px;
+    }
+}

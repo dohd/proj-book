@@ -9,6 +9,7 @@ import {
     ArrowLeftOutlined, DownOutlined, FilePdfOutlined
 } from '@ant-design/icons';
 
+import './participants.css';
 import { customSearch, parseUrl } from 'utils';
 import { Path } from 'routes';
 
@@ -27,7 +28,7 @@ export default function Participants(props) {
     return (
         <Card
             bordered={false}
-            style={{overflowX: 'auto'}}
+            className='participants-card'
             title={
                 <Space>
                     <ArrowLeftOutlined 
@@ -66,107 +67,107 @@ export default function Participants(props) {
                     </Dropdown>
                 </Space>
             }
-        >
-            <Table 
-                dataSource={participants}
-                // scroll={{ x: 1500 }}
-                columns={[
-                    {
-                        title: 'Activity Date',
-                        dataIndex: 'activityDate',
-                        key: 'activityDate',
-                        ...getColumnSearchProps('activityDate')
-                    },
-                    {
-                        title: 'Name',
-                        dataIndex: 'name',
-                        key: 'name',
-                    },
-                    {
-                        title: 'Gender',
-                        dataIndex: 'gender',
-                        key: 'gender',
-                        filters: [
-                            { text: 'Male', value: 'M' },
-                            { text: 'Female', value: 'F' },
-                        ],
-                        onFilter: (value, record) => record.gender === value
-                    },
-                    {
-                        title: 'Disability',
-                        dataIndex: 'disability',
-                        key: 'disability'
-                    },
-                    {
-                        title: 'Designation',
-                        dataIndex: 'designation',
-                        key: 'designation'
-                    },
-                    {
-                        title: 'Phone',
-                        dataIndex: 'phone',
-                        key: 'phone'
-                    },
-                    {
-                        title: 'Email',
-                        dataIndex: 'email',
-                        key: 'email'
-                    },
-                    {
-                        title: 'Programme',
-                        dataIndex: 'programme',
-                        key: 'programme',
-                        ...getColumnSearchProps('programme')
-                    },
-                    {
-                        title: 'Region',
-                        dataIndex: 'region',
-                        key: 'region',
-                        ...getColumnSearchProps('region')
-                    },
-                    {
-                        title: 'Action',
-                        dataIndex: 'action',
-                        key: 'action',
-                        // fixed: 'right',
-                        render: (text, {key}) => {
-                            const obj = { participantId: key, ...params };
-                            const editPath = parseUrl(Path.updateParticipant, obj);
-                            return (
-                                <div>
-                                    <Link to={editPath}>
-                                        <Button
-                                            type='link'
-                                            icon={
-                                                <EditTwoTone 
-                                                    style={{ fontSize: '20px' }} 
-                                                />
-                                            }
-                                        />
-                                    </Link>
-                                    <Popconfirm
-                                        title='Are you sure to delete this participant?'
-                                        onConfirm={() => onDelete(key)}
-                                        okText='Yes'
-                                        cancelText='No'
-                                    >
-                                        <Button type='link'
-                                            icon={
-                                                <DeleteOutlined 
-                                                    style={{ 
-                                                        color: 'red', 
-                                                        fontSize: '18px' 
-                                                    }} 
-                                                />
-                                            }
-                                        />
-                                    </Popconfirm>                                    
-                                </div>
-                            );
+        >   
+            <div className='participants-table-wrapper'>
+                <Table 
+                    dataSource={participants}
+                    columns={[
+                        {
+                            title: 'Activity Date',
+                            dataIndex: 'activityDate',
+                            key: 'activityDate',
+                            ...getColumnSearchProps('activityDate')
+                        },
+                        {
+                            title: 'Name',
+                            dataIndex: 'name',
+                            key: 'name',
+                        },
+                        {
+                            title: 'Gender',
+                            dataIndex: 'gender',
+                            key: 'gender',
+                            filters: [
+                                { text: 'Male', value: 'M' },
+                                { text: 'Female', value: 'F' },
+                            ],
+                            onFilter: (value, record) => record.gender === value
+                        },
+                        {
+                            title: 'Disability',
+                            dataIndex: 'disability',
+                            key: 'disability'
+                        },
+                        {
+                            title: 'Designation',
+                            dataIndex: 'designation',
+                            key: 'designation'
+                        },
+                        {
+                            title: 'Phone',
+                            dataIndex: 'phone',
+                            key: 'phone'
+                        },
+                        {
+                            title: 'Email',
+                            dataIndex: 'email',
+                            key: 'email'
+                        },
+                        {
+                            title: 'Programme',
+                            dataIndex: 'programme',
+                            key: 'programme',
+                            ...getColumnSearchProps('programme')
+                        },
+                        {
+                            title: 'Region',
+                            dataIndex: 'region',
+                            key: 'region',
+                            ...getColumnSearchProps('region')
+                        },
+                        {
+                            title: 'Action',
+                            dataIndex: 'action',
+                            key: 'action',
+                            render: (text, {key}) => {
+                                const obj = { participantId: key, ...params };
+                                const editPath = parseUrl(Path.updateParticipant, obj);
+                                return (
+                                    <div>
+                                        <Link to={editPath}>
+                                            <Button
+                                                type='link'
+                                                icon={
+                                                    <EditTwoTone 
+                                                        style={{ fontSize: '20px' }} 
+                                                    />
+                                                }
+                                            />
+                                        </Link>
+                                        <Popconfirm
+                                            title='Are you sure to delete this participant?'
+                                            onConfirm={() => onDelete(key)}
+                                            okText='Yes'
+                                            cancelText='No'
+                                        >
+                                            <Button type='link'
+                                                icon={
+                                                    <DeleteOutlined 
+                                                        style={{ 
+                                                            color: 'red', 
+                                                            fontSize: '18px' 
+                                                        }} 
+                                                    />
+                                                }
+                                            />
+                                        </Popconfirm>                                    
+                                    </div>
+                                );
+                            }
                         }
-                    }
-                ]}
-            />
+                    ]}
+                />
+            </div>
         </Card>
     );
 }

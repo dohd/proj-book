@@ -69,7 +69,7 @@ export default function ObjectiveModal({ state, setState }) {
                     </Form.Item>
 
                     <Row>
-                        <Col xs={24} sm={20}>
+                        <Col xs={21} sm={20}>
                             <Form.Item
                                 labelCol={{ span: 5 }}
                                 wrapperCol={{ span: 20 }}
@@ -87,7 +87,7 @@ export default function ObjectiveModal({ state, setState }) {
                             </Form.Item>
                         </Col>
 
-                        <Col xs={24} sm={2}>
+                        <Col xs={23} sm={2} className='add-act-row-col'>
                             <ActivityModal
                                 activities={activities}
                                 setActivities={setActivities}

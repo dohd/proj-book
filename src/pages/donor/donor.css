@@ -1,0 +1,16 @@
+.donor-card {
+    overflow-x: auto;
+}
+
+@media (max-width: 480px) {
+    .donor-table-wrapper {
+        overflow-y: hidden;
+    }
+    .donor-table-wrapper::after {
+        content: '';
+        display: block;
+        position: absolute;
+        width: .5em;
+        height: 1px;
+    }
+}

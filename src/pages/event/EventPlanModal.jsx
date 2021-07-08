@@ -20,6 +20,7 @@ export default function EventPlanModal(props) {
         >
             <Card
                 bordered={false}
+                style={{overflowX: 'auto' }}
                 title={`Activity Plan: ${eventDate}`}
                 extra={
                     <Button type='primary' onClick={onExport}>

@@ -9,6 +9,7 @@ import {
     DownOutlined, DeleteOutlined
 } from '@ant-design/icons';
 
+import './proposal.css';
 import ApprovedProposal from './ApprovedProposalModal';
 import { Path } from 'routes';
 import { customSearch, parseUrl } from 'utils';
@@ -30,7 +31,7 @@ export default function Proposal(props) {
     return (
         <Card 
             title='Grant Proposals' 
-            style={{overflowX: 'auto'}}
+            className='proposal-card'
             bordered={false}
             extra={
                 <Space>
@@ -54,109 +55,86 @@ export default function Proposal(props) {
                 fetchProposals={fetchProposals}
             />
 
-            <Table 
-                dataSource={state.proposals} 
-                columns={[
-                    {
-                        title: 'Project Title',
-                        dataIndex: 'title',
-                        key: 'title',
-                        ...getColumnSearchProps('title')
-                    },
-                    {
-                        title: 'Period (Start - End)',
-                        dataIndex: 'period',
-                        key: 'period',
-                        render: (text, record) => {
-                            const {startPeriod, endPeriod} = record;
-                            return (
-                                <span>
-                                    <div style={{display: 'inline-block'}}>
-                                        { startPeriod }
-                                    </div> &nbsp;
-                                    <div style={{display: 'inline-block'}}>
-                                        { endPeriod }
-                                    </div>
-                                </span>
-                            );
-                        }
-                    },
-                    {
-                        title: 'Budget (ksh.)',
-                        dataIndex: 'budget',
-                        key: 'budget',
-                        render: text => text.toLocaleString()
-                    },
-                    {
-                        title: 'Date Submitted',
-                        dataIndex: 'dateSubmitted',
-                        key: 'dateSubmitted'
-                    },
-                    {
-                        title: 'Status',
-                        dataIndex: 'status',
-                        key: 'status',
-                        filters: [
-                            { text: 'Pending', value: 0 },
-                            { text: 'Approved', value: 1 }
-                        ],
-                        onFilter: (value, record) => (record.status === value),
-                        render: text => {
-                            const color = text === 1 ? 'geekblue' : 'green';
-                            return (
-                                <Tag color={color}>
-                                { text === 1 ? 'Approved':'Pending' }
-                                </Tag>
-                            );                            
-                        }
-                    },
-                    {
-                        title: 'Donor',
-                        dataIndex: 'donor',
-                        key: 'donor',
-                    },
-                    {
-                        title: 'Action',
-                        key: 'action',
-                        width: 180,
-                        render: (text, record) => {
-                            const {key, status} = record;
-                            if (status === 1) return (
-                                <Dropdown
-                                    overlay={
-                                        <Menu>
-                                            <Menu.Item 
-                                                key='update'
-                                                onClick={() => showModal(record)}
-                                            >
-                                                Update
-                                            </Menu.Item>
-                                            <Menu.Item key='objectives'>
-                                                <Link to={() => setApprovedObj(key)}>
-                                                    Objectives
-                                                </Link>
-                                            </Menu.Item>
-                                        </Menu>
-                                    }
-                                >   
-                                    <Button type='link' size='large'>
-                                        actions <DownOutlined />
-                                    </Button>
-                                </Dropdown>
-                            );
-                            
-                            const params = {proposalId: key}
-                            const path = parseUrl(Path.updateProposal, params);
-                            return (
-                                <div>
+            <div className='proposal-table-wrapper'>
+                <Table 
+                    dataSource={state.proposals} 
+                    columns={[
+                        {
+                            title: 'Project Title',
+                            dataIndex: 'title',
+                            key: 'title',
+                            ...getColumnSearchProps('title')
+                        },
+                        {
+                            title: 'Period (Start - End)',
+                            dataIndex: 'period',
+                            key: 'period',
+                            render: (text, record) => {
+                                const {startPeriod, endPeriod} = record;
+                                return (
+                                    <span>
+                                        <div style={{display: 'inline-block'}}>
+                                            { startPeriod }
+                                        </div> &nbsp;
+                                        <div style={{display: 'inline-block'}}>
+                                            { endPeriod }
+                                        </div>
+                                    </span>
+                                );
+                            }
+                        },
+                        {
+                            title: 'Budget (ksh.)',
+                            dataIndex: 'budget',
+                            key: 'budget',
+                            render: text => text.toLocaleString()
+                        },
+                        {
+                            title: 'Date Submitted',
+                            dataIndex: 'dateSubmitted',
+                            key: 'dateSubmitted'
+                        },
+                        {
+                            title: 'Status',
+                            dataIndex: 'status',
+                            key: 'status',
+                            filters: [
+                                { text: 'Pending', value: 0 },
+                                { text: 'Approved', value: 1 }
+                            ],
+                            onFilter: (value, record) => (record.status === value),
+                            render: text => {
+                                const color = text === 1 ? 'geekblue' : 'green';
+                                return (
+                                    <Tag color={color}>
+                                    { text === 1 ? 'Approved':'Pending' }
+                                    </Tag>
+                                );                            
+                            }
+                        },
+                        {
+                            title: 'Donor',
+                            dataIndex: 'donor',
+                            key: 'donor',
+                        },
+                        {
+                            title: 'Action',
+                            key: 'action',
+                            width: 180,
+                            render: (text, record) => {
+                                const {key, status} = record;
+                                if (status === 1) return (
                                     <Dropdown
                                         overlay={
                                             <Menu>
-                                                <Menu.Item key='update'>
-                                                    <Link to={path}>Update</Link>
+                                                <Menu.Item 
+                                                    key='update'
+                                                    onClick={() => showModal(record)}
+                                                >
+                                                    Update
                                                 </Menu.Item>
-                                                <Menu.Item key='objectives'> 
-                                                    <Link to={() => setPendingObj(key)}>
+                                                <Menu.Item key='objectives'>
+                                                    <Link to={() => setApprovedObj(key)}>
                                                         Objectives
                                                     </Link>
                                                 </Menu.Item>
@@ -167,25 +145,50 @@ export default function Proposal(props) {
                                             actions <DownOutlined />
                                         </Button>
                                     </Dropdown>
-                                    <Popconfirm
-                                        title='Are you sure to delete this proposal?'
-                                        onConfirm={() => onDelete(key)}
-                                        okText='Yes'
-                                        cancelText='No'
-                                    >
-                                        <Button 
-                                            type='link'
-                                            icon={
-                                                <DeleteOutlined style={{ color: 'red' }}/>
+                                );
+                                
+                                const params = {proposalId: key}
+                                const path = parseUrl(Path.updateProposal, params);
+                                return (
+                                    <div>
+                                        <Dropdown
+                                            overlay={
+                                                <Menu>
+                                                    <Menu.Item key='update'>
+                                                        <Link to={path}>Update</Link>
+                                                    </Menu.Item>
+                                                    <Menu.Item key='objectives'> 
+                                                        <Link to={() => setPendingObj(key)}>
+                                                            Objectives
+                                                        </Link>
+                                                    </Menu.Item>
+                                                </Menu>
                                             }
-                                        />
-                                    </Popconfirm>
-                                </div>
-                            );
-                        }
-                    },
-                ]}  
-            />
+                                        >   
+                                            <Button type='link' size='large'>
+                                                actions <DownOutlined />
+                                            </Button>
+                                        </Dropdown>
+                                        <Popconfirm
+                                            title='Are you sure to delete this proposal?'
+                                            onConfirm={() => onDelete(key)}
+                                            okText='Yes'
+                                            cancelText='No'
+                                        >
+                                            <Button 
+                                                type='link'
+                                                icon={
+                                                    <DeleteOutlined style={{ color: 'red' }}/>
+                                                }
+                                            />
+                                        </Popconfirm>
+                                    </div>
+                                );
+                            }
+                        },
+                    ]}  
+                />
+            </div>
         </Card>
     );
 } 

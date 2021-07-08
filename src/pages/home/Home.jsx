@@ -88,7 +88,7 @@ export default function Home(props) {
                             key: 'date'
                         }
                     ]}
-                />
+                />                
             </Card>
         </Card>
     );

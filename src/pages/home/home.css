@@ -13,6 +13,19 @@
     margin-top: 5px;
     overflow-x: auto;
 }
+@media (max-width: 480px) {
+    .schedule-card {
+        overflow-y: hidden;
+    }
+    .schedule-card::after {
+        content: '';
+        display: block;
+        position: absolute;
+        right: -4em;
+        width: 2em;
+        height: 1px;
+    }
+}
 
 .pending {
     background: linear-gradient(to right, #5cb85c, darkgreen);

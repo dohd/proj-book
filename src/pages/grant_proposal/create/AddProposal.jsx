@@ -6,6 +6,7 @@ import {
 } from 'antd';
 import { ArrowLeftOutlined } from '@ant-design/icons';
 
+import './addProposal.css';
 import ObjectiveModal from './ObjectiveModal';
 
 export const dateFormat = 'YYYY-MM-DD';
@@ -27,6 +28,7 @@ export default function AddProposal(props) {
     
     return (
         <Card
+            className='add-proposal-card'
             bordered={false}       
             title={
                 <Space>
@@ -42,9 +44,9 @@ export default function AddProposal(props) {
                 onFinish={onFinish}
                 onFinishFailed={onFinishFailed}        
                 initialValues={{ remember: true }}
+                className='add-proposal-form'
             > 
                 <Form.Item
-                    labelCol={{ span: 4 }}
                     wrapperCol={{ span: 14 }}
                     label='Project Title'
                     name='title'
@@ -53,10 +55,9 @@ export default function AddProposal(props) {
                     <Input maxLength={40} />
                 </Form.Item>
 
-                <Row>
+                <Row gutter={16}>
                     <Col xs={24} sm={11} >
                         <Form.Item
-                            labelCol={{ span: 4, offset: 5 }}
                             label='Period'
                             name='period'
                             rules={[{ required: true }]}
@@ -67,7 +68,6 @@ export default function AddProposal(props) {
 
                     <Col xs={24} sm={11}>
                         <Form.Item
-                            labelCol={{ span: 8 }}
                             label='Date Submitted'
                             name='dateSubmitted'
                             rules={[{ 
@@ -81,7 +81,6 @@ export default function AddProposal(props) {
                 </Row>
 
                 <Form.Item
-                    labelCol={{ span: 4 }}
                     wrapperCol={{ span: 14 }}
                     label='Donor'
                     name='donorId'
@@ -96,10 +95,9 @@ export default function AddProposal(props) {
                 </Form.Item>
 
                 <Row>
-                    <Col xs={24} sm={18}>
+                    <Col xs={21} sm={16}>
                         <Form.Item
-                            labelCol={{ span: 6 }}
-                            wrapperCol={{ span: 18 }}
+                            wrapperCol={{ span: 21 }}
                             label='Objectives'
                             name='objectives'
                             rules={[{ required: true }]}
@@ -114,13 +112,12 @@ export default function AddProposal(props) {
                         </Form.Item>
                     </Col>
 
-                    <Col xs={24} sm={2}>
+                    <Col xs={3} sm={2} className='addprop-row-col'>
                         <ObjectiveModal state={state} setState={setState} />
                     </Col>
                 </Row>            
 
                 <Form.Item
-                    labelCol={{ span: 4 }}
                     wrapperCol={{ span: 6 }}
                     label='Budget'
                     name='budget'
@@ -129,10 +126,11 @@ export default function AddProposal(props) {
                     <InputNumber style={{ width: '100%' }} />
                 </Form.Item>
 
-                <Form.Item wrapperCol={{ span: 5, offset: 8 }}>
+                <Form.Item wrapperCol={{ span: 7 }}>
                     <Button
                         type='primary'
                         htmlType='submit'
+                        className='add-proposal-submit-btn'
                         block
                     >
                         Submit

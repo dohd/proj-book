@@ -1,0 +1,19 @@
+.graph-container {
+    padding: 1em;
+    overflow-x: auto;
+}
+
+.programme-graph-card {
+    display: inline-block;
+    border-width: 2px;
+    margin: .5em;
+    min-width: 550px;
+}
+
+.region-graph-card {
+    display: inline-block;
+    border-width: 2px;
+    margin: .5em;
+    min-width: 550px;
+}
+

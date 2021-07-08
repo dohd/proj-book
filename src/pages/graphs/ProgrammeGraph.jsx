@@ -7,15 +7,10 @@ import { GraphFilter } from 'components';
 export default function ProgrammeGraph({ data, ...rest }) {
     return (
         <Card 
-            size='small' 
-            style={{
-                borderWidth: 2, 
-                minWidth: 550, 
-                width: '65%' 
-            }}
+            className='programme-graph-card'
         >
             <GraphFilter {...rest} />
-            <div style={{ minWidth: 500 }}>
+            <div className='bar-wrapper'>
                 <Bar
                     data={data} 
                     options={{

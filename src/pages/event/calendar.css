@@ -2,6 +2,11 @@
     --light-blue: #1890FF;
 }
 
+.calendar-card {
+    overflow-x: auto;
+    max-width: 95%;
+}
+
 .calendar-header {
     width: 26%;
     margin-left: auto;
@@ -34,4 +39,10 @@
     background-color: var(--light-blue);
     color: white;
     cursor: pointer;
+}
+
+@media (max-width: 480px) {
+    .calendar-header {
+        width: 55%;
+    }
 }

@@ -2,6 +2,7 @@ import React from 'react';
 import { Card, Table, Button, Popconfirm } from 'antd';
 import { UserAddOutlined, EditTwoTone, DeleteOutlined } from '@ant-design/icons';
 
+import './users.css';
 import CreateUser from './AddUserModal';
 import UpdateUser from './EditUserModal';
 
@@ -16,7 +17,7 @@ export default function Users(props) {
         <Card
             title='Users'
             bordered={false}
-            style={{overflowX: 'auto'}}
+            className='users-card'
             extra={
                 <Button type='primary' onClick={showModal}>
                     <UserAddOutlined /> Create
@@ -38,62 +39,64 @@ export default function Users(props) {
                 userRoles={state.roles}
             />
 
-            <Table
-                dataSource={state.users}
-                columns={[
-                    {
-                        title: 'Username',
-                        dataIndex: 'username',
-                        key: 'username'
-                    },
-                    {
-                        title: 'Email',
-                        dataIndex: 'email',
-                        key: 'email'
-                    },
-                    {
-                        title: 'Initial',
-                        dataIndex: 'initial',
-                        key: 'initial'
-                    },
-                    {
-                        title: 'Role',
-                        dataIndex: 'role',
-                        key: 'role',
-                        render: ({value}) => value
-                    },
-                    {
-                        title: 'Action',
-                        dataIndex: 'action',
-                        key: 'action',
-                        render: (text, record) => {
-                            return (
-                                <div>
-                                    <Button 
-                                        type='link' 
-                                        onClick={() => showUpdateModal(record)}
-                                    >
-                                        <EditTwoTone style={{ fontSize: '20px' }} />
-                                    </Button>
-                                    
-                                    <Popconfirm
-                                        title='Are you sure to delete this user?'
-                                        onConfirm={() => onDelete(record.key)}
-                                        okText='Yes'
-                                        cancelText='No'
-                                    >
+            <div className='users-table-wrapper'>
+                <Table
+                    dataSource={state.users}
+                    columns={[
+                        {
+                            title: 'Username',
+                            dataIndex: 'username',
+                            key: 'username'
+                        },
+                        {
+                            title: 'Email',
+                            dataIndex: 'email',
+                            key: 'email'
+                        },
+                        {
+                            title: 'Initial',
+                            dataIndex: 'initial',
+                            key: 'initial'
+                        },
+                        {
+                            title: 'Role',
+                            dataIndex: 'role',
+                            key: 'role',
+                            render: ({value}) => value
+                        },
+                        {
+                            title: 'Action',
+                            dataIndex: 'action',
+                            key: 'action',
+                            render: (text, record) => {
+                                return (
+                                    <div>
                                         <Button 
-                                            type='link'
-                                            icon={<DeleteOutlined style={{ color: 'red'}} />}
-                                        />
-                                    </Popconfirm>
-                                </div>
-                            );
+                                            type='link' 
+                                            onClick={() => showUpdateModal(record)}
+                                        >
+                                            <EditTwoTone style={{ fontSize: '20px' }} />
+                                        </Button>
+                                        
+                                        <Popconfirm
+                                            title='Are you sure to delete this user?'
+                                            onConfirm={() => onDelete(record.key)}
+                                            okText='Yes'
+                                            cancelText='No'
+                                        >
+                                            <Button 
+                                                type='link'
+                                                icon={<DeleteOutlined style={{ color: 'red'}} />}
+                                            />
+                                        </Popconfirm>
+                                    </div>
+                                );
+                            }
                         }
-                    }
 
-                ]}
-            />
+                    ]}
+                />
+            </div>
         </Card>
     );
 }

@@ -30,7 +30,8 @@ export default function Calendar(props) {
     return (
         <Card
             bordered={false}
-            style={{overflowX: 'auto'}}
+            className='calendar-card'
+            // style={{overflowX: 'auto', maxWidth: '95%'}}
             title={
                 <Space>
                     <ArrowLeftOutlined 

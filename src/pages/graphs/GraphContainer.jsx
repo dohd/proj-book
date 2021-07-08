@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
+import './graph.css';
 import ProgrammeGraph from './ProgrammeGraph';
 import RegionGraph from './RegionGraph';
 import { useTracked } from 'context';
@@ -59,7 +60,7 @@ export default function GraphContainer() {
         dispatch
     };
     return (
-        <div style={{ padding: 10, overflowX: 'auto' }}>
+        <div className='graph-container'>
             <ProgrammeGraph {...prog_graph_props} />
             <RegionGraph {...region_graph_props} />
         </div>

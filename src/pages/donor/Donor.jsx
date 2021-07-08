@@ -5,6 +5,7 @@ import {
     FilePdfOutlined
 } from '@ant-design/icons';
 
+import './donor.css';
 import AddDonor from './AddDonorModal';
 import EditDonor from './EditDonorModal';
 import { customSearch } from 'utils';
@@ -24,7 +25,7 @@ export default function Donor(props) {
     return (
         <Card
             title='Donors'
-            style={{ overflowX: 'auto' }}
+            className='donor-card'
             bordered={false}
             extra={
                 <Space>
@@ -50,62 +51,64 @@ export default function Donor(props) {
                 setVisible={setVisible} 
             />
 
-            <Table
-                dataSource={state.donors} 
-                columns={[
-                    {
-                        title: 'Name',
-                        dataIndex: 'name',
-                        key: 'name',
-                        ...getColumnSearchProps('name')
-                    },
-                    {
-                        title: 'Phone',
-                        dataIndex: 'phone',
-                        key: 'phone'
-                    },
-                    {
-                        title: 'Email',
-                        dataIndex: 'email',
-                        key: 'email'
-                    },
-                    {
-                        title: 'Action',
-                        dataIndex: 'action',
-                        key: 'action',
-                        render: (text, record) => {
-                            return (
-                                <Space>
-                                    <Button 
-                                        type='link' 
-                                        onClick={() => showUpdateModal(record)}
-                                        icon={
-                                            <EditTwoTone style={{ fontSize: '20px' }} />
-                                        }
-                                    />
-                                    
-                                    <Popconfirm
-                                        title='Are you sure to delete this donor?'
-                                        onConfirm={() => onDelete(record.key)}
-                                        okText='Yes'
-                                        cancelText='No'
-                                    >
-                                        <Button
-                                            type='link'
+            <div className='donor-table-wrapper'>
+                <Table
+                    dataSource={state.donors} 
+                    columns={[
+                        {
+                            title: 'Name',
+                            dataIndex: 'name',
+                            key: 'name',
+                            ...getColumnSearchProps('name')
+                        },
+                        {
+                            title: 'Phone',
+                            dataIndex: 'phone',
+                            key: 'phone'
+                        },
+                        {
+                            title: 'Email',
+                            dataIndex: 'email',
+                            key: 'email'
+                        },
+                        {
+                            title: 'Action',
+                            dataIndex: 'action',
+                            key: 'action',
+                            render: (text, record) => {
+                                return (
+                                    <Space>
+                                        <Button 
+                                            type='link' 
+                                            onClick={() => showUpdateModal(record)}
                                             icon={
-                                                <DeleteOutlined 
-                                                    style={{ color: 'red', fontSize: '18px' }} 
-                                                />
+                                                <EditTwoTone style={{ fontSize: '20px' }} />
                                             }
                                         />
-                                    </Popconfirm>
-                                </Space>
-                            );
+                                        
+                                        <Popconfirm
+                                            title='Are you sure to delete this donor?'
+                                            onConfirm={() => onDelete(record.key)}
+                                            okText='Yes'
+                                            cancelText='No'
+                                        >
+                                            <Button
+                                                type='link'
+                                                icon={
+                                                    <DeleteOutlined 
+                                                        style={{ color: 'red', fontSize: '18px' }} 
+                                                    />
+                                                }
+                                            />
+                                        </Popconfirm>
+                                    </Space>
+                                );
+                            }
                         }
-                    }
 
-                ]}
-            />
+                    ]}
+                />
+            </div>
         </Card>
     );
 }

@@ -1,0 +1,11 @@
+
+@media (min-width: 480px) {
+    .edit-proposal-submit-btn {
+        margin-left: 100%;
+    }
+}
+@media (min-width: 786px) {
+    .edit-proposal-form {
+        margin-left: 5%;
+    }
+}

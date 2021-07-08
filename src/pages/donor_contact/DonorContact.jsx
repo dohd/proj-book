@@ -5,6 +5,7 @@ import {
     FilePdfOutlined
 } from '@ant-design/icons';
 
+import './donorContact.css';
 import AddContact from './AddContactModal';
 import EditContact from './EditContactModal';
 import { customSearch } from 'utils';
@@ -24,7 +25,7 @@ export default function Donor(props) {
     return (
         <Card
             title='Donor Contact Person'
-            style={{overflowX: 'auto'}}
+            className='donor-contact-card'
             bordered={false}
             extra={
                 <Space>
@@ -52,66 +53,68 @@ export default function Donor(props) {
                 donors={state.donors}
             />
 
-            <Table
-                dataSource={state.contacts} 
-                columns={[
-                    {
-                        title: 'Donor',
-                        dataIndex: 'donor',
-                        key: 'donor'
-                    },
-                    {
-                        title: 'Contact Name',
-                        dataIndex: 'contactName',
-                        key: 'contactName',
-                        ...getColumnSearchProps('contactName')
-                    },
-                    {
-                        title: 'Telephone',
-                        dataIndex: 'telephone',
-                        key: 'telephone'
-                    },
-                    {
-                        title: 'Email',
-                        dataIndex: 'email',
-                        key: 'email'
-                    },
-                    {
-                        title: 'Action',
-                        dataIndex: 'action',
-                        key: 'action',
-                        render: (text, record) => {
-                            return (
-                                <Space>
-                                    <Button 
-                                        type='link' 
-                                        onClick={() => showUpdateModal(record)}
-                                        icon={
-                                            <EditTwoTone style={{ fontSize: '20px' }} />
-                                        }
-                                    />
-
-                                    <Popconfirm
-                                        title='Are you sure to delete this contact?'
-                                        onConfirm={() => onDelete(record.key)}
-                                        okText='Yes'
-                                        cancelText='No'
-                                    >
-                                        <Button
-                                            type='link'
+            <div className='donor-contact-table-wrapper'>
+                <Table
+                    dataSource={state.contacts} 
+                    columns={[
+                        {
+                            title: 'Donor',
+                            dataIndex: 'donor',
+                            key: 'donor'
+                        },
+                        {
+                            title: 'Contact Name',
+                            dataIndex: 'contactName',
+                            key: 'contactName',
+                            ...getColumnSearchProps('contactName')
+                        },
+                        {
+                            title: 'Telephone',
+                            dataIndex: 'telephone',
+                            key: 'telephone'
+                        },
+                        {
+                            title: 'Email',
+                            dataIndex: 'email',
+                            key: 'email'
+                        },
+                        {
+                            title: 'Action',
+                            dataIndex: 'action',
+                            key: 'action',
+                            render: (text, record) => {
+                                return (
+                                    <Space>
+                                        <Button 
+                                            type='link' 
+                                            onClick={() => showUpdateModal(record)}
                                             icon={
-                                                <DeleteOutlined 
-                                                    style={{ color: 'red', fontSize: '18px' }} 
-                                                />
+                                                <EditTwoTone style={{ fontSize: '20px' }} />
                                             }
                                         />
-                                    </Popconfirm>
-                                </Space>
-                            );
+
+                                        <Popconfirm
+                                            title='Are you sure to delete this contact?'
+                                            onConfirm={() => onDelete(record.key)}
+                                            okText='Yes'
+                                            cancelText='No'
+                                        >
+                                            <Button
+                                                type='link'
+                                                icon={
+                                                    <DeleteOutlined 
+                                                        style={{ color: 'red', fontSize: '18px' }} 
+                                                    />
+                                                }
+                                            />
+                                        </Popconfirm>
+                                    </Space>
+                                );
+                            }
                         }
-                    }
-                ]}
-            />
+                    ]}
+                />
+            </div>
         </Card>
     );
 }
