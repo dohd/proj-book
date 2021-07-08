@@ -6,6 +6,8 @@ import {
 import { ArrowLeftOutlined } from '@ant-design/icons';
 import { useHistory } from 'react-router';
 
+import './addParticipant.css';
+
 export const dateFormat = 'YYYY-MM-DD';
 
 export default function AddParticipant(props) {
@@ -43,11 +45,10 @@ export default function AddParticipant(props) {
                 initialValues={{ remember: true }}
                 style={{ marginLeft: '5%' }}
             >
-                <Row>
+                <Row gutter={16}>
                     <Col xs={24} sm={11}>
                         <Form.Item
-                            labelCol={{ span: 4, offset: 2 }}
-                            label='Name'
+                            label={<Space>Name</Space>}
                             name='name'
                             rules={[{
                                 required: true, 
@@ -59,9 +60,8 @@ export default function AddParticipant(props) {
                     </Col>
                     <Col xs={24} sm={11}>
                         <Form.Item
-                            labelCol={{ span: 5 }}
                             wrapperCol={{ span: 8 }}
-                            label='Gender'
+                            label={<Space>Gender</Space>}
                             name='gender'
                         >
                             <Select placeholder='Select gender'>
@@ -73,7 +73,6 @@ export default function AddParticipant(props) {
                 </Row>
                 
                 <Form.Item
-                    labelCol={{ span: 3 }}
                     wrapperCol={{ span: 12 }}
                     label='Disability'
                     name='disability'
@@ -82,7 +81,6 @@ export default function AddParticipant(props) {
                 </Form.Item>
 
                 <Form.Item
-                    labelCol={{ span: 3 }}
                     wrapperCol={{ span: 12 }}
                     label='Key Programme'
                     name='keyProgramme'
@@ -90,12 +88,11 @@ export default function AddParticipant(props) {
                     <Input readOnly />
                 </Form.Item>
 
-                <Row>
+                <Row gutter={16}>
                     <Col xs={24} sm={10}>
                         <Form.Item
-                            labelCol={{ span: 7 }}
                             wrapperCol={{ span: 14 }}
-                            label='Phone'
+                            label={<Space>Phone</Space>}
                             name='phone'
                             rules={[{ required: true}]}
                         >
@@ -104,9 +101,8 @@ export default function AddParticipant(props) {
                     </Col>
                     <Col xs={24} sm={11}>
                         <Form.Item
-                            labelCol={{ span: 4 }}
                             wrapperCol={{ span: 14 }}
-                            label='Email'
+                            label={<Space>Email</Space>}
                             name='email'
                             rules={[{ required: true }]}
                         >
@@ -114,10 +110,9 @@ export default function AddParticipant(props) {
                         </Form.Item>
                     </Col>
                 </Row>
-                <Row>
+                <Row gutter={16}>
                     <Col xs={24} sm={10}>
                         <Form.Item
-                            labelCol={{ span: 7 }}
                             label='Designation'
                             name='designation'
                             rules={[{ required: true }]}
@@ -127,9 +122,8 @@ export default function AddParticipant(props) {
                     </Col>
                     <Col xs={24} sm={11}>
                         <Form.Item
-                            labelCol={{ span: 5 }}
                             wrapperCol={{ span: 14 }}
-                            label='Region'
+                            label={<Space>Region</Space>}
                             name='regionId'
                             rules={[{ 
                                 required: true,
@@ -143,17 +137,17 @@ export default function AddParticipant(props) {
                     </Col>
                 </Row>
                 <Form.Item
-                    labelCol={{ span: 3 }}
-                    label='Activity Date'
+                    label={<Space>Activity Date</Space>}
                     name='activityDate'
                     rules={[{ required: true }]}
                 >
                     <DatePicker format={dateFormat} />
                 </Form.Item>
-                <Form.Item wrapperCol={{ span: 6, offset: 7 }}>
+                <Form.Item wrapperCol={{ span: 7 }}>
                     <Button
                         type='primary'
                         htmlType='submit'
+                        className='add-part-submit-btn'
                         block
                     >
                         Submit

@@ -72,10 +72,11 @@ export default function Tab1(props) {
                 <Form.Item name='response'>         
                     <Input.TextArea />
                 </Form.Item>
-                <Form.Item wrapperCol={{ span: 5, offset: 6 }}>
+                <Form.Item wrapperCol={{ span: 6 }}>
                     <Button
                         type='primary'
                         onClick={nextTab}
+                        className='tab1-btn-next'
                         block
                     >
                         Next

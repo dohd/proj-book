@@ -77,7 +77,7 @@ export default function Tab4(props) {
                 </Form.Item>
             </Form>
             
-            <div className='wrapper'>
+            <div className='btn-wrapper'>
                 <Button
                     onClick={prevTab}
                     className='btn-back'

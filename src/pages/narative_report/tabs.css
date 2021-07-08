@@ -1,8 +1,4 @@
-.container { 
-    display: inline-flex; 
-}
-
-.wrapper { 
+.btn-wrapper { 
     display: flex; 
 }
 
@@ -11,13 +7,23 @@
     min-width: 60px;
     margin-left: 24%;
 }
+.btn-back {
+    margin-left: 22%;
+}
 
-.btn-next-2 {
+.tab6-btn-submit {
     width: 20%;
     min-width: 60px; 
     margin-left: 2%; 
 }
 
-.btn-back {
-    margin-left: 22%;
+@media (min-width: 480px) {
+    .tab1-btn-next {
+        margin-left: 100%;
+    }
+}
+@media (max-width: 480px) {
+    .tab6-btn-submit {
+        width: 30%;
+    }
 }

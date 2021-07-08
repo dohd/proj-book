@@ -1,0 +1,14 @@
+.narrative-row-col {
+    margin-left: 8%;
+}
+
+@media (max-width: 768px) {
+    .narrative-card {
+        margin-top: 5em;
+    }
+}
+@media (max-width: 480px) {
+    .narrative-card {
+        margin-top: 7em;
+    }
+}

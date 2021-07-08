@@ -14,17 +14,17 @@ export default function Home(props) {
     return (
         <Card
             bordered={false}
-            className='home-card-container'
+            className='home-card'
         >   
-            <Row gutter={[16, 16]}>
-                <Col xs={24} sm={12} >
+            <Row gutter={8}>
+                <Col xs={24} sm={12} className='gutter-row'>
                     <div className='donors'>
                         <TeamOutlined className='category-icon' />
                         <p className='category-value'>{donors}</p>
                         <p className='category-label'>Donors</p>
                     </div>
                 </Col>
-                <Col xs={24} sm={12}>
+                <Col xs={24} sm={12} className='gutter-row'>
                     <div className='narrative'>
                         <CarryOutOutlined className='category-icon' />
                         <p className='category-value'>{activity}</p>
@@ -33,8 +33,8 @@ export default function Home(props) {
                 </Col>
             </Row>
 
-            <Row gutter={[16, 16]}>
-                <Col xs={24} sm={12} >
+            <Row gutter={8}>
+                <Col xs={24} sm={12} className='gutter-row'>
                     <div className='pending'>
                         <ProjectOutlined className='category-icon' />
                         <p className='category-value'>{proposals.pending}</p>
@@ -42,7 +42,7 @@ export default function Home(props) {
                     </div>
                     
                 </Col>
-                <Col xs={24} sm={12}>
+                <Col xs={24} sm={12} className='gutter-row'>
                     <div className='approved'>
                         <FileDoneOutlined className='category-icon' />
                         <p className='category-value'>{proposals.approved}</p>
@@ -52,7 +52,7 @@ export default function Home(props) {
             </Row>
 
             <Card 
-                style={{ marginTop: 10 }}
+                className='schedule-card'
                 bordered={false}
                 title={
                     <Space>

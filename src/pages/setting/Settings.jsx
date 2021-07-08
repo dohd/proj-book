@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Form, Input, Button, Row, Col } from 'antd';
+import { Card, Form, Input, Button, Row, Col, Space } from 'antd';
 
 import PasswordContainer from './PasswordContainer';
 import ChangeAvatarContainer from './ChangeAvatarContainer';
@@ -43,9 +43,8 @@ export default function Settings(props) {
                 <Row>
                     <Col xs={24} sm={12}>
                         <Form.Item 
-                            label='Telephone'
+                            label={<Space>Telephone</Space>}
                             name='orgTelephone'
-                            labelCol={{ offset: 1 }}
                             rules={[{ 
                                 required: true,
                                 message: 'telephone is required'
@@ -72,9 +71,8 @@ export default function Settings(props) {
                 <Row>
                     <Col xs={24} sm={12}>
                         <Form.Item 
-                            label='First Name'
+                            label={<Space>First Name</Space>}
                             name='fName'
-                            labelCol={{ offset: 1 }}
                             rules={[{ 
                                 required: true,
                                 message: 'first name is required'
@@ -99,9 +97,8 @@ export default function Settings(props) {
                 <Row>
                     <Col xs={24} sm={12}>
                         <Form.Item 
-                            label='Telephone'
+                            label={<Space>Telephone</Space>}
                             name='cpTelephone'
-                            labelCol={{ offset: 1 }}
                             rules={[{ 
                                 required: true,
                                 message: 'telephone is required'
@@ -112,9 +109,8 @@ export default function Settings(props) {
                     </Col>
                     <Col xs={24} sm={12}>
                         <Form.Item 
-                            label='Email'
+                            label={<Space>Email</Space>}
                             name='cpEmail'
-                            labelCol={{ span: 4 }}
                             rules={[{ 
                                 required: true,
                                 message: 'email is required'

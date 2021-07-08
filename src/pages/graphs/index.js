@@ -1,1 +1,1 @@
-export { default as Bargraph } from './Bargraph';
+export { default as Bargraph } from './GraphContainer';

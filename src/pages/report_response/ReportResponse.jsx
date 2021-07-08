@@ -15,6 +15,7 @@ export default function ReportResponse(props) {
     return (
         <Card
             bordered={false}
+            style={{overflowX: 'auto'}}
             title={
                 <Space>
                     <ArrowLeftOutlined 

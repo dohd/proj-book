@@ -30,6 +30,7 @@ export default function Proposal(props) {
     return (
         <Card 
             title='Grant Proposals' 
+            style={{overflowX: 'auto'}}
             bordered={false}
             extra={
                 <Space>
@@ -138,7 +139,7 @@ export default function Proposal(props) {
                                         </Menu>
                                     }
                                 >   
-                                    <Button type='link'>
+                                    <Button type='link' size='large'>
                                         actions <DownOutlined />
                                     </Button>
                                 </Dropdown>
@@ -162,7 +163,7 @@ export default function Proposal(props) {
                                             </Menu>
                                         }
                                     >   
-                                        <Button type='link'>
+                                        <Button type='link' size='large'>
                                             actions <DownOutlined />
                                         </Button>
                                     </Dropdown>

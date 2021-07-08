@@ -27,6 +27,7 @@ export default function Participants(props) {
     return (
         <Card
             bordered={false}
+            style={{overflowX: 'auto'}}
             title={
                 <Space>
                     <ArrowLeftOutlined 
@@ -59,7 +60,7 @@ export default function Participants(props) {
                             </Menu>
                         }
                     >   
-                        <Button type='link'>
+                        <Button type='link' size='large'>
                             options <DownOutlined />
                         </Button>
                     </Dropdown>
@@ -67,9 +68,8 @@ export default function Participants(props) {
             }
         >
             <Table 
-                className='part-table'
                 dataSource={participants}
-                scroll={{ x: 1500 }}
+                // scroll={{ x: 1500 }}
                 columns={[
                     {
                         title: 'Activity Date',
@@ -128,7 +128,7 @@ export default function Participants(props) {
                         title: 'Action',
                         dataIndex: 'action',
                         key: 'action',
-                        fixed: 'right',
+                        // fixed: 'right',
                         render: (text, {key}) => {
                             const obj = { participantId: key, ...params };
                             const editPath = parseUrl(Path.updateParticipant, obj);

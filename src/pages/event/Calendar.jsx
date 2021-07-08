@@ -29,6 +29,8 @@ export default function Calendar(props) {
     ));
     return (
         <Card
+            bordered={false}
+            style={{overflowX: 'auto'}}
             title={
                 <Space>
                     <ArrowLeftOutlined 
@@ -38,7 +40,6 @@ export default function Calendar(props) {
                     Event Calendar
                 </Space>   
             }
-            bordered={false}
         >
             <div className='calendar-header'>
                 <LeftOutlined 

@@ -16,6 +16,7 @@ export default function Users(props) {
         <Card
             title='Users'
             bordered={false}
+            style={{overflowX: 'auto'}}
             extra={
                 <Button type='primary' onClick={showModal}>
                     <UserAddOutlined /> Create

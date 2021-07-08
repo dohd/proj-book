@@ -34,7 +34,7 @@ export default function ResponseModal(props) {
                             const params = { narrativeReportId: key };
                             const resPath = parseUrl(Path.reportResponses, params);
                             return (
-                                <Button type='link'>
+                                <Button type='link' size='large'>
                                     <Link to={resPath}>responses</Link>
                                 </Button>
                             );

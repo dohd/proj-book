@@ -73,12 +73,13 @@
 }
 .menu-icon {
     color: white;
-    font-size: 2.4em;
+    font-size: 2.3em;
     position: fixed;
     top: .4em;
     right: calc(100% - 250px);
     display: none;
 }
+
 .logout-menu {
     display: none!important;
 }
@@ -140,5 +141,10 @@
     }
     .logout-icon {
         display: none;
+    }
+}
+@media (max-width: 480px) {
+    .main-section {
+        margin-top: 5em;
     }
 }

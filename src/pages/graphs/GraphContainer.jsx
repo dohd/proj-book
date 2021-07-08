@@ -5,7 +5,7 @@ import RegionGraph from './RegionGraph';
 import { useTracked } from 'context';
 import barchart from './barchart';
 
-export default function Bargraph() {
+export default function GraphContainer() {
     const [store, dispatch] = useTracked();
     const [labels, setLabels] = useState({
         programme: [], region: []
@@ -59,7 +59,7 @@ export default function Bargraph() {
         dispatch
     };
     return (
-        <div style={{ padding: 10 }}>
+        <div style={{ padding: 10, overflowX: 'auto' }}>
             <ProgrammeGraph {...prog_graph_props} />
             <RegionGraph {...region_graph_props} />
         </div>

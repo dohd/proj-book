@@ -76,7 +76,7 @@ export default function Tab6(props) {
                 </Form.Item>
             </Form>
             
-            <div className='wrapper'>
+            <div className='btn-wrapper'>
                 <Button
                     className='btn-back'
                     onClick={prevTab}
@@ -85,7 +85,7 @@ export default function Tab6(props) {
                 </Button>
                 <Button
                     type='primary'
-                    className='btn-next-2'
+                    className='tab6-btn-submit'
                     onClick={() => setVisible(true)}
                 >
                     Submit

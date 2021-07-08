@@ -15,6 +15,7 @@ export default function ParticipantAnalysis(props) {
     return (
         <Card
             bordered={false}
+            style={{ overflowX: 'auto' }}
             title='Participant Analysis'
             extra={
                 <Button type='primary' onClick={onExport}>

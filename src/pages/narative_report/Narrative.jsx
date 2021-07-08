@@ -3,6 +3,7 @@ import { Card, Row, Col, Select, Space, message } from 'antd';
 import { ArrowLeftOutlined } from '@ant-design/icons';
 import { useHistory } from 'react-router-dom';
 
+import './narrative.css';
 import { tabContent } from './Tabs';
 import ViewModal from './ViewModal';
 
@@ -24,6 +25,7 @@ export default function Narrative(props) {
     return (
         <Card 
             bordered={false}
+            className='narrative-card'
             title={
                 <Space>
                     <ArrowLeftOutlined 
@@ -36,7 +38,7 @@ export default function Narrative(props) {
             onTabChange={onTabChange}
         >
             <Row>
-                <Col span={23} offset={2}>
+                <Col span={23} className='narrative-row-col'>
                     { tabContent(params)[tab.key] }
                 </Col>
             </Row>

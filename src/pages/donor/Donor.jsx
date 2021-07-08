@@ -24,6 +24,7 @@ export default function Donor(props) {
     return (
         <Card
             title='Donors'
+            style={{ overflowX: 'auto' }}
             bordered={false}
             extra={
                 <Space>

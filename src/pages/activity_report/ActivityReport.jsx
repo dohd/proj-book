@@ -18,6 +18,7 @@ export default function ActivityReport(props) {
     return (
         <Card
             title='Activity Reports'
+            style={{overflowX: 'auto'}}
             bordered={false}
         >
             <ResponseModal 
@@ -68,7 +69,7 @@ export default function ActivityReport(props) {
                                         </Menu>
                                     }
                                 >
-                                    <Button type='link'>
+                                    <Button type='link' size='large'>
                                         narrative report <DownOutlined />
                                     </Button>
                                 </Dropdown>

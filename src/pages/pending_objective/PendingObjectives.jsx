@@ -90,7 +90,7 @@ export default function PendingObjectives(props) {
                                             </Menu>
                                         }
                                     >   
-                                        <Button type='link'>
+                                        <Button type='link' size='large'>
                                             actions <DownOutlined />
                                         </Button>
                                     </Dropdown>

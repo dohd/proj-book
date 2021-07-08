@@ -29,7 +29,7 @@ export default function Tab5(props) {
                     <Input.TextArea style={{ height: '8em' }} />
                 </Form.Item>
                 
-                <div className='wrapper'>
+                <div className='btn-wrapper'>
                     <Button
                         onClick={prevTab}
                         className='btn-back'

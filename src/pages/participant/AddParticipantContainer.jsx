@@ -7,7 +7,7 @@ import Api from 'api';
 import { useTracked } from 'context';
 import fetchParticipants from './participantApi';
 
-export default function CreateParticipant() {
+export default function AddParticipantContainer() {
     const { activityPlanId, activityId } = useParams();
     const [store, dispatch] = useTracked();
 

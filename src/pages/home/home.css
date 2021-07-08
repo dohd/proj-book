@@ -1,8 +1,17 @@
-.home-card-container {
+.home-card {
     background-color: #f0f2f5;
 }
-.home-card-container > div.ant-card-body {
+.home-card > div.ant-card-body {
     padding: 0;
+}
+
+.gutter-row {
+    margin-bottom: 8px;
+}
+
+.schedule-card {
+    margin-top: 5px;
+    overflow-x: auto;
 }
 
 .pending {
