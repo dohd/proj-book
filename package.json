@@ -28,6 +28,7 @@
     "url-pattern": "^1.0.3"
   },
   "scripts": {
+    "analyse": "source-map-explorer 'build/static/js/*.js'",
     "start": "react-scripts start",
     "build": "GENERATE_SOURCEMAP=false react-scripts build",
     "test": "react-scripts test",
@@ -47,5 +48,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "source-map-explorer": "^2.5.2"
   }
 }
