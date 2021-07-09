@@ -3,7 +3,7 @@ import { Modal, Form, Input, Select, Row, Col } from 'antd';
 
 import DateModal from './DateModal';
 
-export default function CreatePlan(props) {
+export default function AddPlanModal(props) {
     const { 
         visible, setVisible, state, setState, 
         form, onOk, keyProgrammes, targetGroups, 
@@ -49,7 +49,7 @@ export default function CreatePlan(props) {
                     <Input />
                 </Form.Item>
                 <Row>
-                    <Col xs={24} sm={23}>
+                    <Col xs={21} sm={23}>
                         <Form.Item
                             label='Event Dates'
                             name='events'
@@ -67,7 +67,7 @@ export default function CreatePlan(props) {
                             </Select>
                         </Form.Item>         
                     </Col>
-                    <Col xs={24} sm={1}>
+                    <Col xs={3} sm={1}>
                         <DateModal 
                             state={state} 
                             setState={setState} 

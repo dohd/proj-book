@@ -31,7 +31,6 @@ export default function Calendar(props) {
         <Card
             bordered={false}
             className='calendar-card'
-            // style={{overflowX: 'auto', maxWidth: '95%'}}
             title={
                 <Space>
                     <ArrowLeftOutlined 
@@ -57,14 +56,14 @@ export default function Calendar(props) {
             <div className='jump-to'>
                 <h3>Jump to:</h3>
                 <Select
-                    className='select-drop'
+                    className='month-select-drop'
                     defaultValue={state.currentMonth}
                     onChange={onChangeMonth}
                 >
                     { monthList }
                 </Select>
                 <Select
-                    className='select-drop'
+                    className='year-select-drop'
                     defaultValue={state.currentYear}
                     onChange={onChangeYear}
                 >
@@ -72,7 +71,7 @@ export default function Calendar(props) {
                 </Select>
             </div>
 
-            <div ref={tableView}>
+            <div ref={tableView} className='calendar-table-wrapper'>
                 <Table
                     bordered
                     className='calendar-table'

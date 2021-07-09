@@ -112,7 +112,7 @@ export default function AddProposal(props) {
                         </Form.Item>
                     </Col>
 
-                    <Col xs={3} sm={2} className='addprop-row-col'>
+                    <Col xs={3} sm={2} className='addobj-row-col'>
                         <ObjectiveModal state={state} setState={setState} />
                     </Col>
                 </Row>            

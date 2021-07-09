@@ -2,13 +2,8 @@
     --light-blue: #1890FF;
 }
 
-.calendar-card {
-    overflow-x: auto;
-    max-width: 95%;
-}
-
 .calendar-header {
-    width: 26%;
+    width: 30%;
     margin-left: auto;
     margin-right: auto;
     font-size: 15px;
@@ -26,9 +21,17 @@
     margin-bottom: 3px;
 }
 
-.select-drop {
+.month-select-drop {
     width: 6em;
     margin-left: 5px;
+}
+.year-select-drop {
+    width: 6em;
+    margin-left: 5px;
+}
+
+.calendar-table-wrapper {
+    overflow-x: auto;
 }
 
 .calendar-table {
@@ -43,6 +46,26 @@
 
 @media (max-width: 480px) {
     .calendar-header {
-        width: 55%;
+        width: 60%;
+    }
+    .jump-to {
+        display: block;
+    }
+    .calendar-table-wrapper {
+        overflow-y: hidden;
+    }
+    .calendar-table-wrapper::after {
+        content: '';
+        display: block;
+        position: absolute;
+        width: 2em;
+        height: 1px;
     }
 }
+
+@media (min-width: 786px) {
+    .calendar-header {
+        width: 20%;
+    }
+}
+

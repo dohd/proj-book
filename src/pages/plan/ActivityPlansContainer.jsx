@@ -3,7 +3,7 @@ import { Form } from 'antd';
 import { useParams } from 'react-router';
 
 import ActivityPlans from './ActivityPlans';
-import CreatePlanModal from './CreatePlanModal';
+import AddPlanModal from './AddPlanModal';
 import Api from 'api';
 import { useTracked } from 'context';
 import { clientSocket } from 'utils';
@@ -75,7 +75,7 @@ export default function ActivityPlansContainer() {
     const planProps = { setVisible, activityPlans };
     return (
         <>
-            <CreatePlanModal {...modalProps} />
+            <AddPlanModal {...modalProps} />
             <ActivityPlans {...planProps} />
         </>
     );

@@ -12,10 +12,10 @@
 }
 
 @media (max-width: 480px) {
-    .addprop-row-col {
+    .addobj-row-col {
         position: absolute;
         z-index: 1;
-        margin-left: calc(100% - 85px);
+        margin-left: calc(100% - 82px);
         margin-top: 2.85em;
     }
     .add-act-row-col {
