@@ -11,13 +11,17 @@
 
 .schedule-card {
     margin-top: 5px;
+}
+
+.schedule-table-wrapper {
     overflow-x: auto;
 }
+
 @media (max-width: 480px) {
-    .schedule-card {
+    .schedule-table-wrapper {
         overflow-y: hidden;
     }
-    .schedule-card::after {
+    .schedule-table-wrapper::after {
         content: '';
         display: block;
         position: absolute;

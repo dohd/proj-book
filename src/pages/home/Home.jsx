@@ -67,28 +67,30 @@ export default function Home(props) {
                         </Tooltip>
                     </Link>
                 }
-            >
-                <Table 
-                    dataSource={schedule}
-                    columns={[
-                        {
-                            title: 'Activity',
-                            dataIndex: 'activity',
-                            key: 'activity'
-                        },
-                        {
-                            title: 'Remaining Days',
-                            dataIndex: 'days',
-                            key: 'days',
-                            className: 'days-col'
-                        },
-                        {
-                            title: 'Implementation Date',
-                            dataIndex: 'date',
-                            key: 'date'
-                        }
-                    ]}
-                />                
+            >   
+                <div className="schedule-table-wrapper">
+                    <Table 
+                        dataSource={schedule}
+                        columns={[
+                            {
+                                title: 'Activity',
+                                dataIndex: 'activity',
+                                key: 'activity'
+                            },
+                            {
+                                title: 'Remaining Days',
+                                dataIndex: 'days',
+                                key: 'days',
+                                className: 'days-col'
+                            },
+                            {
+                                title: 'Implementation Date',
+                                dataIndex: 'date',
+                                key: 'date'
+                            }
+                        ]}
+                    />
+                </div>                
             </Card>
         </Card>
     );
