@@ -17,20 +17,6 @@
     overflow-x: auto;
 }
 
-@media (max-width: 480px) {
-    .schedule-table-wrapper {
-        overflow-y: hidden;
-    }
-    .schedule-table-wrapper::after {
-        content: '';
-        display: block;
-        position: absolute;
-        right: -4em;
-        width: 2em;
-        height: 1px;
-    }
-}
-
 .pending {
     background: linear-gradient(to right, #5cb85c, darkgreen);
     padding: 10px;

@@ -1,16 +1,3 @@
-.part-analysis-card {
+.part-analysis-table-wrapper {
     overflow-x: auto;
-}
-
-@media (max-width: 768px) {
-    .part-analysis-table-wrapper {
-        overflow-y: hidden;
-    }
-    .part-analysis-table-wrapper::after {
-        content: '';
-        display: block;
-        position: absolute;
-        width: 2em;
-        height: 1px;
-    }
 }

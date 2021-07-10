@@ -51,16 +51,6 @@
     .jump-to {
         display: block;
     }
-    .calendar-table-wrapper {
-        overflow-y: hidden;
-    }
-    .calendar-table-wrapper::after {
-        content: '';
-        display: block;
-        position: absolute;
-        width: 2em;
-        height: 1px;
-    }
 }
 
 @media (min-width: 786px) {

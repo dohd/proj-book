@@ -70,7 +70,7 @@
 
 .breadcrumb {
     position: fixed;
-    width: calc(100% - 40px);
+    width: 100%;
     z-index: 1;
     padding: 1em 0;
     background-color: #f0f2f5;
