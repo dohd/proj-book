@@ -70,7 +70,7 @@
 
 .breadcrumb {
     position: fixed;
-    width: 100%;
+    width: calc(100% - 40px);
     z-index: 1;
     padding: 1em 0;
     background-color: #f0f2f5;
@@ -98,7 +98,7 @@
     color: white;
     font-size: 2.3em;
     position: fixed;
-    top: .4em;
+    top: .5em;
     right: calc(100% - 250px);
     display: none;
 }
@@ -125,7 +125,7 @@
 @media (max-width: 768px) {
     .menu-icon {
         display: block;
-        left: calc(100% - 70px);
+        left: calc(100% - 63px);
     }
     .logout-menu {
         display: inline-block!important;

@@ -1,8 +1,8 @@
 import React from 'react';
-import { PlanActivities } from '../implementation_plan';
-import { ApprovedObjectives } from '../approved_objective';
-import { PendingObjectives } from '../pending_objective';
-import { PendingActivities } from '../pending_activity';
+import { PlanActivities } from '../../pages/implementation_plan';
+import { ApprovedObjectives } from '../../pages/approved_objective';
+import { PendingObjectives } from '../../pages/pending_objective';
+import { PendingActivities } from '../../pages/pending_activity';
 
 export function Objectives(props) {
     const state = sessionStorage.getItem('objectiveState');

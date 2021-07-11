@@ -6,8 +6,8 @@ import { useHistory } from 'react-router-dom';
 
 import './dashboard.css';
 import SiderMenu from './SiderMenu';
-import homeRoutes from './routeConfig';
-import { AvatarProfile } from 'components';
+import AvatarProfile from './AvatarProfile';
+import { homeRoutes } from 'pages';
 import { Path, RouteNameMap } from 'routes';
 
 const { Header, Sider, Content, Footer } = Layout;
