@@ -24,8 +24,12 @@ export default function EventPlanModal(props) {
                 bordered={false}
                 title={`Activity Plan: ${eventDate}`}
                 extra={
-                    <Button type='primary' onClick={onExport}>
-                        <FilePdfOutlined />Export
+                    <Button
+                        type='default'
+                        onClick={onExport}
+                        icon={<FilePdfOutlined />}
+                    >
+                        <span className='btn-text-none'>Export</span>
                     </Button>
                 }
             >   

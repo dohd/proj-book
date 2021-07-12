@@ -15,7 +15,7 @@ export default function AddUserView(props) {
 
     return (
         <Modal
-            title='Create User'
+            title='Add User'
             visible={visible}
             onOk={onOk}
             onCancel={onCancel}

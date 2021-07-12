@@ -35,7 +35,7 @@ export default function AddProposal(props) {
                     <ArrowLeftOutlined 
                         onClick={() => history.goBack()}
                         style={{fontSize: '18px'}} 
-                    /> Create Proposal
+                    /> Add Proposal
                 </Space>       
             }
         >

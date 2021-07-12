@@ -35,8 +35,12 @@ export default function CaseStudy(props) {
                 </Space>       
             }  
             extra={
-                <Button type='primary' onClick={onExport}>
-                    <FilePdfOutlined />Export
+                <Button 
+                    type='default' 
+                    onClick={onExport}
+                    icon={<FilePdfOutlined />}
+                >
+                    <span className='btn-text-none'>Export</span>
                 </Button>
             }
         >

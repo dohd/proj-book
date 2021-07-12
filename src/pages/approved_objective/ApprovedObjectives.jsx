@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { useHistory, Link } from 'react-router-dom';
-import { Card, Table, Button, Space } from 'antd';
+import { Card, Table, Button } from 'antd';
 import { ArrowLeftOutlined, FilePdfOutlined } from '@ant-design/icons'
 
 import { customSearch } from 'utils';
@@ -18,17 +18,21 @@ export default function ApprovedObjectives(props) {
         <Card 
             bordered={false}
             title={
-                <Space>
+                <span>
                     <ArrowLeftOutlined 
                         onClick={() => history.goBack()}
                         style={{fontSize: '18px'}} 
-                    />                       
-                    Approved Proposal's Objectives
-                </Space>       
+                    />&nbsp;                      
+                    Approved Objectives
+                </span>
             }
             extra={
-                <Button type='primary' onClick={onExport}>
-                    <FilePdfOutlined />Export
+                <Button 
+                    type='default' 
+                    onClick={onExport}
+                    icon={<FilePdfOutlined />}
+                >
+                    <span className='btn-text-none'>Export</span>
                 </Button>
             }
         >
@@ -48,7 +52,9 @@ export default function ApprovedObjectives(props) {
                         render: (text, {key}) => {
                             return (
                                 <Link to={approvedAct(key)}>
-                                    activities
+                                    <span style={{fontSize: 16}}>
+                                        activities
+                                    </span>
                                 </Link>
                             );
                         }

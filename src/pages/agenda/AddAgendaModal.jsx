@@ -7,7 +7,7 @@ import Api from 'api';
 const timeFormat = 'h:mm a';
 const layout = { labelCol: { span: 5 }, wrapperCol: { span: 16 } };
 
-export default function CreateAgenda(props) {
+export default function AddAgendaModal(props) {
     const { visible, setVisible, fetchAgenda } = props;
     const { activityId } = useParams();
 
@@ -36,7 +36,7 @@ export default function CreateAgenda(props) {
 
     return (
         <Modal
-            title='Create Agenda'
+            title='Add Agenda'
             visible={visible}
             onOk={onOk}
             onCancel={onCancel}

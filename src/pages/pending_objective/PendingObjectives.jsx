@@ -25,21 +25,29 @@ export default function PendingObjectives(props) {
         <Card 
             bordered={false}
             title={
-                <Space>
+                <span>
                     <ArrowLeftOutlined 
                         onClick={() => history.goBack()} 
                         style={{fontSize: '18px'}}
-                    />
-                    Pending Proposal Objectives
-                </Space>
+                    />&nbsp;
+                    Pending Objectives
+                </span>
             }
             extra={
                 <Space>
-                    <Button type='primary' onClick={showAddModal}>
-                        <PlusOutlined />Add
+                    <Button
+                        type='primary'
+                        onClick={showAddModal}
+                        icon={<PlusOutlined />}
+                    >
+                        <span className='btn-text-none'>Add</span>
                     </Button>
-                    <Button type='primary' onClick={onExport}>
-                        <FilePdfOutlined />Export
+                    <Button
+                        type='default'
+                        onClick={onExport}
+                        icon={<FilePdfOutlined />}
+                    >
+                        <span className='btn-text-none'>Export</span>
                     </Button>
                 </Space>
             }
@@ -80,11 +88,11 @@ export default function PendingObjectives(props) {
                                                     key='update'
                                                     onClick={() => showEditModal(record)}
                                                 >
-                                                    Update
+                                                    Update objective
                                                 </Menu.Item>
                                                 <Menu.Item key='activities'>
                                                     <Link to={pendingAct(key)}>
-                                                        Activities
+                                                        View Activities
                                                     </Link>
                                                 </Menu.Item>
                                             </Menu>

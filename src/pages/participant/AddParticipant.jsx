@@ -34,7 +34,7 @@ export default function AddParticipant(props) {
                     <ArrowLeftOutlined
                         onClick={() => history.goBack()} 
                         style={{ fontSize: '18px' }} 
-                    /> Create Participant
+                    /> Add Participant
                 </Space>       
             }
         >

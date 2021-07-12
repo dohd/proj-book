@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 import { Card, Table, Button, Space, Popconfirm } from 'antd';
 import {
     PlusOutlined, EditTwoTone, DeleteOutlined,
-   FilePdfOutlined
+    FilePdfOutlined
 } from '@ant-design/icons';
 
 import AddProgramme from './AddProgrammeModal';
@@ -11,13 +11,13 @@ import { customSearch } from 'utils';
 
 export default function KeyProgrammes(props) {
     const {
-        state, visible, setVisible, onExport, 
+        state, visible, setVisible, onExport,
         showModal, showUpdateModal, onDelete,
         fetchKeyProgrammes
     } = props;
 
     // custom search filter 
-    const [search, setSearch] = useState({text: '', column: ''});
+    const [search, setSearch] = useState({ text: '', column: '' });
     const searchInput = useRef();
     const getColumnSearchProps = customSearch(search, setSearch, searchInput, 400);
 
@@ -27,11 +27,19 @@ export default function KeyProgrammes(props) {
             bordered={false}
             extra={
                 <Space>
-                    <Button type='primary' onClick={showModal}>
-                        <PlusOutlined />Create
+                    <Button
+                        type='primary'
+                        onClick={showModal}
+                        icon={<PlusOutlined />}
+                    >
+                        <span className='btn-text-none'>Add</span>
                     </Button>
-                    <Button type='primary' onClick={onExport}>
-                        <FilePdfOutlined />Export
+                    <Button
+                        type='default'
+                        onClick={onExport}
+                        icon={<FilePdfOutlined />}
+                    >
+                        <span className='btn-text-none'>Export</span>
                     </Button>
                 </Space>
             }
@@ -42,13 +50,13 @@ export default function KeyProgrammes(props) {
                 fetchKeyProgrammes={fetchKeyProgrammes}
             />
             <EditProgramme
-                record={state.record} 
+                record={state.record}
                 visible={visible.update}
                 setVisible={setVisible}
                 fetchKeyProgrammes={fetchKeyProgrammes}
-            />   
+            />
 
-            <Table 
+            <Table
                 dataSource={state.programmes}
                 columns={[
                     {
@@ -63,8 +71,8 @@ export default function KeyProgrammes(props) {
                         render: (text, record) => {
                             return (
                                 <div>
-                                    <Button 
-                                        type='link' 
+                                    <Button
+                                        type='link'
                                         onClick={() => showUpdateModal(record)}
                                     >
                                         <EditTwoTone style={{ fontSize: '20px' }} />
@@ -78,8 +86,8 @@ export default function KeyProgrammes(props) {
                                         <Button
                                             type='link'
                                             icon={
-                                                <DeleteOutlined 
-                                                    style={{ color: 'red', fontSize: '18px'}} 
+                                                <DeleteOutlined
+                                                    style={{ color: 'red', fontSize: '18px' }}
                                                 />
                                             }
                                         />

@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { 
-    Card, Table, Button, Space, 
-    Popconfirm, Dropdown, Menu 
+    Card, Table, Button, Space, Popconfirm, Dropdown, 
+    Menu 
 } from 'antd';
 import { Link, useHistory, useParams } from 'react-router-dom';
 import { 
@@ -30,40 +30,42 @@ export default function Participants(props) {
             bordered={false}
             className='participants-card'
             title={
-                <Space>
+                <span>
                     <ArrowLeftOutlined 
                         onClick={() => history.goBack()}
                         style={{ fontSize: '18px' }}
-                    /> Activity Participants
-                </Space>
+                    />&nbsp;
+                    Participants
+                </span>
             }
             extra={
-                <Space>
-                    <Button type='primary'>
-                        <Link to={addParticipantPath}>
-                            <PlusOutlined /> Participant
-                        </Link>          
-                    </Button>
+                <Space>                
+                    <Link to={addParticipantPath} className='add-part-link'>
+                        <Button type='primary' icon={<PlusOutlined />}>
+                            <span className='btn-text-none'>Add</span> 
+                        </Button>    
+                    </Link>
+                            
                     <Dropdown
                         overlay={
                             <Menu>
                                 <Menu.Item key='export' onClick={onExport}>
-                                    <FilePdfOutlined />Export 
+                                    <FilePdfOutlined />Export participant
                                 </Menu.Item>
                                 <Menu.Item key='agenda'>
                                     {
-                                        !participants.length ? <span>Agenda</span>:
+                                        participants.length &&
                                         <Link to={agendaPath}>
-                                            Agenda
+                                            View agenda
                                         </Link>
                                     }
                                 </Menu.Item>
                             </Menu>
                         }
                     >   
-                        <Button type='link' size='large'>
-                            options <DownOutlined />
-                        </Button>
+                        <span className='part-more-text'>
+                            More&nbsp;<DownOutlined />
+                        </span>
                     </Dropdown>
                 </Space>
             }

@@ -42,6 +42,7 @@ export default function DashboardContainer({ location, history }) {
     const [visible, setVisible] = useState(false);
     const showDrawer = () => setVisible(true);
     const onClose = () => setVisible(false);
+    useEffect(() => setVisible(false), [location.pathname]);
 
     // Logout logic
     const toggleLogout = () => {

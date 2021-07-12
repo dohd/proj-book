@@ -6,7 +6,7 @@ import {
 } from '@ant-design/icons';
 
 import './donorContact.css';
-import AddContact from './AddContactModal';
+import AddContactModal from './AddContactModal';
 import EditContact from './EditContactModal';
 import { customSearch } from 'utils';
 
@@ -24,21 +24,29 @@ export default function Donor(props) {
 
     return (
         <Card
-            title='Donor Contact Person'
+            title='Donor Contact'
             className='donor-contact-card'
             bordered={false}
             extra={
                 <Space>
-                    <Button type='primary' onClick={showModal}>
-                        <PlusOutlined />Contact
+                    <Button 
+                        type='primary' 
+                        onClick={showModal}
+                        icon={<PlusOutlined />}
+                    >
+                        <span className='btn-text-none'>Add</span>
                     </Button>
-                    <Button type='primary' onClick={onExport}>
-                        <FilePdfOutlined />Export
+                    <Button 
+                        type='default' 
+                        onClick={onExport}
+                        icon={<FilePdfOutlined />}
+                    >
+                        <span className='btn-text-none'>Export</span>
                     </Button>
                 </Space>
             }
         >
-            <AddContact 
+            <AddContactModal 
                 visible={visible.create} 
                 setVisible={setVisible} 
                 fetchDonorContacts={fetchDonorContacts}

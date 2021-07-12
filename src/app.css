@@ -1,0 +1,5 @@
+@media (max-width: 786px) {
+    .btn-text-none {
+        display: none!important;
+    }    
+}

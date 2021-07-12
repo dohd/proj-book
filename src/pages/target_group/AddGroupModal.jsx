@@ -3,7 +3,7 @@ import { Form, Input, Modal } from 'antd';
 
 import Api from 'api';
 
-export default function CreateGroup(props) {
+export default function AddGroupModal(props) {
     const { fetchTargetGroups, visible, setVisible } = props;
 
     const [form] = Form.useForm();
@@ -26,7 +26,7 @@ export default function CreateGroup(props) {
     
     return (
         <Modal
-            title='Create Target Group'
+            title='Add Group'
             visible={visible}
             onOk={onOk}
             onCancel={onCancel}

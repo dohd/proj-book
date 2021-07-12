@@ -21,21 +21,29 @@ export default function PendingActivities(props) {
         <Card 
             bordered={false}
             title={
-                <Space>
+                <span>
                     <ArrowLeftOutlined 
                         style={{fontSize: '18px'}}
                         onClick={() => history.goBack()} 
-                    />
-                    Pending Proposal's Activities
-                </Space>       
+                    />&nbsp;
+                    Pending Activities
+                </span>       
             }
             extra={
                 <Space>
-                    <Button type='primary' onClick={showAddModal}>
-                        <PlusOutlined /> Add
+                    <Button
+                        type='primary'
+                        onClick={showAddModal}
+                        icon={<PlusOutlined />}
+                    >
+                        <span className='btn-text-none'>Add</span>
                     </Button>
-                    <Button type='primary' onClick={onExport}>
-                        <FilePdfOutlined /> Export
+                    <Button
+                        type='default'
+                        onClick={onExport}
+                        icon={<FilePdfOutlined />}
+                    >
+                        <span className='btn-text-none'>Export</span>
                     </Button>
                 </Space>
             }

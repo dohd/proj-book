@@ -3,7 +3,7 @@ import { Card, Table, Button, Popconfirm } from 'antd';
 import { UserAddOutlined, EditTwoTone, DeleteOutlined } from '@ant-design/icons';
 
 import './users.css';
-import CreateUser from './AddUserModal';
+import AddUserModal from './AddUserModal';
 import UpdateUser from './EditUserModal';
 
 export default function Users(props) {
@@ -19,12 +19,16 @@ export default function Users(props) {
             bordered={false}
             className='users-card'
             extra={
-                <Button type='primary' onClick={showModal}>
-                    <UserAddOutlined /> Create
-                </Button>
+                <Button 
+                    type='primary' 
+                    onClick={showModal}
+                    icon={<UserAddOutlined />}
+                >
+                    <span className='btn-text-none'>Add</span>
+                </Button>               
             }
         >
-            <CreateUser 
+            <AddUserModal 
                 visible={visible.create} 
                 setVisible={setVisible} 
                 fetchUsers={fetchUsers}

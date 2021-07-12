@@ -5,7 +5,7 @@ import {
     FilePdfOutlined
 } from '@ant-design/icons';
 
-import CreateGroup from './AddGroupModal';
+import AddGroupModal from './AddGroupModal';
 import UpdateGroup from './EditGroupModal';
 import { customSearch } from 'utils';
 
@@ -26,16 +26,24 @@ export default function TargetGroups(props) {
             bordered={false}
             extra={
                 <Space>
-                    <Button type='primary' onClick={showModal}>
-                        <PlusOutlined />Create
+                    <Button 
+                        type='primary' 
+                        onClick={showModal}
+                        icon={<PlusOutlined />}
+                    >
+                        <span className='btn-text-none'>Add</span>
                     </Button>
-                    <Button type='primary' onClick={onExport}>
-                        <FilePdfOutlined />Export
+                    <Button 
+                        type='default' 
+                        onClick={onExport}
+                        icon={<FilePdfOutlined />}
+                    >
+                        <span className='btn-text-none'>Export</span>
                     </Button>
                 </Space>
             }
         >
-            <CreateGroup 
+            <AddGroupModal 
                 visible={visible.create}
                 setVisible={setVisible}
                 fetchTargetGroups={fetchTargetGroups}

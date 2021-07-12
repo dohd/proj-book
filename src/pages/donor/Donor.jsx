@@ -6,7 +6,7 @@ import {
 } from '@ant-design/icons';
 
 import './donor.css';
-import AddDonor from './AddDonorModal';
+import AddDonorModal from './AddDonorModal';
 import EditDonor from './EditDonorModal';
 import { customSearch } from 'utils';
 
@@ -29,16 +29,24 @@ export default function Donor(props) {
             bordered={false}
             extra={
                 <Space>
-                    <Button type='primary' onClick={showModal}>
-                        <PlusOutlined />Add
+                    <Button 
+                        type='primary' 
+                        onClick={showModal}
+                        icon={<PlusOutlined />}
+                    >
+                        <span className='btn-text-none'>Add</span>
                     </Button>
-                    <Button type='primary' onClick={onExport}>
-                        <FilePdfOutlined />Export
+                    <Button 
+                        type='default' 
+                        onClick={onExport}
+                        icon={<FilePdfOutlined />}
+                    >
+                        <span className='btn-text-none'>Export</span>
                     </Button>
                 </Space>
             }
         >
-            <AddDonor 
+            <AddDonorModal 
                 fetchDonors={fetchDonors}
                 visible={visible.create} 
                 setVisible={setVisible} 

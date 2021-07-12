@@ -4,7 +4,7 @@ import { Form } from 'antd';
 import AddUserView from './AddUserView';
 import Api from 'api';
 
-export default function CreateUser(props) {
+export default function AddUserModal(props) {
     const { 
         fetchUsers, visible, 
         setVisible, userRoles 

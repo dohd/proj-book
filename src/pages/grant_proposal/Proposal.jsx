@@ -40,10 +40,14 @@ export default function Proposal(props) {
                         icon={<PlusOutlined />} 
                         onClick={() => history.push(Path.createProposal)}
                     >
-                        Create           
+                        <span className='btn-text-none'>Add</span>         
                     </Button>
-                    <Button type='primary' onClick={onExport}>
-                        <FilePdfOutlined />Export           
+                    <Button 
+                        type='default' 
+                        onClick={onExport}
+                        icon={<FilePdfOutlined />}
+                    >
+                        <span className='btn-text-none'>Export</span>
                     </Button>
                 </Space>    
             } 
@@ -131,11 +135,11 @@ export default function Proposal(props) {
                                                     key='update'
                                                     onClick={() => showModal(record)}
                                                 >
-                                                    Update
+                                                    Update proposal
                                                 </Menu.Item>
                                                 <Menu.Item key='objectives'>
                                                     <Link to={() => setApprovedObj(key)}>
-                                                        Objectives
+                                                        View objectives
                                                     </Link>
                                                 </Menu.Item>
                                             </Menu>
@@ -155,11 +159,11 @@ export default function Proposal(props) {
                                             overlay={
                                                 <Menu>
                                                     <Menu.Item key='update'>
-                                                        <Link to={path}>Update</Link>
+                                                        <Link to={path}>Update proposal</Link>
                                                     </Menu.Item>
                                                     <Menu.Item key='objectives'> 
                                                         <Link to={() => setPendingObj(key)}>
-                                                            Objectives
+                                                            View objectives
                                                         </Link>
                                                     </Menu.Item>
                                                 </Menu>

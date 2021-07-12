@@ -24,21 +24,29 @@ export default function PlanActivities(props) {
         <Card 
             bordered={false}
             title={
-                <Space>
+                <span>
                     <ArrowLeftOutlined
                         onClick={() => history.goBack()}
                         style={{ fontSize: '18px' }} 
-                    /> 
-                    Implementation Plan  
-                </Space>       
+                    />&nbsp;
+                    Activity Implementation  
+                </span>       
             }
             extra={
                 <Space>
-                    <Button type='primary' onClick={showModal}>
-                        <PlusOutlined />Activity
+                    <Button 
+                        type='primary' 
+                        onClick={showModal}
+                        icon={<PlusOutlined />}
+                    >
+                        <span className='btn-text-none'>Add</span>
                     </Button>
-                    <Button type='primary' onClick={onExport}>
-                        <FilePdfOutlined />Export
+                    <Button 
+                        type='default' 
+                        onClick={onExport}
+                        icon={<FilePdfOutlined />}
+                    >
+                        <span className='btn-text-none'>Export</span>
                     </Button>
                 </Space>
             }

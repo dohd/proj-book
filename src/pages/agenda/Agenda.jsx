@@ -3,11 +3,11 @@ import { Link, useHistory, useParams } from 'react-router-dom';
 import { Card, Button, Space, Table, Popconfirm } from 'antd';
 import { 
     PlusOutlined, ArrowLeftOutlined, EditTwoTone, 
-    DeleteOutlined
+    DeleteOutlined, FileTextOutlined
 } from '@ant-design/icons';
 
 import './agenda.css';
-import CreateAgenda from './AddAgendaModal';
+import AddAgendaModal from './AddAgendaModal';
 import UpdateAgenda from './EditAgendaModal';
 import { Path } from 'routes';
 import { customSearch, parseUrl } from 'utils';
@@ -42,21 +42,26 @@ export default function Agenda(props) {
             }       
             extra={
                 <Space>
-                    <Button type='primary' onClick={showCreateModal}>
-                        <PlusOutlined /> Agenda
+                    <Button
+                        type='primary'
+                        onClick={showCreateModal}
+                        icon={<PlusOutlined />}
+                    >
+                        <span className='btn-text-none'>Add</span>
                     </Button>
                     <Link to={reportPath}>
                         <Button 
                             type='primary'
                             disabled={!state.agenda.length}
+                            icon={<FileTextOutlined />}
                         >
-                            Narrative Report
+                            <span className='btn-text-none'>Report</span>
                         </Button>
                     </Link>
                 </Space>
             } 
         >   
-            <CreateAgenda  
+            <AddAgendaModal  
                 visible={visible.create}
                 setVisible={setVisible}
                 fetchAgenda={fetchAgenda} 

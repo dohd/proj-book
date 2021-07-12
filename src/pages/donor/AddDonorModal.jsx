@@ -5,7 +5,7 @@ import Api from 'api';
 
 const layout = { labelCol: { span: 5 }, wrapperCol: { span: 16 } };
 
-export default function AddDonor(props) {
+export default function AddDonorModal(props) {
     const { fetchDonors, visible, setVisible } = props;
 
     const [form] = Form.useForm();

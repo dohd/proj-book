@@ -5,7 +5,7 @@ import {
     FilePdfOutlined
 } from '@ant-design/icons';
 
-import CreateRegion from './AddRegionModal';
+import AddRegionModal from './AddRegionModal';
 import UpdateRegion from './EditRegionModal';
 import { customSearch } from 'utils';
 
@@ -27,16 +27,24 @@ export default function Regions(props) {
             bordered={false}
             extra={
                 <Space>
-                    <Button type='primary' onClick={showModal}>
-                        <PlusOutlined />Create
+                    <Button 
+                        type='primary' 
+                        onClick={showModal}
+                        icon={<PlusOutlined />}
+                    >
+                        <span className='btn-text-none'>Add</span>
                     </Button>
-                    <Button type='primary' onClick={onExport}>
-                        <FilePdfOutlined />Export
+                    <Button 
+                        type='default' 
+                        onClick={onExport}
+                        icon={<FilePdfOutlined />}
+                    >
+                        <span className='btn-text-none'>Export</span>
                     </Button>
                 </Space>
             }
         >
-            <CreateRegion
+            <AddRegionModal
                 visible={visible.create}
                 setVisible={setVisible}
                 fetchTargetRegions={fetchTargetRegions}

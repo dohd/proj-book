@@ -3,7 +3,7 @@
 }
 
 .calendar-header {
-    width: 30%;
+    width: 35%;
     margin-left: auto;
     margin-right: auto;
     font-size: 15px;
@@ -46,7 +46,7 @@
 
 @media (max-width: 480px) {
     .calendar-header {
-        width: 60%;
+        width: 65%;
     }
     .jump-to {
         display: block;

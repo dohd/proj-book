@@ -2,7 +2,7 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { 
     Card, Form, Input, Button, Row, Col, DatePicker, 
-    Select, InputNumber, Space, Radio
+    Select, InputNumber, Radio
 } from 'antd';
 import { ArrowLeftOutlined } from '@ant-design/icons';
 
@@ -21,12 +21,13 @@ export default function EditPendingProposal(props) {
     return (
         <Card       
             title={
-                <Space>
+                <span>
                     <ArrowLeftOutlined 
                         onClick={() => history.goBack()}
                         style={{fontSize: '18px'}} 
-                    /> Update Pending Proposal
-                </Space>       
+                    />&nbsp;
+                    Update Pending Proposal
+                </span>       
             }
         >
             <Form

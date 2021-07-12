@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Space, Table, Button } from 'antd';
+import { Card, Table, Button } from 'antd';
 import { PlusOutlined, ArrowLeftOutlined } from '@ant-design/icons';
 import { useHistory, useParams } from 'react-router';
 
@@ -15,20 +15,21 @@ export default function ActivityPlans(props) {
         <Card
             bordered={false}
             title={
-                <Space>
+                <span>
                     <ArrowLeftOutlined 
                         style={{ fontSize: '18px' }}
                         onClick={() => history.goBack()} 
-                    />
-                    Activity Plans
-                </Space>
+                    />&nbsp;
+                    Implementation Plan
+                </span>
             }
             extra={
                 <Button 
                     type='primary' 
                     onClick={() => setVisible(true)}
+                    icon={<PlusOutlined />}
                 >
-                    <PlusOutlined /> Plan
+                    <span className='btn-text-none'>Add</span>
                 </Button>
             }
         >

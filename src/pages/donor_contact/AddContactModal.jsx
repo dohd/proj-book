@@ -5,7 +5,7 @@ import Api from 'api';
 
 const layout = { labelCol: { span: 6 }, wrapperCol: { span: 16 } };
 
-export default function AddContact(props) {
+export default function AddContactModal(props) {
     const { 
         visible, setVisible, fetchDonorContacts,
         donors
@@ -49,7 +49,7 @@ export default function AddContact(props) {
     
     return (
         <Modal
-            title='Add Donor Contact'
+            title='Add Contact'
             visible={visible}
             onOk={onOk}
             onCancel={onCancel}

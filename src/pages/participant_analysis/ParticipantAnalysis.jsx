@@ -20,9 +20,12 @@ export default function ParticipantAnalysis(props) {
             style={{ overflowX: 'auto' }}
             title='Participant Analysis'
             extra={
-                <Button type='primary' onClick={onExport}>
-                    <FilePdfOutlined />
-                    Export
+                <Button 
+                    type='default' 
+                    onClick={onExport}
+                    icon={<FilePdfOutlined />}
+                >
+                    <span className='btn-text-none'>Export</span>
                 </Button>
             }
         >   

@@ -3,7 +3,7 @@ import { Form, Input, Modal } from 'antd';
 
 import Api from 'api';
 
-export default function CreateRegion(props) {
+export default function AddRegionModal(props) {
     const { fetchTargetRegions, visible, setVisible } = props;
 
     const [form] = Form.useForm();
@@ -27,7 +27,7 @@ export default function CreateRegion(props) {
     
     return (
         <Modal
-            title='Create Region'
+            title='Add Region'
             visible={visible}
             onOk={onOk}
             onCancel={onCancel}
