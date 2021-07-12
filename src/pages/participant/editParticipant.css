@@ -1,0 +1,24 @@
+.edit-part-submit-btn-wrapper {
+    display: flex;
+    margin-bottom: 1em;
+}
+
+@media (min-width: 480px) {
+    .edit-participant-card {
+        margin-top: 5em;
+    }
+    .edit-part-submit-btn-wrapper {
+        width: 50%;
+        margin-left: 20%;
+    }
+}
+
+@media (min-width: 786px) {
+    .edit-participant-card {
+        margin-top: 0;
+    }
+    .edit-part-submit-btn-wrapper {
+        width: 30%;
+        margin-left: 25%;
+    }
+}

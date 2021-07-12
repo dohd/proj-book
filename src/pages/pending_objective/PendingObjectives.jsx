@@ -80,7 +80,7 @@ export default function PendingObjectives(props) {
                         render: (text, record) => {
                             const { key } = record;
                             return (
-                                <div>
+                                <div style={{minWidth: '140px'}}>
                                     <Dropdown
                                         overlay={
                                             <Menu>

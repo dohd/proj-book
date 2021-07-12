@@ -76,14 +76,14 @@ export default function Proposal(props) {
                             render: (text, record) => {
                                 const {startPeriod, endPeriod} = record;
                                 return (
-                                    <span>
+                                    <div style={{minWidth: '100px'}}>
                                         <div style={{display: 'inline-block'}}>
                                             { startPeriod }
                                         </div> &nbsp;
                                         <div style={{display: 'inline-block'}}>
                                             { endPeriod }
                                         </div>
-                                    </span>
+                                    </div>
                                 );
                             }
                         },
@@ -154,7 +154,7 @@ export default function Proposal(props) {
                                 const params = {proposalId: key}
                                 const path = parseUrl(Path.updateProposal, params);
                                 return (
-                                    <div>
+                                    <div style={{minWidth: '140px'}}>
                                         <Dropdown
                                             overlay={
                                                 <Menu>

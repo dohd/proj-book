@@ -29,8 +29,8 @@ export default function PlanActivities(props) {
                         onClick={() => history.goBack()}
                         style={{ fontSize: '18px' }} 
                     />&nbsp;
-                    Activity Implementation  
-                </span>       
+                    Activities 
+                </span>    
             }
             extra={
                 <Space>

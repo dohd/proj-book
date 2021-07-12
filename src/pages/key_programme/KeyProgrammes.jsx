@@ -70,7 +70,7 @@ export default function KeyProgrammes(props) {
                         key: 'action',
                         render: (text, record) => {
                             return (
-                                <div>
+                                <div style={{minWidth: '100px'}}>
                                     <Button
                                         type='link'
                                         onClick={() => showUpdateModal(record)}

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Card, Popconfirm, Space, Table } from 'antd';
+import { Button, Card, Popconfirm, Table, Space } from 'antd';
 import { ArrowLeftOutlined, DeleteOutlined } from '@ant-design/icons';
 import { useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
@@ -22,13 +22,13 @@ export default function PlanParticipant(props) {
         <Card
             bordered={false}
             title={
-                <Space>
+                <span>
                     <ArrowLeftOutlined 
                         style={{ fontSize: '18px' }}
                         onClick={() => history.goBack()} 
-                    />
-                    Activity Plans
-                </Space>
+                    />&nbsp;
+                    Plan Participants
+                </span>
             }
         >
             <Table
@@ -45,7 +45,8 @@ export default function PlanParticipant(props) {
                         render: (txt, record) => {                        
                             const path = parseUrl(Path.participants, obj(record));
                             return (
-                                <>
+                                <Space>
+                                    <Link to={path}>Participants</Link>
                                     <Popconfirm
                                         title='Are you sure to delete this plan?'
                                         onConfirm={() => onDelete(record.key)}
@@ -59,8 +60,8 @@ export default function PlanParticipant(props) {
                                             }
                                         />
                                     </Popconfirm>
-                                    <Link to={path}>Participants</Link>
-                                </>
+                                    
+                                </Space>
                             );
                         }
                     }

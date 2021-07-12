@@ -23,7 +23,7 @@ export default function Regions(props) {
 
     return (
         <Card
-            title='Region of Implementation'
+            title='Target Regions'
             bordered={false}
             extra={
                 <Space>
@@ -70,7 +70,7 @@ export default function Regions(props) {
                         key: 'action',
                         render: (text, record) => {
                             return (
-                                <div>
+                                <div style={{minWidth: '100px'}}>
                                     <Button 
                                         type='link' 
                                         onClick={() => showUpdateModal(record)}

@@ -6,6 +6,8 @@ import {
 import { ArrowLeftOutlined } from '@ant-design/icons';
 import { useHistory } from 'react-router';
 
+import './editParticipant.css';
+
 export const dateFormat = 'YYYY-MM-DD';
 
 export default function EditParticipant(props) {
@@ -26,6 +28,7 @@ export default function EditParticipant(props) {
 
     return (
         <Card 
+            className='edit-participant-card'
             title={
                 <Space>
                     <ArrowLeftOutlined
@@ -36,16 +39,16 @@ export default function EditParticipant(props) {
             }
         >
             <Form
+                className='edit-participant-form'
                 form={form}
                 onFinish={onFinish}
                 onFinishFailed={onFinishFailed}
                 initialValues={{ remember: true }}
                 style={{ marginLeft: '5%' }}
             >
-                <Row>
+                <Row gutter={16}>
                     <Col xs={24} sm={11}>
                         <Form.Item
-                            labelCol={{ span: 4, offset: 2 }}
                             label='Name'
                             name='name'
                             rules={[{
@@ -58,7 +61,6 @@ export default function EditParticipant(props) {
                     </Col>
                     <Col xs={24} sm={11}>
                         <Form.Item
-                            labelCol={{ span: 5 }}
                             wrapperCol={{ span: 8 }}
                             label='Gender'
                             name='gender'
@@ -72,7 +74,6 @@ export default function EditParticipant(props) {
                 </Row>
                 
                 <Form.Item
-                    labelCol={{ span: 3 }}
                     wrapperCol={{ span: 12 }}
                     label='Disability'
                     name='disability'
@@ -81,7 +82,6 @@ export default function EditParticipant(props) {
                 </Form.Item>
 
                 <Form.Item
-                    labelCol={{ span: 3 }}
                     wrapperCol={{ span: 12 }}
                     label='Key Programme'
                     name='keyProgramme'
@@ -89,10 +89,9 @@ export default function EditParticipant(props) {
                     <Input readOnly />
                 </Form.Item>
 
-                <Row>
+                <Row gutter={16}>
                     <Col xs={24} sm={10}>
                         <Form.Item
-                            labelCol={{ span: 7 }}
                             wrapperCol={{ span: 14 }}
                             label='Phone'
                             name='phone'
@@ -103,7 +102,6 @@ export default function EditParticipant(props) {
                     </Col>
                     <Col xs={24} sm={11}>
                         <Form.Item
-                            labelCol={{ span: 4 }}
                             wrapperCol={{ span: 14 }}
                             label='Email'
                             name='email'
@@ -113,10 +111,9 @@ export default function EditParticipant(props) {
                         </Form.Item>
                     </Col>
                 </Row>
-                <Row>
+                <Row gutter={16}>
                     <Col xs={24} sm={10}>
                         <Form.Item
-                            labelCol={{ span: 7 }}
                             label='Designation'
                             name='designation'
                             rules={[{ required: true }]}
@@ -126,7 +123,6 @@ export default function EditParticipant(props) {
                     </Col>
                     <Col xs={24} sm={11}>
                         <Form.Item
-                            labelCol={{ span: 5 }}
                             wrapperCol={{ span: 14 }}
                             label='Region'
                             name='regionId'
@@ -142,22 +138,23 @@ export default function EditParticipant(props) {
                     </Col>
                 </Row>
                 <Form.Item
-                    labelCol={{ span: 3 }}
                     label='Activity Date'
                     name='activityDate'
                     rules={[{ required: true }]}
                 >
                     <DatePicker format={dateFormat} />
                 </Form.Item>
-                <Form.Item wrapperCol={{ span: 6, offset: 7 }}>
+                
+                <div className='edit-part-submit-btn-wrapper'>
                     <Button
                         type='primary'
                         htmlType='submit'
+                        className='edit-part-submit-btn'
                         block
                     >
                         Submit
                     </Button>
-                </Form.Item> 
+                </div>
             </Form>
         </Card>
     );

@@ -3,6 +3,7 @@ import { Table, Card, Space, Button, Popconfirm } from 'antd';
 import { ArrowLeftOutlined, EditTwoTone, DeleteOutlined } from '@ant-design/icons';
 import { useHistory } from 'react-router';
 
+import './reportResponse.css';
 import EditResponseModal from './EditResponseModal';
 
 export default function ReportResponse(props) {
@@ -33,71 +34,73 @@ export default function ReportResponse(props) {
                 fetchNarratives={fetchNarratives}
             />
 
-            <Table
-                dataSource={state.quiz}
-                columns={[
-                    {
-                        title: 'Question',
-                        dataIndex: 'quiz',
-                        key: 'quiz'
-                    }
-                ]}
-                expandable={{ 
-                    expandedRowRender({key}) {
-                        const data = state.responses.filter(v => v.quizId === key);
-                        return (
-                            <Table 
-                                pagination={false}
-                                dataSource={data}
-                                columns={[
-                                    {
-                                        title: 'Response',
-                                        dataIndex: 'response',
-                                        key: 'response'
-                                    },
-                                    {
-                                        title: 'Task',
-                                        dataIndex: 'task',
-                                        key: 'task'
-                                    },
-                                    {
-                                        title: 'Action',
-                                        key: 'action',
-                                        render: (txt, record) => {
-                                            return (
-                                                <Space>
-                                                    <Button 
-                                                        type='link' 
-                                                        onClick={() => showModal(record)}
-                                                        icon={
-                                                            <EditTwoTone style={{ fontSize: '20px' }} />
-                                                        }
-                                                    />                                                    
-                                                    <Popconfirm
-                                                        title='Are you sure to delete this response?'
-                                                        onConfirm={() => onDelete(record.key)}
-                                                        okText='Yes'
-                                                        cancelText='No'
-                                                    >
-                                                        <Button
-                                                            type='link'
+            <div className="edit-res-table-wrapper">
+                <Table
+                    dataSource={state.quiz}
+                    columns={[
+                        {
+                            title: 'Question',
+                            dataIndex: 'quiz',
+                            key: 'quiz'
+                        }
+                    ]}
+                    expandable={{ 
+                        expandedRowRender({key}) {
+                            const data = state.responses.filter(v => v.quizId === key);
+                            return (
+                                <Table 
+                                    pagination={false}
+                                    dataSource={data}
+                                    columns={[
+                                        {
+                                            title: 'Response',
+                                            dataIndex: 'response',
+                                            key: 'response',
+                                        },
+                                        {
+                                            title: 'Task',
+                                            dataIndex: 'task',
+                                            key: 'task',
+                                        },
+                                        {
+                                            title: 'Action',
+                                            key: 'action',
+                                            render: (txt, record) => {
+                                                return (
+                                                    <Space>
+                                                        <Button 
+                                                            type='link' 
+                                                            onClick={() => showModal(record)}
                                                             icon={
-                                                                <DeleteOutlined 
-                                                                    style={{ color: 'red', fontSize: '18px' }} 
-                                                                />
+                                                                <EditTwoTone style={{ fontSize: '20px' }} />
                                                             }
-                                                        />
-                                                    </Popconfirm>
-                                                </Space>
-                                            );
+                                                        />                                                    
+                                                        <Popconfirm
+                                                            title='Are you sure to delete this response?'
+                                                            onConfirm={() => onDelete(record.key)}
+                                                            okText='Yes'
+                                                            cancelText='No'
+                                                        >
+                                                            <Button
+                                                                type='link'
+                                                                icon={
+                                                                    <DeleteOutlined 
+                                                                        style={{ color: 'red', fontSize: '18px' }} 
+                                                                    />
+                                                                }
+                                                            />
+                                                        </Popconfirm>
+                                                    </Space>
+                                                );
+                                            }
                                         }
-                                    }
-                                ]}
-                            />
-                        );
-                    }
-                }}
-            />
+                                    ]}
+                                />
+                            );
+                        }
+                    }}
+                />
+            </div>
         </Card>
     );
 }

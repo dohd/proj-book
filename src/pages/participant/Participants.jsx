@@ -39,19 +39,16 @@ export default function Participants(props) {
                 </span>
             }
             extra={
-                <Space>                
+                <Space>
                     <Link to={addParticipantPath} className='add-part-link'>
                         <Button type='primary' icon={<PlusOutlined />}>
                             <span className='btn-text-none'>Add</span> 
                         </Button>    
-                    </Link>
-                            
+                    </Link>  
+
                     <Dropdown
                         overlay={
                             <Menu>
-                                <Menu.Item key='export' onClick={onExport}>
-                                    <FilePdfOutlined />Export participant
-                                </Menu.Item>
                                 <Menu.Item key='agenda'>
                                     {
                                         participants.length &&
@@ -60,6 +57,9 @@ export default function Participants(props) {
                                         </Link>
                                     }
                                 </Menu.Item>
+                                <Menu.Item key='export' onClick={onExport}>
+                                    <FilePdfOutlined /> Export participants
+                                </Menu.Item>                                
                             </Menu>
                         }
                     >   
@@ -78,7 +78,12 @@ export default function Participants(props) {
                             title: 'Activity Date',
                             dataIndex: 'activityDate',
                             key: 'activityDate',
-                            ...getColumnSearchProps('activityDate')
+                            ...getColumnSearchProps('activityDate'),
+                            render: text => (
+                                <div style={{minWidth: '100px'}}>
+                                    {text}
+                                </div>
+                            )
                         },
                         {
                             title: 'Name',
@@ -135,7 +140,7 @@ export default function Participants(props) {
                                 const obj = { participantId: key, ...params };
                                 const editPath = parseUrl(Path.updateParticipant, obj);
                                 return (
-                                    <div>
+                                    <div style={{minWidth: '100px'}}>
                                         <Link to={editPath}>
                                             <Button
                                                 type='link'
