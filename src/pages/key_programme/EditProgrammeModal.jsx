@@ -6,6 +6,10 @@ export default function EditProgramme(props) {
     const { fetchKeyProgrammes, record, visible, setVisible } = props;
     const onCreate = values => {
         setVisible(prev => ({...prev, update: false}));
+        values.programme = values.programme.split(' ')
+        .filter(v => v)
+        .join(' ');
+        
         Api.keyProgramme.patch(record.key, values)
         .then(res => res && fetchKeyProgrammes())
     };

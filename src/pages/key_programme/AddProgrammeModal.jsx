@@ -8,6 +8,10 @@ export default function AddProgramme(props) {
     const [form] = Form.useForm();
     const onCreate = values => {
         setVisible(prev => ({...prev, create: false}));
+        values.programme = values.programme.split(' ')
+        .filter(v => v)
+        .join(' ');
+
         Api.keyProgramme.post(values)
         .then(res => {
             if (!res) return;

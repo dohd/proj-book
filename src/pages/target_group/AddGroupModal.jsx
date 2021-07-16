@@ -9,6 +9,10 @@ export default function AddGroupModal(props) {
     const [form] = Form.useForm();
     const onCreate = values => {
         setVisible(prev => ({...prev, create: false}));
+        values.group = values.group.split(' ')
+        .filter(v => v)
+        .join(' ');
+        
         Api.targetGroup.post(values)
         .then(res => {
             if(!res) return;

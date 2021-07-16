@@ -9,7 +9,10 @@ export default function AddRegionModal(props) {
     const [form] = Form.useForm();
     const onCreate = values => {
         setVisible(prev => ({...prev, create: false}));
-        values.area = values.region;
+        values.area = values.region.split(' ')
+        .filter(v => v)
+        .join(' ');
+        
         Api.targetRegion.post(values)
         .then(res => {
             if (!res) return;

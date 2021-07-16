@@ -8,7 +8,10 @@ export default function UpdateRegion(props) {
 
     const onCreate = values => {
         setVisible(prev => ({...prev, update: false}));
-        values.area = values.region;
+        values.area = values.region
+        .filter(v => v)
+        .join(' ');
+        
         Api.targetRegion.patch(record.key, values)
         .then(res => res && fetchTargetRegions());
     };

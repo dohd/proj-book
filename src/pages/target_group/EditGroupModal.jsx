@@ -8,6 +8,10 @@ export default function UpdateGroup(props) {
 
     const onCreate = values => {
         setVisible(prev => ({...prev, update: false}));
+        values.group = values.group.split(' ')
+        .filter(v => v)
+        .join(' ');
+        
         Api.targetGroup.patch(record.key, values)
         .then(res => res && fetchTargetGroups());
     };
