@@ -7,13 +7,13 @@
     display: inline-block;
     border-width: 2px;
     margin: .5em;
-    min-width: 550px;
+    min-width: 50%;
 }
 
 .region-graph-card {
     display: inline-block;
     border-width: 2px;
     margin: .5em;
-    min-width: 550px;
+    min-width: 50%;
 }
 
