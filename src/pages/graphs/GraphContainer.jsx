@@ -11,58 +11,65 @@ export default function GraphContainer() {
     const [labels, setLabels] = useState({
         programme: [], region: []
     });
-
-    useEffect(() => {
-        const programme = store.keyProgrammes.map(v => v.programme);
-        const region = store.targetRegions.map(v => v.area);
-        setLabels({ programme, region });
-    }, [store.keyProgrammes, store.targetRegions]);
-
     const [data, setData] = useState({
-        programme: { male: [], female: [] },
-        region: { male: [], female: [] }
+        programme: {}, region: {}
     });
 
+    const {programmeGraph} = store;
     useEffect(() => {
-        const programme = store.programmeGraph;
-        if (programme.hasOwnProperty('male')) {
-            setData(prev => ({
-                ...prev, programme: store.programmeGraph 
-            }));
+        if (programmeGraph.length) {
+            const labels = programmeGraph.map(v => v.programme);
+            const dataset = {male: [], female: []};
+            programmeGraph.forEach(obj => {
+                if (obj.male) dataset.male.push(obj.male)
+                if (obj.female) dataset.female.push(obj.female)
+            });
+
+            setLabels(prev => ({...prev, programme: labels}));
+            setData(prev => ({...prev, programme: dataset}));
         }
-        const region = store.programmeGraph;
-        if (region.hasOwnProperty('male')) {
-            setData(prev => ({
-                ...prev, region: store.regionGraph 
-            }));
+    }, [programmeGraph]);
+
+    const {regionGraph} = store;
+    useEffect(() => {
+        if (regionGraph.length) {
+            const labels = regionGraph.map(v => v.area);
+            const dataset = {male: [], female: []};
+            regionGraph.forEach(obj => {
+                if (obj.male) dataset.male.push(obj.male)
+                if (obj.female) dataset.female.push(obj.female)
+            });
+
+            setLabels(prev => ({...prev, region: labels}));
+            setData(prev => ({...prev, region: dataset}));
         }
-    }, [store.programmeGraph, store.regionGraph]);
+    }, [regionGraph]);
 
     const [chartData, setchartData] = useState({
         programme: {}, region: {}
     });
-    
     useEffect(() => {
         const chart = barchart(labels, data);
         setchartData(chart);
     }, [labels, data]);
 
-    const prog_graph_props = {
+    const progGraphProps = {
         data: chartData.programme,
         apiKey: 'programmeGraph',
         actionType: 'addProgrammeGraph',
         dispatch
     };
-    const region_graph_props = {
+    const regionGraphProps = {
         data: chartData.region,
         apiKey: 'regionGraph',
         actionType: 'addRegionGraph',
         dispatch
     };
+
     return (
         <div className='graph-container'>
-            <ProgrammeGraph {...prog_graph_props} />
-            <RegionGraph {...region_graph_props} />
+            <ProgrammeGraph {...progGraphProps} />
+            <RegionGraph {...regionGraphProps} />
         </div>
     );
 }
