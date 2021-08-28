@@ -51,55 +51,58 @@ export default function CaseStudy(props) {
                 fetchCaseStudies={fetchCaseStudies}
             />
 
-            <Table 
-                dataSource={caseStudies}
-                columns={[
-                    {
-                        title: 'Report',
-                        dataIndex: 'report',
-                        key: 'report',
-                        ...getColumnSearchProps('activity')
-                    },
-                    {
-                        title: 'Case Study',
-                        dataIndex: 'caseStudy',
-                        key: 'caseStudy'
-                    },
-                    {
-                        title: 'Action',
-                        key: 'action',
-                        render: (txt, record) => {
-                            return (
-                                <Space>
-                                    <Button 
-                                        type='link' 
-                                        onClick={() => showModal(record)}
-                                        icon={
-                                            <EditTwoTone style={{ fontSize: '20px' }} />
-                                        }
-                                    />
-                                    
-                                    <Popconfirm
-                                        title='Are you sure to delete this study?'
-                                        onConfirm={() => onDelete(record.key)}
-                                        okText='Yes'
-                                        cancelText='No'
-                                    >
-                                        <Button
-                                            type='link'
+            <div style={{overflowX: 'auto'}}>
+                <Table 
+                    dataSource={caseStudies}
+                    columns={[
+                        {
+                            title: 'Report',
+                            dataIndex: 'report',
+                            key: 'report',
+                            ...getColumnSearchProps('activity')
+                        },
+                        {
+                            title: 'Case Study',
+                            dataIndex: 'caseStudy',
+                            key: 'caseStudy',
+                            render: text => <div style={{minWidth: '150px'}}>{text}</div>
+                        },
+                        {
+                            title: 'Action',
+                            key: 'action',
+                            render: (txt, record) => {
+                                return (
+                                    <Space>
+                                        <Button 
+                                            type='link' 
+                                            onClick={() => showModal(record)}
                                             icon={
-                                                <DeleteOutlined 
-                                                    style={{ color: 'red', fontSize: '18px' }} 
-                                                />
+                                                <EditTwoTone style={{ fontSize: '20px' }} />
                                             }
                                         />
-                                    </Popconfirm>
-                                </Space>
-                            );
+                                        
+                                        <Popconfirm
+                                            title='Are you sure to delete this study?'
+                                            onConfirm={() => onDelete(record.key)}
+                                            okText='Yes'
+                                            cancelText='No'
+                                        >
+                                            <Button
+                                                type='link'
+                                                icon={
+                                                    <DeleteOutlined 
+                                                        style={{ color: 'red', fontSize: '18px' }} 
+                                                    />
+                                                }
+                                            />
+                                        </Popconfirm>
+                                    </Space>
+                                );
+                            }
                         }
-                    }
-                ]}
-            />
+                    ]}
+                />
+            </div>
         </Card>
     );
 }
