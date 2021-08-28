@@ -58,7 +58,12 @@ export default function ActivityReport(props) {
                                                 Responses
                                             </Menu.Item>
                                             <Menu.Item key='case studies'>
-                                                <Link to={casePath}>Case studies</Link>
+                                                <Link 
+                                                    to={casePath} 
+                                                    style={{color: 'rgba(0, 0, 0, 0.85)'}}
+                                                >
+                                                    Case studies
+                                                </Link>
                                             </Menu.Item>
                                             <Menu.Item 
                                                 key='images'
