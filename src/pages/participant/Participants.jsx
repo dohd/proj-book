@@ -79,11 +79,7 @@ export default function Participants(props) {
                             dataIndex: 'activityDate',
                             key: 'activityDate',
                             ...getColumnSearchProps('activityDate'),
-                            render: text => (
-                                <div style={{minWidth: '100px'}}>
-                                    {text}
-                                </div>
-                            )
+                            render: text => <div style={{minWidth: '100px'}}>{text}</div>
                         },
                         {
                             title: 'Name',
