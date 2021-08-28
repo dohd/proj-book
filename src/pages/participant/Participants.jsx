@@ -136,7 +136,7 @@ export default function Participants(props) {
                                 const obj = { participantId: key, ...params };
                                 const editPath = parseUrl(Path.updateParticipant, obj);
                                 return (
-                                    <div style={{minWidth: '100px'}}>
+                                    <Space>      
                                         <Link to={editPath}>
                                             <Button
                                                 type='link'
@@ -163,8 +163,8 @@ export default function Participants(props) {
                                                     />
                                                 }
                                             />
-                                        </Popconfirm>                                    
-                                    </div>
+                                        </Popconfirm>  
+                                    </Space>                                  
                                 );
                             }
                         }
