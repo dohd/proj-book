@@ -14,7 +14,7 @@ export default function GraphFilterView(props) {
         >
             <Form.Item
                 className='form-item-filter'
-                label='Filter'
+                label='Date'
                 name='filter'
             >
                 <DatePicker.RangePicker />
