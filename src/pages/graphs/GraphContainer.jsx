@@ -6,6 +6,13 @@ import RegionGraph from './RegionGraph';
 import { useTracked } from 'context';
 import barchartProp from './barchartProp';
 
+const graphReducer = arr => arr.reduce((r,c,i,a) => {
+    if (!r.labels) r.labels = a.map(v => v.programme || v.area);
+    if (c.male) r.points.male.push(c.male);
+    if (c.female) r.points.female.push(c.female);
+    return  r;
+}, { points: {male: [], female: []} });
+
 export default function GraphContainer() {
     const [store, dispatch] = useTracked();
     const [dataset, setDataset] = useState({
@@ -16,16 +23,7 @@ export default function GraphContainer() {
     const {programmeGraph} = store;
     useEffect(() => {
         if (programmeGraph.length) {
-            const initVal = {
-                labels: [],
-                points: {male: [], female: []}
-            };
-            const data = programmeGraph.reduce((r,c,i,a) => {
-                if (!r.labels.length) r.labels = a.map(v => v.programme);
-                if (c.male) r.points.male.push(c.male);
-                if (c.female) r.points.female.push(c.female);
-                return  r;
-            }, initVal);
+            const data = graphReducer(programmeGraph);
             setDataset(prev => ({
                 labels: {...prev.labels, programme: data.labels},
                 points: {...prev.points, programme: data.points}
@@ -36,16 +34,7 @@ export default function GraphContainer() {
     const {regionGraph} = store;
     useEffect(() => {
         if (regionGraph.length) {
-            const initVal = {
-                labels: [],
-                points: {male: [], female: []}
-            };
-            const data = regionGraph.reduce((r,c,i,a) => {
-                if (!r.labels.length) r.labels = a.map(v => v.area);
-                if (c.male) r.points.male.push(c.male);
-                if (c.female) r.points.female.push(c.female);
-                return  r;
-            }, initVal);
+            const data = graphReducer(regionGraph);
             setDataset(prev => ({
                 labels: {...prev.labels, region: data.labels},
                 points: {...prev.points, region: data.points}
