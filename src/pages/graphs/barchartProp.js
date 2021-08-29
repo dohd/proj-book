@@ -1,4 +1,4 @@
-export default function barchart(labels, data) {
+export default function barchartProp(labels, data) {
     return {
         programme: {
             labels: labels.programme,
