@@ -6,13 +6,6 @@ import RegionGraph from './RegionGraph';
 import { useTracked } from 'context';
 import barchartProp from './barchartProp';
 
-const graphReducer = arr => arr.reduce((r,c,i,a) => {
-    if (!r.labels) r.labels = a.map(v => v.programme || v.area);
-    if (c.male) r.points.male.push(c.male);
-    if (c.female) r.points.female.push(c.female);
-    return  r;
-}, { points: {male: [], female: []} });
-
 export default function GraphContainer() {
     const [store, dispatch] = useTracked();
     const [dataset, setDataset] = useState({
@@ -23,10 +16,11 @@ export default function GraphContainer() {
     const {programmeGraph} = store;
     useEffect(() => {
         if (programmeGraph.length) {
-            const data = graphReducer(programmeGraph);
+            const {label, male, female} = programmeGraph[0];
+            const points = {male, female};
             setDataset(prev => ({
-                labels: {...prev.labels, programme: data.labels},
-                points: {...prev.points, programme: data.points}
+                labels: {...prev.labels, programme: label},
+                points: {...prev.points, programme: points}
             }));
         }
     }, [programmeGraph]);
@@ -34,10 +28,11 @@ export default function GraphContainer() {
     const {regionGraph} = store;
     useEffect(() => {
         if (regionGraph.length) {
-            const data = graphReducer(regionGraph);
+            const {label, male, female} = regionGraph[0];
+            const points = {male, female};
             setDataset(prev => ({
-                labels: {...prev.labels, region: data.labels},
-                points: {...prev.points, region: data.points}
+                labels: {...prev.labels, region: label},
+                points: {...prev.points, region: points}
             }));
         }
     }, [regionGraph]);
