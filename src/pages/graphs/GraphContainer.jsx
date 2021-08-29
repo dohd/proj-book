@@ -16,15 +16,19 @@ export default function GraphContainer() {
     const {programmeGraph} = store;
     useEffect(() => {
         if (programmeGraph.length) {
-            const labels = programmeGraph.map(v => v.programme);
-            const points = {male: [], female: []};
-            programmeGraph.forEach(obj => {
-                if (obj.male) points.male.push(obj.male)
-                if (obj.female) points.female.push(obj.female)
-            });
+            const initVal = {
+                labels: [],
+                points: {male: [], female: []}
+            };
+            const data = programmeGraph.reduce((r,c,i,a) => {
+                if (!r.labels.length) r.labels = a.map(v => v.programme);
+                if (c.male) r.points.male.push(c.male);
+                if (c.female) r.points.female.push(c.female);
+                return  r;
+            }, initVal);
             setDataset(prev => ({
-                labels: {...prev.labels, programme: labels},
-                points: {...prev.points, programme: points}
+                labels: {...prev.labels, programme: data.labels},
+                points: {...prev.points, programme: data.points}
             }));
         }
     }, [programmeGraph]);
@@ -32,15 +36,19 @@ export default function GraphContainer() {
     const {regionGraph} = store;
     useEffect(() => {
         if (regionGraph.length) {
-            const labels = regionGraph.map(v => v.area);
-            const points = {male: [], female: []};
-            regionGraph.forEach(obj => {
-                if (obj.male) points.male.push(obj.male)
-                if (obj.female) points.female.push(obj.female)
-            });
+            const initVal = {
+                labels: [],
+                points: {male: [], female: []}
+            };
+            const data = regionGraph.reduce((r,c,i,a) => {
+                if (!r.labels.length) r.labels = a.map(v => v.area);
+                if (c.male) r.points.male.push(c.male);
+                if (c.female) r.points.female.push(c.female);
+                return  r;
+            }, initVal);
             setDataset(prev => ({
-                labels: {...prev.labels, region: labels},
-                points: {...prev.points, region: points}
+                labels: {...prev.labels, region: data.labels},
+                points: {...prev.points, region: data.points}
             }));
         }
     }, [regionGraph]);
