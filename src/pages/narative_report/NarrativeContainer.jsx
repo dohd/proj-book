@@ -26,7 +26,7 @@ export default function NarrativeContainer() {
     const [store, dispatch] = useTracked();
     const [agendaActivities, setAgendaActivities] = useState([]);
 
-    const { activityId } = useParams();
+    const activityId = useParams()['activityId'];
     useEffect(() => {
         const agenda = store.agenda.filter(v => {
             if (v.activityId === parseInt(activityId)) {
