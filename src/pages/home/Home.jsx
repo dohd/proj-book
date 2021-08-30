@@ -74,13 +74,13 @@ export default function Home(props) {
                         columns={[
                             {
                                 title: 'Activity',
-                                dataIndex: 'activity',
-                                key: 'activity'
+                                dataIndex: 'action',
+                                key: 'action'
                             },
                             {
                                 title: 'Remaining Days',
-                                dataIndex: 'days',
-                                key: 'days',
+                                dataIndex: 'rem_day',
+                                key: 'rem_day',
                                 className: 'days-col'
                             },
                             {
