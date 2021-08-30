@@ -4,18 +4,16 @@ import Home from './Home';
 import { useTracked } from 'context';
 
 export default function HomeContainer() {
-    const store = useTracked()[0];
-    
+    const store = useTracked()[0];    
     const [schedule, setSchedule] = useState([]);
+
+    const {activitySchedule} = store;
     useEffect(() => {
-        const schedule = store.activitySchedule.map(v => ({
-            key: v.id,
-            activity: v.activity.action,
-            date: v.planEvents.date,
-            days: v.planEvents.daysLeft
-        }));
-        setSchedule(schedule);
-    }, [store.activitySchedule]);
+        if (activitySchedule.length) {
+            const schedule = activitySchedule.map(v => ({...v, key: v.id}));
+            setSchedule(schedule);
+        }
+    }, [activitySchedule]);
 
     const [proposals, setProposals] = useState({
         approved: 0, pending: 0
@@ -34,9 +32,7 @@ export default function HomeContainer() {
     const [activity, setActivity] = useState(0);
     useEffect(() => {
         const activity = store.activityCount;
-        if (activity.hasOwnProperty('count')) {
-            setActivity(activity.count);
-        }
+        if (activity?.count) setActivity(activity.count);
     }, [store.activityCount]);
 
     const props = {
