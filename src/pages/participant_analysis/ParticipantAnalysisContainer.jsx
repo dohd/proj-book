@@ -8,32 +8,32 @@ export default function ParticipantAnalysisContainer() {
     const store = useTracked()[0];
     const [analysis, setAnalysis] = useState([]);
 
+    const {participantAnalysis} = store;
     useEffect(() => {
-        const analysis = store.participantAnalysis;
-        const list = [];
-        analysis.forEach(v => {
-            const obj = {};
-            obj.key = v.id;
-            obj.title = v.activity.action;
-            obj.date = v.planEvents.join(', ');
-            obj.programme = v.planProgramme[0];
-            obj.regions = v.planRegions.join(', ');
-            obj.groups = v.planGroups.join(', ');
-            obj.male = v.participants.male;
-            obj.female = v.participants.female;
-            obj.total = obj.male + obj.female;
-            list.push(obj);
-        });
-        setAnalysis(list);
-    }, [store.participantAnalysis]);
+        if (participantAnalysis.length) {
+            const analysis = participantAnalysis.map(v => ({
+                key: v.id,
+                action: v.action,
+                activity_date: v.activity_date.join(', '),
+                programme: v.programme.join(', '),
+                area: v.area.join(', '),
+                group: v.group.join(', '),
+                male: v.male,
+                female: v.female,
+                total: v.total
+            }));
+            setAnalysis(analysis);
+        }
+    }, [participantAnalysis]);
 
     const onExport = () => {
-        const cells = [];
-        analysis.forEach(({key, ...rest}) => {
+        const cells = analysis.reduce((r, {key, ...rest}) => {
             for (const key in rest) {
-                cells.push({text: rest[key]});
+                r.push({text: rest[key]});
             }
-        });
+            return r;
+        }, []);
+
         const data = table.data(cells, 8);
         let header1 = [
             { text: 'Activity', colSpan: 2, }, '',

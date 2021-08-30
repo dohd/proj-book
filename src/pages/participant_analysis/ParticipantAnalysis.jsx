@@ -39,17 +39,18 @@ export default function ParticipantAnalysis(props) {
                             children: [
                                 {
                                     title: 'Title',
-                                    dataIndex:'title',
-                                    key: 'title',
-                                    ...getColumnSearchProps('title')
+                                    dataIndex:'action',
+                                    key: 'action',
+                                    ...getColumnSearchProps('action'),
+                                    render: text => <div style={{minWidth: '100px'}}>{text}</div>
                                 },
                                 {
                                     title: 'Date',
-                                    dataIndex: 'date',
-                                    key: 'date',
+                                    dataIndex: 'activity_date',
+                                    key: 'activity_date',
+                                    render: text => <div style={{minWidth: '100px'}}>{text}</div>
                                 },
-                            ],
-                            
+                            ],  
                         },
                         {
                             title: 'Plan',
@@ -61,14 +62,14 @@ export default function ParticipantAnalysis(props) {
                                     ...getColumnSearchProps('programme')
                                 },
                                 {
-                                    title: 'Regions',
-                                    dataIndex:'regions',
-                                    key: 'regions',
+                                    title: 'Region',
+                                    dataIndex:'area',
+                                    key: 'area'
                                 },
                                 {
-                                    title: 'Groups',
-                                    dataIndex:'groups',
-                                    key: 'groups',
+                                    title: 'Group',
+                                    dataIndex:'group',
+                                    key: 'group'
                                 },
                             ]
                         },
