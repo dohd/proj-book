@@ -2,8 +2,6 @@ import React from 'react';
 import { Modal, Table, Button, Card } from 'antd';
 import { CheckOutlined, FilePdfOutlined } from '@ant-design/icons';
 
-import './eventPlanModal.css';
-
 export default function EventPlanModal(props) {
     const {
         plans, onOk, onCancel, visible, 
@@ -33,7 +31,7 @@ export default function EventPlanModal(props) {
                     </Button>
                 }
             >   
-                <div className="act-plan-modal-table-wrapper">
+                <div style={{overflowX: 'auto'}}>
                     <Table 
                         dataSource={plans}
                         columns={[
