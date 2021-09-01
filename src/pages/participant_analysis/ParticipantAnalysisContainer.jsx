@@ -28,8 +28,8 @@ export default function ParticipantAnalysisContainer() {
 
     const onExport = () => {
         const cells = analysis.reduce((r, {key, ...rest}) => {
-            for (const key in rest) {
-                r.push({text: rest[key]});
+            for (const k in rest) {
+                r.push({text: rest[k]});
             }
             return r;
         }, []);
