@@ -1,5 +1,6 @@
 import { useReducer } from 'react';
 import { createContainer } from 'react-tracked';
+
 import { reducer } from './reducer';
 
 const initialState = {
@@ -36,6 +37,5 @@ export const isValidType = payload => {
     return isArray || isObject;
 };
 
-export const { Provider, useTracked } = createContainer(
-    () => useReducer(reducer, initialState)
-);
+const container = createContainer(() => useReducer(reducer, initialState));
+export const { Provider, useTracked } = container;
