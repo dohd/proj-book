@@ -1,6 +1,6 @@
 import Api from 'api';
 
-// Api endpoint name mapping to action type
+// Api endpoint name to action type map
 const actionTypeMap = {
     pendingReport: 'addPendingReports',
     pendingParticipant: 'addPendingParticipants',

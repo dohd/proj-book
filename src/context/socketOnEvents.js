@@ -1,6 +1,6 @@
 import { clientSocket } from 'utils';
 
-// Socket events mapping to actionType
+// Socket events to actionType map
 const socketEventsMap = {
     pendingReports: 'addPendingReports',
     pendingParticipants: 'addPendingParticipants',
