@@ -14,9 +14,7 @@ instance.interceptors.request.use(config => {
     const token = fetchToken();
     config.headers.Authorization = `Bearer ${token}`;
     return config;
-}, err => {
-    return Promise.reject(err);
-});
+}, err => Promise.reject(err));
 
 // Response interceptor
 instance.interceptors.response.use(response => {
