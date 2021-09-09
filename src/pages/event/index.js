@@ -1,1 +1,1 @@
-export { default as EventPlan } from './EventPlan';
+export { default as EventPlan } from './EventPlanContainer';
