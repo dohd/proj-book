@@ -82,26 +82,17 @@ export default function EventPlanContainer() {
     };
 
     const [store, dispatch] = useTracked();
-    const isPlan = day => {
+
+    const checkEventDay = day => {
         const { currentMonth, currentYear } = state;
-        let confirm = false;
-        for (const plan of store.activityPlans) {
-            const { planEvents } = plan;
-            for (const event of planEvents) {
-                const { date } = event;
-                const d = new Date(date);
-                const planYear = d.getFullYear();
-                const planMonth = d.getMonth();
-                const planDay = d.getDate();
-                const isCalendar = (
-                    planYear === currentYear && 
-                    planMonth === currentMonth && 
-                    planDay === day
-                );
-                if (isCalendar) return confirm = true;
-            }
+        let isEventDay = false;
+        for (const event of store.activityPlans) {
+            const eventDate = moment(event.date).startOf('day');
+            const calDate = moment(`${currentYear}-${currentMonth+1}-${day}`)
+                .startOf('day');
+            if (eventDate.isSame(calDate)) isEventDay = true;
         }
-        return confirm;
+        return isEventDay;
     };
 
     // modal logic
@@ -131,7 +122,7 @@ export default function EventPlanContainer() {
     };
 
     const calendarProps = {
-        state, handleNext, handleBack, isPlan,
+        state, handleNext, handleBack, checkEventDay,
         onChangeMonth, onChangeYear, showModal,
     };
     
