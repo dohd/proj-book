@@ -46,21 +46,19 @@ export default function EventPlanModal(props) {
                                 key: 'programme',
                             },
                             {
-                                title: 'Regions',
-                                dataIndex: 'regions',
-                                key: 'regions',
-                                render: regions => regions.join(', ')
+                                title: 'Region',
+                                dataIndex: 'region',
+                                key: 'region'
                             },
                             {
-                                title: 'Groups',
-                                dataIndex: 'groups',
-                                key: 'groups',
-                                render: groups => groups.join(', ')
+                                title: 'Group',
+                                dataIndex: 'group',
+                                key: 'group',
                             },
                             {
-                                title: 'Materials',
-                                dataIndex: 'materials',
-                                key: 'materials'
+                                title: 'Material',
+                                dataIndex: 'material',
+                                key: 'material'
                             },
                             {
                                 title: 'Status',
