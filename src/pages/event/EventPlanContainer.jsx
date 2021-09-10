@@ -104,21 +104,19 @@ export default function EventPlanContainer() {
     const showModal = day => {
         setVisible(true);
         const { currentMonth, currentYear } = state;
-        const d = new Date(currentYear, currentMonth, day);
-        const calendarDate = moment(d).format('YYYY-MM-DD');    
-
-        const plans = [];
-        let eventDate = '';
-        for (const plan of store.activityPlans) {
-            const { planEvents } = plan;
-            for (const event of planEvents) {
-                if (calendarDate === event.date) {
-                    eventDate = event.date;
-                    plans.push(plan);
-                }
-            }
+        for (const event of store.activityPlans) {
+            const eventDate = moment(event.date).startOf('day');
+            const calDate = moment(`${currentYear}-${currentMonth+1}-${day}`)
+                .startOf('day');
+            if (eventDate.isSame(calDate)) {
+                setDataSource(prev => ({
+                    ...prev, 
+                    plans: event.plan,
+                    eventDate: event.date
+                }));
+                break;
+            };
         }
-        setDataSource(prev => ({...prev, plans, eventDate }));
     };
 
     const calendarProps = {
