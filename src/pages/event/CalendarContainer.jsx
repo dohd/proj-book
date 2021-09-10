@@ -3,7 +3,7 @@ import React, { useRef, useEffect } from 'react';
 import Calendar from './Calendar';
 
 export default function CalendarContainer(props) {
-    const { state, isPlan, showModal } = props;
+    const { state, checkEventDay, showModal } = props;
 
     const tableView = useRef();
     useEffect(() => {
@@ -16,7 +16,7 @@ export default function CalendarContainer(props) {
             [...rowCells].forEach(cell => {
                 const value = Number(cell.innerText);
 
-                if (isPlan(value)) {
+                if (checkEventDay(value)) {
                     cell.classList.add('plan-cell');
                     const ant_class = [...row.classList];
                     
@@ -32,7 +32,7 @@ export default function CalendarContainer(props) {
                 }
             });
         });
-    }, [state.load, tableView, isPlan, showModal]);
+    }, [state.load, tableView, checkEventDay, showModal]);
 
     const params = {tableView, ...props};
     return <Calendar {...params} />;
