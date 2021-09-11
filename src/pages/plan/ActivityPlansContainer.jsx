@@ -21,12 +21,12 @@ const fetchActivityPlans = async dispatch => {
 
 export default function ActivityPlansContainer() {
     const [store, dispatch] = useTracked();
-    const { activityId } = useParams();
+    const activityId = useParams()['activityId'];
 
     const [activityPlans, setActivityPlans] = useState([]);
     useEffect(() => {
         const plans = store.activityPlans.filter(v => {
-            if (v.activity.id === parseInt(activityId)) {
+            if (v.activityId === parseInt(activityId)) {
                 v.key = v.id;
                 v.plan = v.title;
                 return true;
