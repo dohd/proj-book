@@ -16,7 +16,7 @@ export default function ProgrammeGraph({ data, ...rest }) {
                     options={{
                         responsive: true,
                         title: { 
-                            text: 'Participants per Programme by Gender in January', 
+                            text: 'Participants per Programme by Gender', 
                             display: true,
                             fontSize: 16,
                             fontColor: 'black'

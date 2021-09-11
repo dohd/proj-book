@@ -16,7 +16,7 @@ export default function RegionGraph({ data, ...rest }) {
                     options={{
                         responsive: true,
                         title: { 
-                            text: 'Participants per Region by Gender in January', 
+                            text: 'Participants per Region by Gender', 
                             display: true,
                             fontSize: 16,
                             fontColor: 'black'
