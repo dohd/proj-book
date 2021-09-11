@@ -22,6 +22,7 @@ const socketEventsMap = {
     proposals: 'addProposals',
     agenda: 'addAgenda',
     activityPlans: 'addActivityPlans',
+    eventPlans: 'addEventPlans',
     quiz: 'addQuiz',
     narratives: 'addNarratives',
     caseStudies: 'addCaseStudies',

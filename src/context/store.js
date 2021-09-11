@@ -24,6 +24,7 @@ const initialState = {
     proposals: [],
     agenda: [],
     activityPlans: [],
+    eventPlans: [],
     quiz: [],
     narratives: [],
     caseStudies: [],

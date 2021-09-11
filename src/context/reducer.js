@@ -5,6 +5,9 @@ export const reducer = (state, action) => {
     if (!isValidType(payload)) return state;
 
     switch (type) {
+        case 'addEventPlans':
+            return {...state, eventPlans: payload}
+
         case 'addPendingReports':
             return {...state, pendingReports: payload}
 

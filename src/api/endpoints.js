@@ -22,6 +22,7 @@ const endpoints = {
     agenda: '/agenda',
     activity: '/activities',
     activityPlan: '/activity-plans',
+    eventPlan: '/event-plans',
     quiz: '/narrative-quiz',
     narrative: '/narrative-reports',
     caseStudy: '/case-studies',

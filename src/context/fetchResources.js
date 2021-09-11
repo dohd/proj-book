@@ -22,6 +22,7 @@ const actionTypeMap = {
     proposal: 'addProposals',
     agenda: 'addAgenda',
     activityPlan: 'addActivityPlans',
+    eventPlan: 'addEventPlans',
     quiz: 'addQuiz',
     narrative: 'addNarratives',
     caseStudy: 'addCaseStudies',

@@ -9,11 +9,11 @@ import Api from 'api';
 import { clientSocket } from 'utils';
 
 const fetchActivityPlans = async dispatch => {
-    const activityPlans = await Api.activityPlan.get();
-    dispatch({ type: "addActivityPlans", payload: activityPlans });
+    const eventPlans = await Api.activityPlan.get();
+    dispatch({ type: "addEventPlans", payload: eventPlans });
 
     const activitySchedule = await Api.activitySchedule.get();
-    const eventsDataMap = {activityPlans, activitySchedule};
+    const eventsDataMap = {eventPlans, activitySchedule};
     for (const event in eventsDataMap) {
         clientSocket.emit(event, eventsDataMap[event]);
     }
@@ -86,7 +86,7 @@ export default function EventPlanContainer() {
     const checkEventDay = day => {
         const { currentMonth, currentYear } = state;
         let isEventDay = false;
-        for (const event of store.activityPlans) {
+        for (const event of store.eventPlans) {
             const eventDate = moment(event.date).startOf('day');
             const calDate = moment(`${currentYear}-${currentMonth+1}-${day}`)
                 .startOf('day');
@@ -104,7 +104,7 @@ export default function EventPlanContainer() {
     const showModal = day => {
         setVisible(true);
         const { currentMonth, currentYear } = state;
-        for (const event of store.activityPlans) {
+        for (const event of store.eventPlans) {
             const eventDate = moment(event.date).startOf('day');
             const calDate = moment(`${currentYear}-${currentMonth+1}-${day}`)
                 .startOf('day');

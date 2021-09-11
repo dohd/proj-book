@@ -14,9 +14,12 @@ const fetchActivityPlans = async dispatch => {
 
     const schedule = await Api.activitySchedule.get();
     const ptcpants = await Api.pendingParticipant.get();
+    const eventplans = await Api.eventPlan.get();
+    
     clientSocket.emit('activityPlans', plans);
     clientSocket.emit('activitySchedule', schedule);
     clientSocket.emit('pendingParticipants', ptcpants);
+    clientSocket.emit('eventPlans', eventplans);
 };
 
 export default function ActivityPlansContainer() {
@@ -28,7 +31,6 @@ export default function ActivityPlansContainer() {
         const plans = store.activityPlans.filter(v => {
             if (v.activityId === parseInt(activityId)) {
                 v.key = v.id;
-                v.plan = v.title;
                 return true;
             }
             return false;
