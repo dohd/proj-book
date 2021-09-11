@@ -11,6 +11,7 @@ export default function ActivityPlans(props) {
     const { setVisible, activityPlans } = props;
     const history = useHistory();
     const params = useParams();
+    
     return (
         <Card
             bordered={false}
@@ -37,14 +38,14 @@ export default function ActivityPlans(props) {
                 dataSource={activityPlans}
                 columns={[
                     {
-                        title: 'Plan',
-                        dataIndex: 'plan',
-                        key: 'plan'
+                        title: 'Title',
+                        dataIndex: 'title',
+                        key: 'title'
                     },
                     {
                         title: 'Action',
                         key: 'action',
-                        render: (txt, {key}) => {
+                        render: (text, {key}) => {
                             const obj = { activityPlanId: key, ...params };
                             const path = parseUrl(Path.participants, obj);
                             return <Link to={path}>Participants</Link>;
