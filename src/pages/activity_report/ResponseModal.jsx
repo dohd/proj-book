@@ -23,9 +23,9 @@ export default function ResponseModal(props) {
                 dataSource={record}
                 columns={[
                     {   
-                        title: 'Report',
-                        dataIndex: 'report',
-                        key: 'report'
+                        title: 'Title',
+                        dataIndex: 'title',
+                        key: 'title'
                     },
                     {
                         title: 'Response',

@@ -23,9 +23,9 @@ export default function ImageModal(props) {
                 dataSource={record}
                 columns={[
                     {   
-                        title: 'Report',
-                        dataIndex: 'report',
-                        key: 'report'
+                        title: 'Title',
+                        dataIndex: 'title',
+                        key: 'title'
                     },
                     {
                         title: 'Image',
