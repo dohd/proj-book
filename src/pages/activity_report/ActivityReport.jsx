@@ -44,7 +44,7 @@ export default function ActivityReport(props) {
                     {
                         title: 'Action',
                         key: 'action',
-                        render: (txt, {key}) => {
+                        render: (txt, {key, narratives}) => {
                             const params = { activityId: key };
                             const casePath = parseUrl(Path.caseStudies, params);
                             return (
@@ -53,7 +53,7 @@ export default function ActivityReport(props) {
                                         <Menu>
                                             <Menu.Item 
                                                 key='responses'
-                                                onClick={() => showResponseModal(key)}
+                                                onClick={() => showResponseModal(narratives)}
                                             >
                                                 Responses
                                             </Menu.Item>
@@ -67,7 +67,7 @@ export default function ActivityReport(props) {
                                             </Menu.Item>
                                             <Menu.Item 
                                                 key='images'
-                                                onClick={() => showImageModal(key)}
+                                                onClick={() => showImageModal(narratives)}
                                             >
                                                 Images
                                             </Menu.Item>
