@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { useParams } from 'react-router';
 
 import ReportResponse from './ReportResponse';
@@ -18,37 +18,33 @@ const fetchNarratives = dispatch => {
 };
 
 export default function ReportResponseContainer() {
-    const { narrativeReportId } = useParams();
-
+    const narrativeReportId = useParams()['narrativeReportId'];
     const [store, dispatch] = useTracked();
-    const [state, setState] = useState({
-        quiz: [], responses: []
-    });
 
-    useEffect(() => {
-        const report = {};
+    const report = useMemo(() => {        
+        const obj = {};
         for (const v of store.narratives) {
             for (const n of v.narratives) {
-                if (n.id === parseInt(narrativeReportId)) {
+                if (n.key === parseInt(narrativeReportId)) {
                     const quizMap = n.responses.reduce((r,c) => {
-                        const key = c.narrativeQuiz.id;
+                        const key = c.narrativeQuiz.key;
                         const quiz = c.narrativeQuiz.query;
                         if (!r[key]) r[key] = { key, quiz };
                         return r;    
                     }, {});
     
-                    report.quiz = Object.values(quizMap);
-                    report.responses = n.responses.map(v => ({ 
-                        key: v.id,  
+                    obj.quiz = Object.values(quizMap);
+                    obj.responses = n.responses.map(v => ({ 
+                        key: v.key,  
                         task: v.agenda.task, 
                         response: v.response,
-                        quizId: v.narrativeQuiz.id
+                        quizId: v.narrativeQuiz.key
                     }));
                     break;
                 }
             }
         }
-        setState(report);
+        return obj;
     }, [store.narratives, narrativeReportId]);
 
     const onDelete = key => {
@@ -66,7 +62,8 @@ export default function ReportResponseContainer() {
 
     const props = {
         visible, setVisible, record, 
-        state, onDelete, showModal, 
+        onDelete, showModal, 
+        state: report,
         fetchNarratives: () => fetchNarratives(dispatch)
     }
     return <ReportResponse {...props} />
