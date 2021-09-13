@@ -1,53 +1,29 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 import ActivityReport from './ActivityReport';
 import { useTracked } from 'context';
 
 export default function ActivityReportContainer() {
     const store = useTracked()[0];
-    const [activities, setActivities] = useState([]);
-
-    useEffect(() => {
-        const activities = store.narratives.map(v => ({
-            key: v.id, activity: v.action
-        }));
-        setActivities(activities);
-    }, [store.narratives]);
 
     // modal logic
     const [record, setRecord] = useState([]);
     const [visible, setVisible] = useState({
         response: false, image: false
     });
-    const showResponseModal = key => {
+    const showResponseModal = narratives => {
         setVisible(prev => ({...prev, response: true}));
-        for (const v of store.narratives) {
-            if (v.id === key) {
-                const reports = v.narratives.map(v => ({
-                    key: v.id, report: v.title
-                }));
-                setRecord(reports);
-                break;
-            }
-        }
+        setRecord(narratives);
     };
-    const showImageModal = key => {
+    const showImageModal = narratives => {
         setVisible(prev => ({...prev, image: true}));
-        for (const v of store.narratives) {
-            if (v.id === key) {
-                const reports = v.narratives.map(v => ({
-                    key: v.id, report: v.title
-                }));
-                setRecord(reports);
-                break;
-            }
-        }
+        setRecord(narratives);
     };
 
     const props = {
         visible, setVisible, record, 
-        activities, showResponseModal,
-        showImageModal
+        showResponseModal, showImageModal,
+        activities: store.narratives
     };
     return <ActivityReport {...props} />;
 }
