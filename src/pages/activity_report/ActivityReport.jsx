@@ -1,18 +1,12 @@
 import React from 'react';
-import { Card, Table, Button, Dropdown, Menu } from 'antd';
-import { DownOutlined } from '@ant-design/icons';
-import { Link } from 'react-router-dom';
+import { Card, Table, Button } from 'antd';
 
-import ResponseModal from './ResponseModal';
-import ImageModal from './ImageModal';
-import { parseUrl } from 'utils';
-import { Path } from 'routes';
+import ReportModal from './ReportModal';
 
 export default function ActivityReport(props) {
     const {
         visible, setVisible, record, 
-        activities, showResponseModal,
-        showImageModal
+        activities, showModal
     } = props;
     
     return (
@@ -21,14 +15,8 @@ export default function ActivityReport(props) {
             style={{overflowX: 'auto'}}
             bordered={false}
         >
-            <ResponseModal 
-                visible={visible.response}
-                setVisible={setVisible}
-                record={record}
-            />
-
-            <ImageModal 
-                visible={visible.image}
+            <ReportModal 
+                visible={visible}
                 setVisible={setVisible}
                 record={record}
             />
@@ -69,7 +57,6 @@ export default function ActivityReport(props) {
                                 <Button type='link' onClick={() => showModal(narratives)}>
                                     report
                                 </Button>
-                                </Dropdown>
                             );
                         }
                     }
