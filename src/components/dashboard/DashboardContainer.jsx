@@ -39,6 +39,12 @@ export default function DashboardContainer({ location, history }) {
         setRoutePaths(urls)
     }, [location.pathname]);
 
+    // Logout logic
+    const toggleLogout = () => {
+        Auth.logout();
+        history.push(Path.login);
+    };
+
     // Drawer logic
     const [visible, setVisible] = useState(false);
     const showDrawer = () => setVisible(true);
