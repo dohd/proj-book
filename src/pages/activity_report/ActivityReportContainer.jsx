@@ -8,19 +8,20 @@ export default function ActivityReportContainer() {
 
     // modal logic
     const [record, setRecord] = useState([]);
-    const [visible, setVisible] = useState(false);
+    const [reportVisible, setReportVisible] = useState(false);
+    const [filterVisible, setFilterVisible] = useState(false);
 
-    const showModal = narratives => {
     const showFilterModal = () => setFilterVisible(true);
     const showReportModal = narratives => {
         setReportVisible(true);
+        setRecord(narratives);
     };
 
     const props = {
-        visible, setVisible, record, 
         reportVisible, setReportVisible, record, 
         showReportModal, showFilterModal,
         filterVisible, setFilterVisible,
+        activities: store.narratives
     };
     return <ActivityReport {...props} />;
 }
