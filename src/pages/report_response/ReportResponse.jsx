@@ -23,7 +23,7 @@ export default function ReportResponse(props) {
                         onClick={() => history.goBack()}
                         style={{fontSize: '18px'}} 
                     />                       
-                    Report
+                    Report Response
                 </Space>  
             }
         >

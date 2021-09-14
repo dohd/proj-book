@@ -19,7 +19,7 @@ export default function ReportImage(props) {
                         onClick={() => history.goBack()}
                         style={{fontSize: '18px'}} 
                     />                       
-                    Report
+                    Report Images
                 </Space>  
             }
             extra={
