@@ -42,6 +42,26 @@ export default function ActivityReport(props) {
                         key: 'activity'
                     },
                     {
+                        title: 'Date',
+                        dataIndex: 'date',
+                        key: 'date'
+                    },
+                    {
+                        title: 'Programme',
+                        dataIndex: 'programme',
+                        key: 'programme'
+                    },
+                    {
+                        title: 'Region',
+                        dataIndex: 'region',
+                        key: 'region'
+                    },
+                    {
+                        title: 'Group',
+                        dataIndex: 'group',
+                        key: 'group'
+                    },
+                    {
                         title: 'Action',
                         key: 'action',
                         render: (txt, {key, narratives}) => {
