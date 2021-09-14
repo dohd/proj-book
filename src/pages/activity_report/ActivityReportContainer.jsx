@@ -8,21 +8,16 @@ export default function ActivityReportContainer() {
 
     // modal logic
     const [record, setRecord] = useState([]);
-    const [visible, setVisible] = useState({
-        response: false, image: false
-    });
-    const showResponseModal = narratives => {
-        setVisible(prev => ({...prev, response: true}));
-        setRecord(narratives);
-    };
-    const showImageModal = narratives => {
-        setVisible(prev => ({...prev, image: true}));
+    const [visible, setVisible] = useState(false);
+
+    const showModal = narratives => {
+        setVisible(true);
         setRecord(narratives);
     };
 
     const props = {
         visible, setVisible, record, 
-        showResponseModal, showImageModal,
+        showModal,
         activities: store.narratives
     };
     return <ActivityReport {...props} />;
