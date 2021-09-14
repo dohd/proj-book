@@ -1,5 +1,6 @@
 import React from 'react';
 import { Card, Table, Button } from 'antd';
+import { FilterFilled } from '@ant-design/icons';
 
 import ReportModal from './ReportModal';
 
@@ -14,6 +15,15 @@ export default function ActivityReport(props) {
             title='Activity Reports'
             style={{overflowX: 'auto'}}
             bordered={false}
+            extra={
+                <Button 
+                    type='default' 
+                    onClick={() => {}}
+                    icon={<FilterFilled />}
+                >
+                    <span className='btn-text-none'>Filter</span>
+                </Button>
+            }
         >
             <ReportModal 
                 visible={visible}
