@@ -62,41 +62,13 @@ export default function ActivityReport(props) {
                         key: 'group'
                     },
                     {
-                        title: 'Action',
-                        key: 'action',
-                        render: (txt, {key, narratives}) => {
-                            const params = { activityId: key };
-                            const casePath = parseUrl(Path.caseStudies, params);
+                        title: 'Report',
+                        key: 'report',
+                        render: (text, {narratives}) => {
                             return (
-                                <Dropdown
-                                    overlay={
-                                        <Menu>
-                                            <Menu.Item 
-                                                key='responses'
-                                                onClick={() => showResponseModal(narratives)}
-                                            >
-                                                Responses
-                                            </Menu.Item>
-                                            <Menu.Item key='case studies'>
-                                                <Link 
-                                                    to={casePath} 
-                                                    style={{color: 'rgba(0, 0, 0, 0.85)'}}
-                                                >
-                                                    Case studies
-                                                </Link>
-                                            </Menu.Item>
-                                            <Menu.Item 
-                                                key='images'
-                                                onClick={() => showImageModal(narratives)}
-                                            >
-                                                Images
-                                            </Menu.Item>
-                                        </Menu>
-                                    }
-                                >
-                                    <Button type='link' size='large'>
-                                        narrative report <DownOutlined />
-                                    </Button>
+                                <Button type='link' onClick={() => showModal(narratives)}>
+                                    report
+                                </Button>
                                 </Dropdown>
                             );
                         }
