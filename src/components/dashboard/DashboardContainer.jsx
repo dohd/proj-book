@@ -14,6 +14,7 @@ export default function DashboardContainer({ location, history }) {
     const [store, dispatch] = useTracked();
     useEffect(() => fetchResources(dispatch), [dispatch]);
     useEffect(() => {
+        fetchResources(dispatch)
         clientSocket.init();
         socketUpdateResources(dispatch);
     }, [dispatch]);
