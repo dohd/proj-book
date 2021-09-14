@@ -24,11 +24,11 @@ export default function DashboardContainer({ location, history }) {
     });
 
     const { profileImage, orgProfile } = store;
-    useEffect(() => {
-        setState(prev => ({
-            ...prev, imageUrl: profileImage.url
-        }));
-
+    const name = useMemo(() => {
+        return orgProfile.detail?.name || '';
+    }, [orgProfile]);
+    const imageUrl = useMemo(() => profileImage.url, [profileImage]);
+        
         const name = orgProfile.detail?.name;
         if (name) setState(prev => ({...prev, name}));
     }, [orgProfile, profileImage]);
