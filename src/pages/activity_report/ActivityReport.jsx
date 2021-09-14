@@ -3,11 +3,13 @@ import { Card, Table, Button } from 'antd';
 import { FilterFilled } from '@ant-design/icons';
 
 import ReportModal from './ReportModal';
+import FilterModalContainer from './FilterModalContainer';
 
 export default function ActivityReport(props) {
     const {
-        visible, setVisible, record, 
-        activities, showModal
+        reportVisible, setReportVisible, record, 
+        activities, showReportModal, filterVisible,
+        setFilterVisible, showFilterModal
     } = props;
     
     return (
@@ -18,16 +20,21 @@ export default function ActivityReport(props) {
             extra={
                 <Button 
                     type='default' 
-                    onClick={() => {}}
+                    onClick={showFilterModal}
                     icon={<FilterFilled />}
                 >
                     <span className='btn-text-none'>Filter</span>
                 </Button>
             }
-        >
+        >   
+            <FilterModalContainer 
+                visible={filterVisible}
+                setVisible={setFilterVisible}
+            />
+
             <ReportModal 
-                visible={visible}
-                setVisible={setVisible}
+                visible={reportVisible}
+                setVisible={setReportVisible}
                 record={record}
             />
 
@@ -64,7 +71,11 @@ export default function ActivityReport(props) {
                         key: 'report',
                         render: (text, {narratives}) => {
                             return (
-                                <Button type='link' onClick={() => showModal(narratives)}>
+                                <Button 
+                                    type='link' 
+                                    onClick={() => showReportModal(narratives)}
+                                    size='large'
+                                >
                                     report
                                 </Button>
                             );
