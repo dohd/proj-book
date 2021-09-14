@@ -29,14 +29,8 @@ export default function DashboardContainer({ location, history }) {
     }, [orgProfile]);
     const imageUrl = useMemo(() => profileImage.url, [profileImage]);
         
-        const name = orgProfile.detail?.name;
-        if (name) setState(prev => ({...prev, name}));
-    }, [orgProfile, profileImage]);
-        
-    const [routePaths, setRoutePaths] = useState([]);
-    useEffect(() => {
-        const urls = RouteResolver(location.pathname);
-        setRoutePaths(urls)
+    const routePaths = useMemo(() => {
+        return RouteResolver(location.pathname);
     }, [location.pathname]);
 
     // Logout logic
