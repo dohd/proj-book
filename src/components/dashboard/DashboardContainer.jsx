@@ -60,8 +60,8 @@ export default function DashboardContainer({ location, history }) {
     const props = {
         routePaths, visible, showDrawer, 
         onClose, toggleLogout,
-        profileName: state.name,
-        profileImage: state.imageUrl
+        profileName: name,
+        profileImage: imageUrl
     };
     return <Dashboard {...props} />;
 }
