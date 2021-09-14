@@ -8,7 +8,8 @@ export default function ActivityReportContainer() {
 
     // modal logic
     const [record, setRecord] = useState([]);
-    const [visible, setVisible] = useState(false);
+    const [reportVisible, setReportVisible] = useState(false);
+    const [filterVisible, setFilterVisible] = useState(false);
 
     const showModal = narratives => {
         setVisible(true);
