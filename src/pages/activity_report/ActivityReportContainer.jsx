@@ -18,8 +18,9 @@ export default function ActivityReportContainer() {
 
     const props = {
         visible, setVisible, record, 
-        showModal,
-        activities: store.narratives
+        reportVisible, setReportVisible, record, 
+        showReportModal, showFilterModal,
+        filterVisible, setFilterVisible,
     };
     return <ActivityReport {...props} />;
 }
