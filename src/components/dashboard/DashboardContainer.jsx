@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 
 import Dashboard from './Dashboard';
 import { Auth } from 'api';
@@ -12,16 +12,11 @@ import { clientSocket } from 'utils';
 
 export default function DashboardContainer({ location, history }) {
     const [store, dispatch] = useTracked();
-    useEffect(() => fetchResources(dispatch), [dispatch]);
     useEffect(() => {
         fetchResources(dispatch)
         clientSocket.init();
         socketUpdateResources(dispatch);
     }, [dispatch]);
-
-    const [state, setState] = useState({
-        name: '', imageUrl: ''
-    });
 
     const { profileImage, orgProfile } = store;
     const name = useMemo(() => {
@@ -44,12 +39,6 @@ export default function DashboardContainer({ location, history }) {
     const showDrawer = () => setVisible(true);
     const onClose = () => setVisible(false);
     useEffect(() => setVisible(false), [location.pathname]);
-
-    // Logout logic
-    const toggleLogout = () => {
-        Auth.logout();
-        history.push(Path.login);
-    };
 
     const props = {
         routePaths, visible, showDrawer, 
