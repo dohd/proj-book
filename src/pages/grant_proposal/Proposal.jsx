@@ -27,6 +27,12 @@ export default function Proposal(props) {
     const [search, setSearch] = useState({text: '', column: ''});
     const searchInput = useRef();
     const getColumnSearchProps = customSearch(search, setSearch, searchInput, 188);
+
+    const MenuItem = (key, title, to) => (
+        <Menu.Item key={key}>
+            <Link to={to}>{title}</Link>
+        </Menu.Item>
+    );
     
     return (
         <Card 
@@ -127,6 +133,8 @@ export default function Proposal(props) {
                             width: 180,
                             render: (text, record) => {
                                 const {key, status} = record;
+                                const propPath = parseUrl(Path.updateProposal, {proposalId: key});
+
                                 if (status === 1) return (
                                     <Dropdown
                                         overlay={
@@ -137,11 +145,11 @@ export default function Proposal(props) {
                                                 >
                                                     Update proposal
                                                 </Menu.Item>
-                                                <Menu.Item key='objectives'>
-                                                    <Link to={() => setApprovedObj(key)}>
-                                                        View objectives
-                                                    </Link>
-                                                </Menu.Item>
+                                                { 
+                                                    MenuItem('objectives', 'View objectives',                                                      
+                                                        () => setApprovedObj(key)
+                                                    )
+                                                }                                                
                                             </Menu>
                                         }
                                     >   
@@ -151,21 +159,17 @@ export default function Proposal(props) {
                                     </Dropdown>
                                 );
                                 
-                                const params = {proposalId: key}
-                                const path = parseUrl(Path.updateProposal, params);
                                 return (
                                     <div style={{minWidth: '140px'}}>
                                         <Dropdown
                                             overlay={
                                                 <Menu>
-                                                    <Menu.Item key='update'>
-                                                        <Link to={path}>Update proposal</Link>
-                                                    </Menu.Item>
-                                                    <Menu.Item key='objectives'> 
-                                                        <Link to={() => setPendingObj(key)}>
-                                                            View objectives
-                                                        </Link>
-                                                    </Menu.Item>
+                                                    { MenuItem('update', 'Update proposal', `${propPath}`) }
+                                                    { 
+                                                        MenuItem('objectives', 'View objectives', 
+                                                            () => setPendingObj(key)
+                                                        ) 
+                                                    }                                                    
                                                 </Menu>
                                             }
                                         >   
@@ -181,9 +185,7 @@ export default function Proposal(props) {
                                         >
                                             <Button 
                                                 type='link'
-                                                icon={
-                                                    <DeleteOutlined style={{ color: 'red' }}/>
-                                                }
+                                                icon={<DeleteOutlined style={{ color: 'red' }}/>}
                                             />
                                         </Popconfirm>
                                     </div>
