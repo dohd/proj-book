@@ -34,7 +34,7 @@ export default function Tab4(props) {
                 </Form.Item>
                 
                 <Form.Item name='agendaId'>
-                    <Select placeholder='Select an activity'>
+                    <Select placeholder='Select agenda task'>
                         { activityList }
                     </Select>
                 </Form.Item>
@@ -67,7 +67,7 @@ export default function Tab4(props) {
                 </Form.Item>
 
                 <Form.Item name='agendaId'>
-                    <Select placeholder='Select an activity'>
+                    <Select placeholder='Select agenda task'>
                         { activityList }
                     </Select>
                 </Form.Item>
