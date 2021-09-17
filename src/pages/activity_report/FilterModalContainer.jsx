@@ -12,7 +12,12 @@ export default function FilterModalContainer({visible, setVisible}) {
     const [form] = Form.useForm();
     const onCreate = values => {
         setVisible(false);
-        values.date = values.date.map(v => moment(v).format('YYYY-MM-DD'));
+        if (values.startDate) {
+            values.startDate = moment(values.startDate).format('YYYY-MM-DD');
+        }
+        if (values.endDate) {
+            values.endDate = moment(values.endDate).format('YYYY-MM-DD');
+        }
         console.log(values);
         // Api call
     };
