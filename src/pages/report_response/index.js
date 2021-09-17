@@ -1,1 +1,1 @@
-export { default as ReportResponse } from './ReportResponseContainer';
+export { default as ReportResponse } from './ResponseContainer';
