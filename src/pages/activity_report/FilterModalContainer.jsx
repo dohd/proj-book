@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Form } from 'antd';
 
 import moment from 'moment';
@@ -27,8 +27,26 @@ export default function FilterModalContainer({visible, setVisible}) {
         .catch(err => console.log('Validate Failed:', err));
     };
 
+    // Date validation
+    const defaultRule = {
+        required: false,
+        message: 'start date is required'
+    };
+    const [dateRule, setDateRule] = useState(defaultRule);
+
+    const validate = ({getFieldValue}) => ({
+        validator(rule, value) {
+            const sDate = getFieldValue('startDate');
+            if (sDate && !value) return Promise.reject('end date is required');
+            if (value && !sDate) setDateRule(prev => ({...prev, required: true}));            
+            else setDateRule(defaultRule);
+            return Promise.resolve();
+        }
+    });
+
     const modalProps = {
         visible, onOk, form, setVisible,
+        dateRule, validate,
         programmes: store.keyProgrammes,
         groups: store.targetGroups,
         regions: store.targetRegions

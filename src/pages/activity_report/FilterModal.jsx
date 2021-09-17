@@ -1,10 +1,11 @@
 import React from 'react';
-import { Modal, Form, Select, DatePicker } from 'antd';
+import { Modal, Form, Select, DatePicker, Row } from 'antd';
 
 export default function FilterModal(props) {
     const {
         visible, onOk, form, setVisible,
-        programmes, regions, groups
+        programmes, regions, groups,
+        dateRule, validate
     } = props;
     
     const programmesOpt = programmes.map(v => (
@@ -39,8 +40,27 @@ export default function FilterModal(props) {
                 <Form.Item label='Group' name='group'>
                     <Select>{ groupsOpt }</Select>
                 </Form.Item>
-                <Form.Item label='Date' name='date'>
-                    <DatePicker.RangePicker />
+                <Form.Item label='Date'>
+                    <Row>
+                        <Form.Item 
+                            name='startDate'
+                            rules={[dateRule]}
+                        >
+                            <DatePicker
+                                placeholder='Start date'
+                                style={{marginRight: '5px'}}
+                            />
+                        </Form.Item>
+                        <Form.Item 
+                            name='endDate'
+                            dependencies={['startDate']}
+                            rules={[validate]}
+                        >
+                            <DatePicker
+                                placeholder='End date'
+                            />
+                        </Form.Item>
+                    </Row>
                 </Form.Item>
             </Form>
         </Modal>
