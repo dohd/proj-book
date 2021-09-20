@@ -27,8 +27,6 @@ const Path = {
     get pendingActivityReport() { return `${this.home}/pending-activity-reports`; },
 
     get reportView() { return `${this.activityReport}/:activityId/report`; },
-    get reportImages() { return `${this.activityReport}/:narrativeReportId/images`; },
-    get reportResponses() { return `${this.activityReport}/:narrativeReportId/responses`; },
 
     get updatePendingAgenda() { return `${this.pendingReport}/:activityId/agenda`; },
     get updatePendingReport() { 
