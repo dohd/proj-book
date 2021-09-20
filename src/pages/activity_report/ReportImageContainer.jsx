@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router';
+import React, { useState } from 'react';
 import { message } from 'antd';
 
-import ReportImage from './ReportImage';
-import uploadTask from 'utils/firebaseConfig';
 import { useTracked } from 'context';
 import Api, { fetchAud } from 'api';
 import { clientSocket } from 'utils';
+import uploadTask from 'utils/firebaseConfig';
+
+import ReportImage from './ReportImage';
 
 const fetchNarratives = dispatch => {
     Api.narrative.get()
@@ -16,23 +16,14 @@ const fetchNarratives = dispatch => {
     });
 };
 
-export default function ReportImageContainer() {
-    const [store, dispatch] = useTracked();
-    const { narrativeReportId } = useParams();
-    const [eventImages, setEventImages] = useState([]);
+export default function ReportImageContainer(props) {
+    const {imageState, setImageState} = props;
+    const {record} = imageState;
+    
+    const narrativeReportId = record?.key;
+    const imageData = record?.image || [];
 
-    useEffect(() => {
-        activityLoop:
-        for (const v of store.narratives) {
-            for (const r of v.narratives) {
-                if (r.id === parseInt(narrativeReportId)) {
-                    setEventImages(r.eventImages);
-                    break activityLoop;
-                }
-            }            
-        }
-    }, [store.narratives, narrativeReportId]);
-
+    const dispatch = useTracked()[1];
     const [loading, setLoading] = useState(false);
 
     const upload = async file => {
@@ -59,6 +50,13 @@ export default function ReportImageContainer() {
         return false;
     };
 
-    const props = { handleBeforeUpload, loading, eventImages };
-    return <ReportImage {...props} />;
+    const toggleReportView = () => setImageState(prev => ({
+        ...prev, visible: false
+    }));
+
+    const imageProps = { 
+        handleBeforeUpload, loading, imageData,
+        toggleReportView
+    };
+    return <ReportImage {...imageProps} />;
 }

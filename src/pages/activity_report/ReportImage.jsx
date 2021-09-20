@@ -1,13 +1,14 @@
 import React from 'react';
 import { Button, Card, Space, Upload, Image } from 'antd';
 import { ArrowLeftOutlined, UploadOutlined } from '@ant-design/icons';
-import { useHistory } from 'react-router';
 
 export default function ReportImage(props) {
-    const { handleBeforeUpload, loading, eventImages } = props;
-    const history = useHistory();
+    const { 
+        handleBeforeUpload, loading, imageData,
+        toggleReportView
+    } = props;
 
-    const ImageList = eventImages.map(v => (
+    const ImageList = imageData.map(v => (
         <Image key={v.id} width={200} src={v.url} alt='image' />
     ));
 
@@ -16,7 +17,7 @@ export default function ReportImage(props) {
             title={
                 <Space>
                     <ArrowLeftOutlined 
-                        onClick={() => history.goBack()}
+                        onClick={toggleReportView}
                         style={{fontSize: '18px'}} 
                     />                       
                     Report Images
