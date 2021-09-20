@@ -9,7 +9,8 @@ export default function ActivityReport(props) {
     const {
         reportVisible, setReportVisible, record, 
         activities, showReportModal, filterVisible,
-        setFilterVisible, showFilterModal
+        setFilterVisible, showFilterModal, setRespState,
+        setImageState
     } = props;
     
     return (
@@ -35,6 +36,8 @@ export default function ActivityReport(props) {
                 visible={reportVisible}
                 setVisible={setReportVisible}
                 record={record}
+                setRespState={setRespState}
+                setImageState={setImageState}
             />
 
             <div style={{overflowX: 'auto'}}>
@@ -43,37 +46,41 @@ export default function ActivityReport(props) {
                     columns={[
                         {
                             title: 'Activity',
-                            dataIndex: 'activity',
-                            key: 'activity'
+                            dataIndex: 'action',
+                            key: 'action'
                         },
                         {
                             title: 'Date',
                             dataIndex: 'date',
-                            key: 'date'
+                            key: 'date',
+                            render: text => text.join(', ')
                         },
                         {
                             title: 'Programme',
                             dataIndex: 'programme',
-                            key: 'programme'
+                            key: 'programme',
+                            render: text => text.join(', ')
                         },
                         {
                             title: 'Region',
                             dataIndex: 'region',
-                            key: 'region'
+                            key: 'region',
+                            render: text => text.join(', ')
                         },
                         {
                             title: 'Group',
                             dataIndex: 'group',
-                            key: 'group'
+                            key: 'group',
+                            render: text => text.join(', ')
                         },
                         {
                             title: 'Report',
                             key: 'report',
-                            render: (text, {narratives}) => {
+                            render: (text, {report}) => {
                                 return (
                                     <Button 
                                         type='link' 
-                                        onClick={() => showReportModal(narratives)}
+                                        onClick={() => showReportModal(report)}
                                         size='large'
                                     >
                                         report

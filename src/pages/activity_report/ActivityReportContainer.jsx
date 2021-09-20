@@ -1,10 +1,20 @@
 import React, { useState } from 'react';
 
-import ActivityReport from './ActivityReport';
 import { useTracked } from 'context';
+
+import ActivityReport from './ActivityReport';
+import ResponseContainer from './ResponseContainer';
+import ReportImageContainer from './ReportImageContainer';
 
 export default function ActivityReportContainer() {
     const store = useTracked()[0];
+
+    const [respState, setRespState] = useState({
+        visible: false, record: {}
+    });
+    const [imageState, setImageState] = useState({
+        visible: false, record: {}
+    });
 
     // modal logic
     const [record, setRecord] = useState([]);
@@ -12,16 +22,26 @@ export default function ActivityReportContainer() {
     const [filterVisible, setFilterVisible] = useState(false);
 
     const showFilterModal = () => setFilterVisible(true);
-    const showReportModal = narratives => {
+    const showReportModal = report => {
         setReportVisible(true);
-        setRecord(narratives);
+        setRecord(report);
     };
 
-    const props = {
+    const activityProps = {
         reportVisible, setReportVisible, record, 
         showReportModal, showFilterModal,
         filterVisible, setFilterVisible,
+        setRespState, setImageState,
         activities: store.narratives
     };
-    return <ActivityReport {...props} />;
+    const responseProps = {respState, setRespState};
+    const imageProps = {imageState, setImageState};
+
+    return (
+        respState.visible ? 
+        <ResponseContainer {...responseProps} /> :
+        imageState.visible ? 
+        <ReportImageContainer {...imageProps} /> :    
+        <ActivityReport {...activityProps} />
+    );
 }
