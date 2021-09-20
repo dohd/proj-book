@@ -24,8 +24,6 @@ import { Objectives, Activities } from '../components/dashboard/ObjActWrapper';
 import { Bargraph } from './graphs';
 import { ActivityReport } from './activity_report';
 import { CaseStudy } from './case_study';
-import {  ReportImage } from './report_image';
-import { ReportResponse } from './report_response';
 import { 
     PendingActivity, 
     PlanParticipant, 
@@ -36,8 +34,6 @@ export const homeRoutes = Object.entries({
     [Path.pendingActivityReport]: PendingReport,
     [Path.pendingPlans]: PlanParticipant,
     [Path.pendingActivities]: PendingActivity,
-    [Path.reportResponses]: ReportResponse,
-    [Path.reportImages]: ReportImage,
     [Path.settings]: Settings,
     [Path.graphs]: Bargraph,
     [Path.home]: Home,
