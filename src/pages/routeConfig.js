@@ -23,7 +23,6 @@ import { Home } from './home';
 import { Objectives, Activities } from '../components/dashboard/ObjActWrapper';
 import { Bargraph } from './graphs';
 import { ActivityReport } from './activity_report';
-import { CaseStudy } from './case_study';
 import { 
     PendingActivity, 
     PlanParticipant, 
@@ -37,7 +36,6 @@ export const homeRoutes = Object.entries({
     [Path.settings]: Settings,
     [Path.graphs]: Bargraph,
     [Path.home]: Home,
-    [Path.caseStudies]: CaseStudy,
     [Path.users]: Users,
     [Path.objectives]: Objectives,
     [Path.proposals]: Proposals,
