@@ -7,7 +7,7 @@ import FilterModalContainer from './FilterModalContainer';
 
 export default function ActivityReport(props) {
     const {
-        reportVisible, setReportVisible, record, 
+        reportVisible, setReportVisible, record, dispatch,
         activities, showReportModal, filterVisible,
         setFilterVisible, showFilterModal, setRespState,
         setImageState

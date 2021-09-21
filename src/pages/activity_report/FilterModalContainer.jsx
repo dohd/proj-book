@@ -1,25 +1,40 @@
 import React, { useState } from 'react';
 import { Form } from 'antd';
-
 import moment from 'moment';
 
-import FilterModal from './FilterModal';
 import { useTracked } from 'context';
+import Api from 'api';
+
+import FilterModal from './FilterModal';
+
+const formatDate = date => moment(date).format('YYYY-MM-DD');
+const updateReport = (res, dispatch) => dispatch({
+    type: 'addNarratives',
+    payload: res
+});
 
 export default function FilterModalContainer({visible, setVisible}) {
-    const store = useTracked()[0];
+    const [store, dispatch] = useTracked();
 
     const [form] = Form.useForm();
     const onCreate = values => {
         setVisible(false);
-        if (values.startDate) {
-            values.startDate = moment(values.startDate).format('YYYY-MM-DD');
-        }
-        if (values.endDate) {
-            values.endDate = moment(values.endDate).format('YYYY-MM-DD');
-        }
-        console.log(values);
+        const {startDate, endDate} = values;
+        if (startDate) values.startDate = formatDate(startDate);        
+        if(endDate) values.endDate = formatDate(endDate);
         // Api call
+        const param = `
+            programme=${values.programme}&
+            group=${values.group}&
+            region=${values.region}&
+            from=${values.startDate}&
+            to=${values.endDate}
+        `;
+        Api.narrative.get(param.replace(/\s/g,''))
+        .then(res => {
+            updateReport(res, dispatch);
+            form.resetFields();
+        });
     };
     const onOk = () => {
         form.validateFields()
@@ -27,13 +42,13 @@ export default function FilterModalContainer({visible, setVisible}) {
         .catch(err => console.log('Validate Failed:', err));
     };
 
-    // Date validation
+    // startDate validation rule
     const defaultRule = {
         required: false,
         message: 'start date is required'
     };
     const [dateRule, setDateRule] = useState(defaultRule);
-
+    // endDate validator
     const validate = ({getFieldValue}) => ({
         validator(rule, value) {
             const sDate = getFieldValue('startDate');
