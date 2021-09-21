@@ -9,16 +9,16 @@ import {
     ArrowLeftOutlined, DownOutlined, FilePdfOutlined
 } from '@ant-design/icons';
 
-import './participants.css';
 import { customSearch, parseUrl } from 'utils';
 import { Path } from 'routes';
 
+import './participants.css';
+
 export default function Participants(props) {
     const { participants, onDelete, onExport } = props;
+
     const history = useHistory();
     const params = useParams();
-    const agendaPath = parseUrl(Path.agenda, params);
-    const addParticipantPath = parseUrl(Path.createParticipant, params);
 
     // custom search filter 
     const [search, setSearch] = useState({text: '', column: ''});
@@ -40,33 +40,35 @@ export default function Participants(props) {
             }
             extra={
                 <Space>
-                    <Link to={addParticipantPath} className='add-part-link'>
+                    <Link 
+                        to={parseUrl(Path.createParticipant, params)} 
+                        className='add-part-link'
+                    >
                         <Button type='primary' icon={<PlusOutlined />}>
                             <span className='btn-text-none'>Add</span> 
                         </Button>    
-                    </Link>  
-
-                    <Dropdown
-                        overlay={
-                            <Menu>
-                                <Menu.Item key='agenda'>
-                                    {
-                                        participants.length &&
-                                        <Link to={agendaPath}>
+                    </Link> 
+                    {
+                        Boolean(participants.length) &&
+                        <Dropdown
+                            overlay={
+                                <Menu>
+                                    <Menu.Item key='agenda'>                                 
+                                        <Link to={parseUrl(Path.agenda, params)}>
                                             View agenda
                                         </Link>
-                                    }
-                                </Menu.Item>
-                                <Menu.Item key='export' onClick={onExport}>
-                                    <FilePdfOutlined /> Export participants
-                                </Menu.Item>                                
-                            </Menu>
-                        }
-                    >   
-                        <span className='part-more-text'>
-                            More&nbsp;<DownOutlined />
-                        </span>
-                    </Dropdown>
+                                    </Menu.Item>
+                                    <Menu.Item key='export' onClick={onExport}>
+                                        <FilePdfOutlined /> Export participants
+                                    </Menu.Item>  
+                                </Menu>
+                            }
+                        >   
+                            <span className='part-more-text'>
+                                More&nbsp;<DownOutlined />
+                            </span>
+                        </Dropdown>
+                    }
                 </Space>
             }
         >   
