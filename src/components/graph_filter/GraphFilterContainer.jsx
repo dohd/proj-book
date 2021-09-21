@@ -8,17 +8,15 @@ export default function GraphFilterContainer(props) {
 
     const onFinish = values => {
         if (!values.filter) {
-            Api[apiKey].get()
+            return Api[apiKey].get()
             .then(res => dispatch({
                 type: actionType,
                 payload: res
             }));
-            return;
         }
         
         const dates = values.filter.map(v => v.format('YYYY-MM-DD'));
         const param = `from=${dates[0]}&to=${dates[1]}`;
-
         Api[apiKey].get(param)
         .then(res => dispatch({
             type: actionType,
