@@ -45,15 +45,11 @@ export default function AddParticipantContainer() {
         const { activityDate, name } = values;
         values.activityDate = activityDate.format(dateFormat);
         values.activityId = activityId;
-        values.keyProgrammeId = state.keyProgramme.id;
         values.activityPlanId = activityPlanId;
-
-        const [fName, lName] = name.split(' ');
-        values.fName = fName;
-        values.lName = lName;
-        delete values.name;
-        delete values.keyProgramme;
-
+        values.keyProgrammeId = state.keyProgramme.id;
+        values.fName = name.split(' ')[0];
+        values.lName = name.split(' ')[1];
+        // Api call
         Api.participant.post(values)
         .then(res => {
             if (!res) return;
