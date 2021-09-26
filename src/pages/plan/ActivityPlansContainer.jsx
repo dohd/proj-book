@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Form } from 'antd';
 import { useParams } from 'react-router';
 
-import ActivityPlans from './ActivityPlans';
-import AddPlanModal from './AddPlanModal';
 import Api from 'api';
 import { useTracked } from 'context';
 import { clientSocket } from 'utils';
+
+import ActivityPlans from './ActivityPlans';
+import AddPlanModal from './AddPlanModal';
 
 const fetchActivityPlans = async dispatch => {
     const plans = await Api.activityPlan.get();
@@ -24,19 +25,19 @@ const fetchActivityPlans = async dispatch => {
 
 export default function ActivityPlansContainer() {
     const [store, dispatch] = useTracked();
-    const activityId = useParams()['activityId'];
+    const params = useParams();
 
-    const [activityPlans, setActivityPlans] = useState([]);
-    useEffect(() => {
-        const plans = store.activityPlans.filter(v => {
-            if (v.activityId === parseInt(activityId)) {
-                v.key = v.id;
-                return true;
-            }
-            return false;
-        });
-        setActivityPlans(plans);
-    }, [store.activityPlans, activityId]);
+    const { activityId } = params; 
+    const { 
+        activityPlans, 
+        keyProgrammes, 
+        targetGroups, 
+        targetRegions 
+    } = store;
+
+    const plans = useMemo(() => {
+        return activityPlans.filter(v => v.activity_id === Number(activityId));
+    }, [activityPlans]);
 
     // Modal logic
     const [visible, setVisible] = useState(false);
@@ -53,7 +54,7 @@ export default function ActivityPlansContainer() {
         values.activityId = activityId;
         values.programmeId = values.programme;
         delete values.programme;
-
+        // Api call
         Api.activityPlan.post(values)
         .then(res => {
             if (!res) return;
@@ -68,13 +69,15 @@ export default function ActivityPlansContainer() {
         .catch(err => console.log('Validation failed:',err))
     };
 
-    const { keyProgrammes, targetGroups, targetRegions } = store;
     const modalProps = { 
         visible, setVisible, state, setState, 
         form, onOk, keyProgrammes, targetGroups,
         targetRegions
     };
-    const planProps = { setVisible, activityPlans };
+    const planProps = { 
+        setVisible, 
+        activityPlans: plans 
+    };
     return (
         <>
             <AddPlanModal {...modalProps} />
