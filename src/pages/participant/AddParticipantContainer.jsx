@@ -2,43 +2,32 @@ import React, { useState, useEffect } from 'react';
 import { Form, message } from 'antd';
 import { useParams } from 'react-router';
 
-import AddParticipant, { dateFormat } from './AddParticipant';
 import Api from 'api';
 import { useTracked } from 'context';
 import fetchParticipants from './participantApi';
 
-export default function AddParticipantContainer() {
-    const { activityPlanId, activityId } = useParams();
-    const [store, dispatch] = useTracked();
+import AddParticipant, { dateFormat } from './AddParticipant';
 
+export default function AddParticipantContainer() {
+    const [store, dispatch] = useTracked();
+    const { activityPlanId, activityId } = useParams();
+
+    const { activityPlans } = store;
     const [state, setState] = useState({
         keyProgramme: {}, regions: []
     });
 
-    const { activityPlans } = store;
     useEffect(() => {
-        for(const p of activityPlans) {
-            if (p.id === parseInt(activityPlanId)) {
-                const keyProgramme = p.planProgramme.keyProgramme;
-                let regions = [];
-                p.planEvents.forEach(event => {
-                    event.planRegions.forEach(v => {
-                        regions.push(v.region);
-                    });
-                });
-                // Unique region areas
-                const regionObj = regions.reduce((r, c) => {
-                    const key = '_' + c.area;
-                    if (!r[key]) r[key] = c;
-                    return r;
-                }, {});
-
-                regions = Object.values(regionObj);
-                setState({ keyProgramme, regions});
+        for (const plan of activityPlans) {
+            if (plan.key === Number(activityPlanId)) {
+                const regions = Object.entries(plan.region).map(v => ({
+                    id: v[0], area: v[1]
+                }));
+                setState(prev => ({...prev, regions}));
                 break;
             }
         }
-    }, [activityPlans, activityPlanId]);
+    }, [activityPlans]);
 
     const [form] = Form.useForm();
     const onFinish = values => {
