@@ -47,13 +47,14 @@ export default function ActivityReport(props) {
                         {
                             title: 'Activity',
                             dataIndex: 'action',
-                            key: 'action'
+                            key: 'action',
+                            render: text => <div style={{minWidth: '100px'}}>{text}</div>
                         },
                         {
                             title: 'Date',
                             dataIndex: 'date',
                             key: 'date',
-                            render: text => text.join(', ')
+                            render: text => <div style={{minWidth: '100px'}}>{text.join(', ')}</div>
                         },
                         {
                             title: 'Programme',
