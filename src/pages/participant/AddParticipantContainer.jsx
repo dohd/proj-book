@@ -27,7 +27,7 @@ export default function AddParticipantContainer() {
                 break;
             }
         }
-    }, [activityPlans]);
+    }, [activityPlans, activityPlanId]);
 
     const [form] = Form.useForm();
     const onFinish = values => {
