@@ -48,7 +48,7 @@ export default function ReportModal(props) {
                                                 Response
                                             </Menu.Item>
                                             <Menu.Item 
-                                                key='response' 
+                                                key='image' 
                                                 onClick={() => toggleImageView(record)}
                                             >
                                                 Image
