@@ -37,7 +37,7 @@ export default function ActivityPlansContainer() {
 
     const plans = useMemo(() => {
         return activityPlans.filter(v => v.activity_id === Number(activityId));
-    }, [activityPlans]);
+    }, [activityPlans, activityId]);
 
     // Modal logic
     const [visible, setVisible] = useState(false);
