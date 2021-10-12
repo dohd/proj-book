@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { Form } from 'antd';
 import { useParams } from 'react-router';
 
@@ -26,8 +26,8 @@ const fetchActivityPlans = async dispatch => {
 export default function ActivityPlansContainer() {
     const [store, dispatch] = useTracked();
     const params = useParams();
-
     const { activityId } = params; 
+
     const { 
         activityPlans, 
         keyProgrammes, 
