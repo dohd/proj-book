@@ -50,9 +50,13 @@ export default function ReportImageContainer(props) {
         return false;
     };
 
-    const toggleReportView = () => setImageState(prev => ({
-        ...prev, visible: false
-    }));
+    const toggleReportView = () => {
+        setImageState(prev => ({
+            ...prev, visible: false
+        }));
+        sessionStorage.removeItem('imageState');
+        sessionStorage.removeItem('reportKey');
+    };
 
     const imageProps = { 
         handleBeforeUpload, loading, imageData,
