@@ -9,10 +9,7 @@ import { clientSocket } from 'utils';
 const fetchAgenda = dispatch => {
     Api.agenda.get()
     .then(res => {
-        dispatch({
-            type: 'addAgenda',
-            payload: res
-        });
+        dispatch({type: 'addAgenda', payload: res});
         clientSocket.emit('agenda', res);
     });
 };
