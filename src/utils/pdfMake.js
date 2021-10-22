@@ -33,8 +33,7 @@ export default function createPdf(
         text: `Page ${currentPage}`, 
         alignment: 'center'
     })
-)
-{
+) {
     // Document definition
     const dd = {
         header: { text: header, alignment: 'center' },
