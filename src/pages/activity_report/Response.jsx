@@ -1,12 +1,13 @@
-import React, {  } from 'react';
-import { Button, Card, Popconfirm, Space, Table } from 'antd';
-import { ArrowLeftOutlined, FilePdfOutlined, DeleteOutlined } from '@ant-design/icons';
+import React from 'react';
+import { Button, Card, Space, Table } from 'antd';
+import { ArrowLeftOutlined, FilePdfOutlined } from '@ant-design/icons';
 
-import components from './EditableTable';
+import { components, editableColumns } from './EditableTable';
 
 export default function Response(props) {
     const {
-        toggleReportView, taskCols, rowData, case_study,
+        toggleReportView, columns, dataSource, caseStudy,
+        onExport
     } = props;
 
     return (
@@ -25,7 +26,7 @@ export default function Response(props) {
             extra={
                 <Button
                     type='default' 
-                    onClick={()=>void(0)}
+                    onClick={onExport}
                     icon={<FilePdfOutlined />}
                 >
                     <span className='btn-text-none'>Export</span>
@@ -34,14 +35,14 @@ export default function Response(props) {
         >
             <div>
                 <p>Case study</p>
-                <p>&bull;&nbsp;{case_study}</p>
+                <p>&bull;&nbsp;{caseStudy}</p>
             </div>
             
             <div style={{overflowX: 'auto'}}>
                 <Table
                     components={components}
                     rowClassName={() => 'editable-row'}
-                    dataSource={rowData}
+                    dataSource={dataSource}
                     columns={[
                         {
                             title: 'Question',
@@ -50,32 +51,8 @@ export default function Response(props) {
                         },
                         {
                             title: 'Task Response',
-                            children: taskCols
+                            children: editableColumns(columns)
                         },
-                        {
-                            title: 'Action',
-                            dataIndex: 'action',
-                            key: 'action',
-                            render: (text, record) => {
-                                return (                               
-                                    <Popconfirm
-                                        title='Are you sure to delete this response?'
-                                        // onConfirm={() => onDelete(record.key)}
-                                        okText='Yes'
-                                        cancelText='No'
-                                    >
-                                        <Button
-                                            type='link'
-                                            icon={
-                                                <DeleteOutlined 
-                                                    style={{color: 'red', fontSize: '18px'}} 
-                                                />
-                                            }
-                                        />
-                                    </Popconfirm>                                    
-                                );
-                            }
-                        }
                     ]}
                 />
             </div>
