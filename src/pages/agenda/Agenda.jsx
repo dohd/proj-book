@@ -20,8 +20,6 @@ export default function Agenda(props) {
     const history = useHistory();
     const params = useParams();
     
-    const reportPath = parseUrl(Path.narrativeReport, params);
-
     // custom search filter 
     const [search, setSearch] = useState({text: '', column: ''});
     const searchInput = useRef();
@@ -46,10 +44,11 @@ export default function Agenda(props) {
                         type='primary'
                         onClick={showCreateModal}
                         icon={<PlusOutlined />}
+                        disabled={state.agenda.length >= 10}
                     >
                         <span className='btn-text-none'>Add</span>
                     </Button>
-                    <Link to={reportPath}>
+                    <Link to={parseUrl(Path.narrativeReport, params)}>
                         <Button 
                             type='primary'
                             disabled={!state.agenda.length}
