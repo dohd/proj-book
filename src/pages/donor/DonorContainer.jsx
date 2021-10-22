@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 
-import Donor from './Donor';
 import Api from 'api';
 import { useTracked } from 'context';
 import { clientSocket } from 'utils';
 import createPdf, { table } from 'utils/pdfMake'; 
+
+import Donor from './Donor';
 
 const fetchDonors = dispatch => {
     Api.donor.get()
@@ -49,8 +50,9 @@ export default function Donors() {
     const onExport = () => {
         const cells = [];
         state.donors.forEach(({key, ...rest}) => {
-            for (const key in rest) cells.push({text: rest[key]});
+            for (const prop in rest) cells.push({text: rest[prop]});
         });
+
         const data = table.data(cells, 3);
         const header = table.header(['Name', 'Phone', 'Email']);
         const body = table.body(header, ...data);
