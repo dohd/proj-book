@@ -1,71 +1,82 @@
 import React from 'react';
 
+import createPdf, { table } from 'utils/pdfMake'; 
+
 import Response from './Response';
 
 export default function ResponseContainer(props) {
-    const {respState, setRespState} = props;
+    const {responseState, setResponseState} = props;
 
-    const toggleReportView = () => setRespState(prev => ({
-        ...prev, visible: false
-    }));
+    const toggleReportView = () => {
+        setResponseState(prev => ({
+            ...prev, visible: false
+        }));
+        sessionStorage.removeItem('reportKey');
+    };
 
-    const record = respState?.record;
-    const {query, response, task, response_id} = record.response[0];
     /**
-     * Response object map
+     * Report Record object 
      * 
-     * @var query object
-     * @var response object
-     * @var task object
-     * @var response_id object
+     * @var array query 
+     * @var array response 
+     * @var array task 
+     * @var number response_id 
      */
+    const {query, response, task, response_id} = responseState?.record.response[0];
+    // case study
+    const caseStudy = responseState?.record.case_study;
+
+    // Questions to response map
     const queryObj = query.reduce((acc, curr, i) => {
-        if (!acc[curr]) {
+        const setProp = acc[curr];
+        if (!setProp) {
             acc[curr] = {
                 key: i,
                 query: curr,
                 [task[i]]:response[i],
-                [`${task[i]}_id`]: response_id[i],
+                response_id: response_id[i],
             };
-            return acc;
-        }
-        const val = acc[curr];
-        acc[curr] = {
-            ...val,
-            [task[i]]:response[i],
-            [`${task[i]}_id`]: response_id[i]
-        };        
+        } else {
+            acc[curr] = {
+                ...setProp,
+                [task[i]]:response[i],
+                response_id: response_id[i]
+            }; 
+        }               
         return acc;
     }, {});
-    // Response rows
-    const rowData = Object.values(queryObj);
 
-    // add editable property to task column objects
-    const taskCols = [...new Set(task)].map((v, i) => ({
+    // Response rows
+    const dataSource = Object.values(queryObj);
+
+    // task columns
+    const columns = [...new Set(task)].map((v, i) => ({
         title: v, 
         key: i, 
         dataIndex: v,
-        editable: true,
     }));
 
-    // add oncell function to editable column object
-    const columns = taskCols.map((col) => {
-        if (!col.editable) return col;
-        return {
-            ...col,
-            onCell: (record) => ({
-                record,
-                editable: col.editable,
-                dataIndex: col.dataIndex,
-                title: col.title,
-            }),
-        };
-    });
+    // on export to pdf
+    const onExport = () => {
+        const cells = [];
+        dataSource.forEach(v => {
+            const {response_id, key, ...rest} = v;
+            for (const key in rest) cells.push({text: rest[key]});
+        });
+
+        const colCount = columns.length + 1;
+        const colHeader = columns.map(({title}) => title);
+        colHeader.splice(0, 0, 'Question');
+
+        const data = table.data(cells, colCount);
+        const header = table.header(colHeader);
+        const body = table.body(header, ...data);
+        createPdf('Narrative Report', body, void 0, 'landscape');
+    };
 
     const params = {
-        toggleReportView, rowData, 
-        case_study: record.case_study,
-        taskCols: columns,
+        toggleReportView, dataSource,
+        columns, caseStudy, onExport
     };
     return <Response {...params} />;
 }
