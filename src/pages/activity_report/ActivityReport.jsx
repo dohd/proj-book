@@ -9,8 +9,8 @@ export default function ActivityReport(props) {
     const {
         reportVisible, setReportVisible, record, 
         activities, showReportModal, filterVisible,
-        setFilterVisible, showFilterModal, setRespState,
-        setImageState
+        setFilterVisible, showFilterModal, setResponseState,
+        setImageState, onDelete
     } = props;
     
     return (
@@ -36,8 +36,9 @@ export default function ActivityReport(props) {
                 visible={reportVisible}
                 setVisible={setReportVisible}
                 record={record}
-                setRespState={setRespState}
+                setResponseState={setResponseState}
                 setImageState={setImageState}
+                onDelete={onDelete}
             />
 
             <div style={{overflowX: 'auto'}}>
@@ -77,13 +78,9 @@ export default function ActivityReport(props) {
                         {
                             title: 'Report',
                             key: 'report',
-                            render: (text, {report}) => {
+                            render: (text, record) => {
                                 return (
-                                    <Button 
-                                        type='link' 
-                                        onClick={() => showReportModal(report)}
-                                        size='large'
-                                    >
+                                    <Button type='link' onClick={() => showReportModal(record)} size='large'>
                                         report
                                     </Button>
                                 );
