@@ -26,13 +26,14 @@ export default function createPdf(
     pageOrientation,
     headerRows = 1, 
     fillColor = rowIndex => {
-        if (rowIndex === 0) return '#0f4871';
+        if (rowIndex < headerRows) return '#0f4871';
         else if (rowIndex % 2 === 0) return '#f2f2f2';
     },
     footer = (currentPage, pageCount) => ({
         text: `Page ${currentPage}`, 
         alignment: 'center'
-    })
+    }),
+    upperContent = []
 ) {
     // Document definition
     const dd = {
@@ -40,6 +41,7 @@ export default function createPdf(
         footer, 
         pageOrientation,
         content: [
+            ...upperContent,
             {
                 style: 'tableBody',
                 table: { headerRows, body },
