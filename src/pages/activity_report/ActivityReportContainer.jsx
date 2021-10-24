@@ -12,7 +12,7 @@ const fetchNarratives = async dispatch => {
     const narratives = await Api.narrative.get()
     dispatch({type: 'addNarratives', payload: narratives});
     clientSocket.emit('narratives', narratives);
-}
+};
 
 export default function ActivityReportContainer() {
     const [store, dispatch] = useTracked();
@@ -33,9 +33,7 @@ export default function ActivityReportContainer() {
     const showFilterModal = () => setFilterVisible(true);
     const showReportModal = record => {
         setReportVisible(true);
-
-        const {report} = record;
-        setRecord(report);
+        setRecord(record['report']);
     };
 
     // on report delete 
@@ -76,7 +74,9 @@ export default function ActivityReportContainer() {
         setResponseState, setImageState, onDelete,
         activities
     };
-    const responseProps = {responseState, setResponseState};
+    const responseProps = {responseState, setResponseState, 
+        fetchNarratives: () => fetchNarratives(dispatch)
+    };
     const imageProps = {imageState, setImageState};
 
     return (
