@@ -78,14 +78,18 @@ export default function ResponseContainer(props) {
 
         const data = table.data(cells, colCount);
 
-        const header1 = table.header(['Question', 'Task Response']);
-        const header2 = table.header(colHeader);
-        // add rowSpan attribute
+        let header1 = table.header(['Question', 'Task Response']);
+        for (let i = 2; i < colCount; i++) {
+            header1 = header1.concat(['']);
+        }
         header1.splice(0, 1, {...header1[0], rowSpan: 2});
-        // add an empty string
+        header1.splice(1, 1, {...header1[1], colSpan: columns.length});
+
+        const header2 = table.header(colHeader);
         header2.splice(0, 0, '');
 
         const body = table.body(header1, header2, ...data);
+        // return console.log(body);
         const content = [{text: 'Case Study', style: 'subheader'}, { ul: [caseStudy] }];
         createPdf('Narrative Report', body, void 0, 'landscape', 2, void 0, void 0, content);
     };
