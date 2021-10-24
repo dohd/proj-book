@@ -88,7 +88,7 @@ export default function EventPlanContainer() {
         let isEventDay = false;
         for (const event of store.eventPlans) {
             const eventDate = moment(event.date).startOf('day');
-            const calDate = moment(`${currentYear}-${currentMonth+1}-${day}`)
+            const calDate = moment(`${currentYear}-${currentMonth+1}-${day}`, 'YYYY-MM-DD')
                 .startOf('day');
             if (eventDate.isSame(calDate)) isEventDay = true;
         }
@@ -106,7 +106,7 @@ export default function EventPlanContainer() {
         const { currentMonth, currentYear } = state;
         for (const event of store.eventPlans) {
             const eventDate = moment(event.date).startOf('day');
-            const calDate = moment(`${currentYear}-${currentMonth+1}-${day}`)
+            const calDate = moment(`${currentYear}-${currentMonth+1}-${day}`, 'YYYY-MM-DD')
                 .startOf('day');
             if (eventDate.isSame(calDate)) {
                 setDataSource(prev => ({
