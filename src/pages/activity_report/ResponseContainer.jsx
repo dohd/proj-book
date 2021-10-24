@@ -60,8 +60,17 @@ export default function ResponseContainer(props) {
     const onExport = () => {
         const cells = [];
         dataSource.forEach(v => {
-            const {response_id, key, ...rest} = v;
-            for (const key in rest) cells.push({text: rest[key]});
+            const {response_id, key, query, ...rest} = v;
+            const keys = Object.keys(rest); 
+            const headers = columns.map(({title}) => title); 
+
+            cells.push({text: query});
+            headers.forEach(val => {
+                if (keys.includes(val)) {
+                    return cells.push({text: rest[val]});
+                }
+                cells.push({text: ''});         
+            });
         });
 
         const colCount = columns.length + 1;
